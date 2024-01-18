@@ -1,0 +1,17 @@
+<div class="card-board">
+    <app-card-board-header></app-card-board-header>
+    <div class="cards-container">
+        <div class="container text-center">
+            <div class="row row-cols-4 card-list">
+                <div class="col mb-4" *ngFor="let card of cards">
+                    <app-card [card]="card"></app-card>
+                </div>
+            </div>
+          </div>
+    </div>
+    
+</div>
+
+<app-modal *ngIf="showModal === 'item-card'">
+    <app-item-card></app-item-card>
+</app-modal>

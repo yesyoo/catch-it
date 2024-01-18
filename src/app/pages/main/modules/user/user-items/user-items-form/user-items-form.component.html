@@ -1,0 +1,44 @@
+<div class="form-container">
+    <div class="form-header">
+        <div style="margin-right: 1rem" >
+            <p-selectButton (onChange)="changeDealType($event)" [options]="dealMenuType" [(ngModel)]="dealType" optionLabel="name"></p-selectButton>
+        </div>
+        <app-subcategory-select (updateCategoryType)="updateCategoryType($event)"></app-subcategory-select>
+    </div>
+    <div class="item-form-fields" *ngIf="form">
+        <form [formGroup]="form" class="input-list" >
+            <ng-container [formGroup]="formDealInputs" *ngTemplateOutlet="formFields; context: {list: {input: dealInputs, formgroup: formDealInputs}}"></ng-container>
+            <ng-container [formGroup]="formSubcategoryInputs" *ngTemplateOutlet="formFields; context: {list: {input: subcategoryInputs, formgroup: formSubcategoryInputs}}"></ng-container>    
+        </form>
+        <button class="submit" [disabled]="!formIsValid || form.invalid" (click)="onSubmit()" type="submit">Submit</button>
+    </div>
+</div>
+
+<ng-template #formFields let-value="list">
+    <div class="lll" *ngFor="let control of value.input">
+        <div class="field" [formGroup]="value.formgroup" *ngIf="control.type === 'text'">
+            <label for="{{control.name}}">{{control.label}}</label>
+            <input formControlName="{{control.name}}" type="text" id="{{control.name}}" pInputText>
+        </div>
+        <div class="field" [formGroup]="value.formgroup" *ngIf="control.type === 'textarea'">
+            <label for="{{control.name}}">{{control.label}}</label>
+            <textarea formControlName="{{control.name}}" type="textarea" id="{{control.name}}" pInputTextarea></textarea>
+        </div>
+        <div class="field" [formGroup]="value.formgroup" *ngIf="control.type === 'number'">
+            <label for="{{control.name}}">{{control.label}}</label>
+            <p-inputNumber formControlName="{{control.name}}" type="number" id="{{control.name}}" pInputNumber></p-inputNumber>
+        </div>
+        <div class="field" [formGroup]="value.formgroup" *ngIf="control.type === 'file'">
+            <label for="{{control.name}}">{{control.label}}</label>
+            <input formControlName="{{control.name}}" type="file" id="{{control.name}}">
+        </div>
+        <div class="field" [formGroup]="value.formgroup" *ngIf="control.type === 'select'">
+            <label for="{{control.name}}">{{control.label}}</label>
+            <p-dropdown formControlName="{{control.name}}" [options]="control.options"  optionLabel="name"></p-dropdown>
+        </div>
+
+        <ng-container *ngTemplateOutlet="errorMessages; context: control.validators"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #errorMessages let-value="errorMessage"></ng-template>

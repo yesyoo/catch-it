@@ -1,0 +1,106 @@
+{
+    "category": [
+        {
+            "label": "Personal",
+            "value": "personal",
+            "items": [
+                {
+                    "name": "personal-male-shoes",
+                    "label": "Male shoes"
+                },
+                {
+                    "name": "personal-male-clothes",
+                    "label": "Male clothes"
+                },
+                {
+                    "name": "personal-female-shoes",
+                    "label": "Female shoes"
+                },
+                {
+                    "name": "personal-female-clothes",
+                    "label": "Female clothes"
+                },
+                {
+                    "name": "personal-bags",
+                    "label": "Bags"
+                },
+                {
+                    "name": "personal-other",
+                    "label": "Other"
+                }
+            ]
+        },
+        {
+            "label": "Kids",
+            "value": "kids",
+            "items": [
+                {
+                    "name": "kids-boys-clothes",
+                    "label": "Boys clothes"
+                },
+                {
+                    "name": "kids-girls-clothes",
+                    "label": "Girls clothes"
+                },
+                {
+                    "name": "kids-shoes",
+                    "label": "Shoes"
+                },
+                {
+                    "name": "kids-school",
+                    "label": "School"
+                },
+                {
+                    "name": "kids-newborn",
+                    "label": "Newborn"
+                },
+                {
+                    "name": "kids-toys",
+                    "label": "Toys"
+                },
+                {
+                    "name": "kids-other",
+                    "label": "Other"
+                }
+            ]
+        },
+       {
+            "label": "Home",
+            "value": "home",
+            "items": [
+                {
+                    "name": "home-furniture",
+                    "label": "Furniture"
+                },
+                {
+                    "name": "home-appliances",
+                    "label": "Appliances"
+                },
+                {
+                    "name": "home-decor",
+                    "label": "Decor"
+                },
+                {
+                    "name": "home-other",
+                    "label": "Other"
+                }
+            ]
+        },
+      {
+            "label": "Pets",
+            "value": "pets",
+            "items": [
+                {
+                    "name": "pets-pets",
+                    "label": "Pets"
+                },
+                {
+                    "name": "pest-accesorries",
+                    "label": "Accesorries"
+                }
+            ]
+        }
+
+    ]
+    
+}

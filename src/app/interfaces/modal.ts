@@ -1,0 +1,1 @@
+export type ModalType = "item-card" | "user-card" | "item-form" | false
