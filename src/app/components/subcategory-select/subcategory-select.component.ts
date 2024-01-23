@@ -28,27 +28,33 @@ export class SubcategorySelectComponent implements OnInit {
         subcategory: [
           {
             name: "Male shoes",
-            value: "personal-male-shoes"
+            collection: "personal-shoes",
+            type: "adult-male-shoes"
           },
           {
             name: "Male clothes",
-            value: "personal-male-clothes"
+            collection: "personal-clothes",
+            type: "adult-male-clothes"
           },
           {
             name: "Female shoes",
-            value: "personal-female-shoes"
+            collection: "personal-shoes",
+            type: "adult-female-shoes"
           },
           {
             name: "Female clothes",
-            value: "personal-female-clothes"
+            collection: "personal-clothes",
+            type: "adult-female-clothes"
           },
           {
             name: "Bags",
-            value: "personal-bags"
+            collection: "personal-accessories",
+            type: "adult-bags"
           },
           {
             name: "Other",
-            value: "personal-other" 
+            collection: "personal-accessories",
+            type: "adult-other" 
           }
         ]
       },
@@ -57,27 +63,38 @@ export class SubcategorySelectComponent implements OnInit {
         subcategory: [
           {
             name: "Boys clothes",
-            value: "kids-boys-clothes"
+            collection: "personal-clothes",
+            type: "child-male-clothes"
           },
           {
             name: "Girls clothes",
-            value: "kids-girls-clothes"
+            collection: "personal-clothes",
+            type: "child-female-clothes"
           },
           {
-            name: "Kids shoes",
-            value: "kids-shoes"
+            name: "Boys shoes",
+            collection: "personal-shoes",
+            type: "child-male-shoes"
+          },
+          {
+            name: "Girls shoes",
+            collection: "personal-shoes",
+            type: "child-female-shoes"
           },
           {
             name: "School",
-            value: "kids-school"
+            collection: "kids-all",
+            type: "child-school"
           },
           {
             name: "Newborn",
-            value: "kids-newborn"
+            collection: "kids-all",
+            type: "child-newborn"
           },
           {
             name: "Other",
-            value: "kids-other"
+            collection: "kids-all",
+            type: "child-other"
           }
         ]
       },
@@ -86,19 +103,23 @@ export class SubcategorySelectComponent implements OnInit {
         subcategory: [
           {
             name: "Furniture",
-            value: "home-furniture"
+            collection: "home-all",
+            type: "home-furniture"
           },
           {
             name: "Appliances",
-            value: "home-appliances"
+            collection: "home-all",
+            type: "home-appliances"
           },
           {
             name: "Decor",
-            value: "home-decor"
+            collection: "home-all",
+            type: "home-decor"
           },
           {
             name: "Other",
-            value: "home-other"
+            collection: "home-all",
+            type: "home-other"
           }
         ]
       },
@@ -107,18 +128,18 @@ export class SubcategorySelectComponent implements OnInit {
         subcategory: [
           {
             name: "Pets",
-            value: "pets-pets"
+            type: "pets-pets"
           },
           {
             name: "Accesorries",
-            value: "pets-accesorries"
+            type: "pets-accesorries"
           }
         ]
       }
     ];
   };
-  changeCategory(ev: {ev: Event, value: {name: string, value: SubcategoryType}}): void {
-    this.updateCategoryType.emit(ev.value.value)
+  changeCategory(ev: {ev: Event, value: {name: string, type: SubcategoryType, collection: string}}): void {
+    this.updateCategoryType.emit(ev)
   }
 
 }

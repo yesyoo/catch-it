@@ -1,5 +1,5 @@
 .card-board {
-    background: rgb(73, 73, 73);
+    background: rgb(104, 104, 104);
     margin: 20px 40px;
     padding: 20px;
     border-radius: 15px;
@@ -10,6 +10,11 @@
     overflow-y: scroll;
     margin-top: 50px;
     border-radius: 10px;
+}
 
+.item {
+    height: 200px;
+    border-radius: 10px;
+    background: rgb(151, 151, 151);
 }
 

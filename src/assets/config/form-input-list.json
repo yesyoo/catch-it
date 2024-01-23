@@ -1,0 +1,333 @@
+{
+    "adult-female-clothes-type": {
+        "label": "Clothes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Outerwear", "value": "outerwear" },
+            { "name": "Pants", "value": "pants" },
+            { "name": "Shirts", "value": "shirts" },
+            { "name": "Dresses", "value": "dresses" },
+            { "name": "Skirts", "value": "skirts" },
+            { "name": "Jackets", "value": "jackets" },
+            { "name": "Sportwear", "value": "sportwear" },
+            { "name": "Homewear", "value": "homewear" },
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "adult-male-clothes-type": {
+        "label": "Clothes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Outerwear", "value": "outerwear" },
+            { "name": "Pants", "value": "pants" },
+            { "name": "Shirts", "value": "shirts" },
+            { "name": "Dresses", "value": "dresses" },
+            { "name": "Skirts", "value": "skirts" },
+            { "name": "Jackets", "value": "jackets" },
+            { "name": "Sportwear", "value": "sportwear" },
+            { "name": "Homewear", "value": "homewear" },
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "adult-female-shoes-type": {
+        "label": "Shoes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Boots", "value": "boots" },
+            { "name": "Sneakers", "value": "sneakers" },
+            { "name": "Slippers", "value": "slippers" },
+            { "name": "Sandals", "value": "sandals"},
+            { "name": "Heels", "value": "heels" },
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "adult-male-shoes-type": {
+        "label": "Shoes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Boots", "value": "boots" },
+            { "name": "Sneakers", "value": "sneakers" },
+            { "name": "Slippers", "value": "slippers" },
+            { "name": "Sandals", "value": "sandals"},
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "child-male-shoes-type": {
+        "label": "Shoes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Boots", "value": "boots" },
+            { "name": "Sneakers", "value": "sneakers" },
+            { "name": "Slippers", "value": "slippers" },
+            { "name": "Sandals", "value": "sandals"},
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "child-female-shoes-type": {
+        "label": "Shoes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Boots", "value": "boots" },
+            { "name": "Sneakers", "value": "sneakers" },
+            { "name": "Slippers", "value": "slippers" },
+            { "name": "Sandals", "value": "sandals"},
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "child-female-clothes-type": {
+        "label": "Clothes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Outerwear", "value": "outerwear" },
+            { "name": "Pants", "value": "pants" },
+            { "name": "Shirts", "value": "shirts" },
+            { "name": "Dresses", "value": "dresses" },
+            { "name": "Skirts", "value": "skirts" },
+            { "name": "Jackets", "value": "jackets" },
+            { "name": "Sportwear", "value": "sportwear" },
+            { "name": "Homewear", "value": "homewear" },
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "child-male-clothes-type": {
+        "label": "Clothes type",
+        "name": "type",
+        "type": "select",
+        "options": [
+            { "name": "Outerwear", "value": "outerwear" },
+            { "name": "Pants", "value": "pants" },
+            { "name": "Shirts", "value": "shirts" },
+            { "name": "Dresses", "value": "dresses" },
+            { "name": "Skirts", "value": "skirts" },
+            { "name": "Jackets", "value": "jackets" },
+            { "name": "Sportwear", "value": "sportwear" },
+            { "name": "Homewear", "value": "homewear" },
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "adult-female-clothes-size": {
+        "label": "Size",
+        "name": "size",
+        "type": "select",
+        "options": [
+            { "name": "XXS", "value": "xxs" },
+            { "name": "XS", "value": "xs" },
+            { "name": "S", "value": "s" },
+            { "name": "M", "value": "m" },
+            { "name": "L", "value": "l" },
+            { "name": "S", "value": "s" },
+            { "name": "M", "value": "m" },
+            { "name": "L", "value": "l" },
+            { "name": "XL", "value": "xl" },
+            { "name": "2XL", "value": "2xl" },
+            { "name": "3XL", "value": "3xl" },
+            { "name": "4XL", "value": "4xl" },
+            { "name": "One-size", "value": "one-size" }
+        ]
+    },
+    "adult-male-clothes-size": {
+        "label": "Size",
+        "name": "size",
+        "type": "select",
+        "options": [
+            { "name": "S", "value": "s" },
+            { "name": "M", "value": "m" },
+            { "name": "L", "value": "l" },
+            { "name": "S", "value": "s" },
+            { "name": "M", "value": "m" },
+            { "name": "L", "value": "l" },
+            { "name": "XL", "value": "xl" },
+            { "name": "2XL", "value": "2xl" },
+            { "name": "3XL", "value": "3xl" },
+            { "name": "4XL", "value": "4xl" },
+            { "name": "5XL", "value": "5xl" },
+            { "name": "One-size", "value": "one-size" }
+        ]
+    },
+    "child-clothes-size": {
+        "label": "Size",
+        "name": "size",
+        "type": "select",
+        "options": [
+            { "name": "104", "value": "104" },
+            { "name": "110", "value": "110" },
+            { "name": "116", "value": "116" },
+            { "name": "122", "value": "122" },
+            { "name": "128", "value": "128" },
+            { "name": "134", "value": "134" },
+            { "name": "140", "value": "140" },
+            { "name": "146", "value": "146" },
+            { "name": "152", "value": "152" },
+            { "name": "158", "value": "158" },
+            { "name": "164", "value": "164" },
+            { "name": "One-size", "value": "one-size" }
+        ]
+    },
+    "adult-female-shoes-size": {
+        "label": "Size",
+        "name": "size",
+        "type": "select",
+        "options": [
+            { "name": "35", "value": "35" },
+            { "name": "36", "value": "36" },
+            { "name": "37", "value": "37" },
+            { "name": "38", "value": "38" },
+            { "name": "39", "value": "39" },
+            { "name": "40", "value": "40" },
+            { "name": "41", "value": "41" },
+            { "name": "42", "value": "42" },
+            { "name": "One-size", "value": "one-size" }
+        ]
+    },
+    "adult-male-shoes-size": {
+        "label": "Size",
+        "name": "size",
+        "type": "select",
+        "options": [
+            { "name": "37", "value": "37" },
+            { "name": "38", "value": "38" },
+            { "name": "39", "value": "39" },
+            { "name": "40", "value": "40" },
+            { "name": "41", "value": "41" },
+            { "name": "42", "value": "42" },
+            { "name": "43", "value": "43" },
+            { "name": "44", "value": "44" },
+            { "name": "45", "value": "45" },
+            { "name": "46", "value": "46" },
+            { "name": "One-size", "value": "one-size" }
+        ]
+    },
+    "child-shoes-size": {
+        "label": "Size",
+        "name": "size",
+        "type": "select",
+        "options": [
+            { "name": "27", "value": "27" },
+            { "name": "28", "value": "28" },
+            { "name": "29", "value": "29" },
+            { "name": "30", "value": "30" },
+            { "name": "31", "value": "31" },
+            { "name": "32", "value": "32" },
+            { "name": "33", "value": "33" },
+            { "name": "34", "value": "34" },
+            { "name": "35", "value": "35" },
+            { "name": "36", "value": "36" },
+            { "name": "37", "value": "37" },
+            { "name": "38", "value": "38" },
+            { "name": "One-size", "value": "one-size" }
+        ]
+    },
+    "color": {
+        "label": "Color",
+        "name": "color",
+        "type": "select",
+        "options": [
+            { "name": "white", "value": "white" },
+            { "name": "black", "value": "black" },
+            { "name": "multi-color", "value": "multi-color" }
+        ]
+    },
+    "season": {
+        "label": "Season",
+        "name": "season",
+        "type": "select",
+        "options": [
+            { "name": "Summer", "value": "summer" },
+            { "name": "Winter", "value": "winter" },
+            { "name": "Demi-season", "value": "demi-season" }
+        ]
+    },
+    "size": {
+        "label": "Size",
+        "name": "size",
+        "type": "select",
+        "options": [
+            { "name": "XS", "value": "xs" },
+            { "name": "S", "value": "s" },
+            { "name": "M", "value": "m" },
+            { "name": "L", "value": "l" },
+            { "name": "XL", "value": "xl" },
+            { "name": "XXL", "value": "xxl" },
+            { "name": "One-size", "value": "one-size" }
+        ]
+    },
+    "title": {
+        "label": "Title",
+        "name": "title",
+        "type": "text",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "description": {
+        "label": "Description",
+        "name": "description",
+        "type": "textarea",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "city": {
+        "label": "City",
+        "name": "city",
+        "type": "text",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "district": {
+        "label": "District",
+        "name": "district",
+        "type": "text",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "amount": {
+        "label": "Amount",
+        "name": "amount",
+        "type": "number",
+        "validators": [ 
+            { "type": "min", "value": 1 }
+        ]
+    },
+    "condition": {
+        "label": "Condition",
+        "name": "condition",
+        "type": "select",
+        "options": [
+            { "name": "New", "value": "new" },
+            { "name": "Used", "value": "used" },
+            { "name": "Other", "value": "other"}
+        ]
+    },
+    "delivery": {
+        "label": "Delivery",
+        "name": "delivery",
+        "type": "select",
+        "options": [
+            { "name": "No-delivery", "value": "no-delivery" },
+            { "name": "DPD", "value": "dpd" },
+            { "name": "CDEK", "value": "cdek" },
+            { "name": "Yandex", "value": "yandex" },
+            { "name": "All", "value": "all" },
+            { "name": "Other", "value": "other" }
+        ]
+    },
+    "img": {
+        "label": "Image",
+        "name": "image",
+        "type": "file"
+    }
+}

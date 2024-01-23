@@ -1,14 +1,18 @@
 <div class="form-container">
     <div class="form-header">
         <div style="margin-right: 1rem" >
-            <p-selectButton (onChange)="changeDealType($event)" [options]="dealMenuType" [(ngModel)]="dealType" optionLabel="name"></p-selectButton>
+            <p-selectButton (onChange)="changeDealType($event)" [options]="menu" [(ngModel)]="dealType" optionLabel="name"></p-selectButton>
         </div>
-        <app-subcategory-select (updateCategoryType)="updateCategoryType($event)"></app-subcategory-select>
+        <app-subcategory-select (updateCategoryType)="changeCategoryType($event)"></app-subcategory-select>
     </div>
     <div class="item-form-fields" *ngIf="form">
         <form [formGroup]="form" class="input-list" >
-            <ng-container [formGroup]="formDealInputs" *ngTemplateOutlet="formFields; context: {list: {input: dealInputs, formgroup: formDealInputs}}"></ng-container>
-            <ng-container [formGroup]="formSubcategoryInputs" *ngTemplateOutlet="formFields; context: {list: {input: subcategoryInputs, formgroup: formSubcategoryInputs}}"></ng-container>    
+            <ng-container *ngIf="firstForm">
+                <ng-container  [formGroup]="firstForm" *ngTemplateOutlet="formFields; context: {list: {input: firstFormFields, formgroup: firstForm}}"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="secondForm">
+                <ng-container [formGroup]="secondForm" *ngTemplateOutlet="formFields; context: {list: {input: secondFormFields, formgroup: secondForm}}"></ng-container>    
+            </ng-container>
         </form>
         <button class="submit" [disabled]="!formIsValid || form.invalid" (click)="onSubmit()" type="submit">Submit</button>
     </div>
@@ -34,7 +38,7 @@
         </div>
         <div class="field" [formGroup]="value.formgroup" *ngIf="control.type === 'select'">
             <label for="{{control.name}}">{{control.label}}</label>
-            <p-dropdown formControlName="{{control.name}}" [options]="control.options"  optionLabel="name"></p-dropdown>
+            <p-dropdown formControlName="{{control.name}}" [options]="control.options" optionValue="value" optionLabel="name"></p-dropdown>
         </div>
 
         <ng-container *ngTemplateOutlet="errorMessages; context: control.validators"></ng-container>

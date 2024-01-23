@@ -1,18 +1,18 @@
 export type CategoryType = 'personal' | 'kids' | 'home' | "pets"
 
 export type SubcategoryType =
-  'personal-male-shoes' 
-| 'personal-male-clothes' 
-| 'personal-female-clothes' 
-| 'personal-female-shoes' 
-| 'personal-bags' 
-| 'personal-other' 
+  'adult-male-shoes' 
+| 'adult-male-clothes' 
+| 'adult-female-clothes' 
+| 'adult-female-shoes' 
+| 'adult-bags' 
+| 'adult-other' 
 
-| 'kids-boys-clothes' 
-| 'kids-girls-clothes' 
-| 'kids-shoes' 
-| 'kids-school' 
-| 'kids-other' 
+| 'child-male-clothes' 
+| 'child-female-clothes' 
+| 'child-shoes' 
+| 'child-school' 
+| 'child-other' 
 
 | 'home-furniture'
 | 'home-appliances' 

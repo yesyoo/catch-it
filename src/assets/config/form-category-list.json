@@ -1,0 +1,89 @@
+{
+    "adult-female-clothes": [
+        "adult-female-clothes-type",
+        "adult-female-clothes-size",
+        "season",
+        "color"
+    ],
+    "adult-male-clothes": [
+        "adult-male-clothes-type",
+        "adult-male-clothes-size",
+        "season",
+        "color"
+    ],
+    "child-female-clothes": [
+        "child-female-clothes-type",
+        "child-clothes-size",
+        "season",
+        "color"
+    ],
+    "child-male-clothes": [
+        "child-male-clothes-type",
+        "child-clothes-size",
+        "season",
+        "color"
+    ],
+    "adult-female-shoes": [
+        "adult-female-shoes-type",
+        "adult-female-shoes-size",
+        "season",
+        "color"
+    ],
+    "adult-male-shoes": [
+        "adult-male-shoes-type",
+        "adult-male-shoes-size",
+        "season",
+        "color"
+    ],
+    "child-female-shoes": [
+        "child-female-shoes-type",
+        "child-shoes-size",
+        "season",
+        "color"
+    ],
+    "child-male-shoes": [
+        "child-male-shoes-type",
+        "child-shoes-size",
+        "season",
+        "color"
+    ],
+    "adult-bags": [
+        "bags-size",
+        "color"
+    ],
+    "adult-female-accessories": [
+        "accessories-type",
+        "color"
+    ],
+    "adult-male-accessories": [
+        "accessories-type",
+        "color"
+    ],
+    "adult-other": [
+        "color"
+    ],
+    "donate": [
+        "title",
+        "description",
+        "condition",
+        "amount",
+        "city",
+        "district",
+        "delivery",
+        "img"
+    ],
+    "request": [
+        "title",
+        "description",
+        "city",
+        "district",
+        "img"
+    ],
+    "exchange": [
+        "title",
+        "description",
+        "city",
+        "district",
+        "img"
+    ]
+}

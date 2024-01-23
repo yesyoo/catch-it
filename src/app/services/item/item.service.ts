@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-import { SubcategoryType } from '../../interfaces/category';
+import { ItemRestService } from './item-rest.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  item: any;
+  items: any[] = [];
+  item: any[];
+  itemId: string;
 
-  constructor() { }
+  constructor(private itemRestService: ItemRestService) { }
 
-  setItem(data: any): void {
-    this.item = data
-    console.log('data', this.item)
-  }
+  setItem(path: string, data: {userId: string, deal: string, form: { item: any, category: any }}): Observable<any> {
+    return this.itemRestService.postItem(path, data)
+  };
+
+  getItemById(itemId: string): Observable<any> {
+    return this.itemRestService.getById(itemId)
+  };
+
+  getItemsByParams(string: string): Observable<any> {
+    let params = string;
+    return this.itemRestService.getItemsByParams(params)
+  };
 }

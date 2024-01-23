@@ -6,18 +6,22 @@
             "items": [
                 {
                     "name": "personal-male-shoes",
+                    "collection": "personal-shoes",
                     "label": "Male shoes"
                 },
                 {
                     "name": "personal-male-clothes",
+                    "collection": "personal-clothes",
                     "label": "Male clothes"
                 },
                 {
                     "name": "personal-female-shoes",
+                    "collection": "personal-shoes",
                     "label": "Female shoes"
                 },
                 {
                     "name": "personal-female-clothes",
+                    "collection": "personal-clothes",
                     "label": "Female clothes"
                 },
                 {
@@ -36,14 +40,17 @@
             "items": [
                 {
                     "name": "kids-boys-clothes",
+                    "collection": "personal-clothes",
                     "label": "Boys clothes"
                 },
                 {
                     "name": "kids-girls-clothes",
+                    "collection": "personal-clothes",
                     "label": "Girls clothes"
                 },
                 {
                     "name": "kids-shoes",
+                    "collection": "personal-shoes",
                     "label": "Shoes"
                 },
                 {

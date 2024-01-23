@@ -1,8 +1,8 @@
 {
     "donate": [
         {
-            "name": "name",
-            "label": "Name",
+            "name": "title",
+            "label": "Title",
             "type": "text",
             "validators": [ 
                 { "type": "minLength", "value": 3, "errorText": "minLength 3" },
@@ -24,8 +24,7 @@
             "label": "Amount",
             "type": "number",
             "validators": [ 
-                { "type": "min", "value": 1 },
-                { "type": "max", "value": 500 } 
+                { "type": "min", "value": 1 }
             ]
         },
         {
@@ -75,8 +74,8 @@
     ],
     "request": [
         {
-            "name": "name",
-            "label": "Name",
+            "name": "title",
+            "label": "Title",
             "type": "text",
             "validators": [ 
                 { "type": "minLength", "value": 3 },
@@ -118,8 +117,8 @@
     ],
     "exchange": [
         {
-            "name": "name",
-            "label": "Name",
+            "name": "title",
+            "label": "Title",
             "type": "text",
             "validators": []
         },
@@ -130,9 +129,9 @@
             "validators": []
         }
     ],
-    "personal-male-clothes": [
+    "adult-male-clothes": [
         {
-            "name": "male-clothes-type",
+            "name": "clothes-type",
             "label": "Type",
             "type": "select",
             "options": [
@@ -147,7 +146,7 @@
             "validators": []
         },
         {
-            "name": "male-clothes-size",
+            "name": "clothes-size",
             "label": "Size",
             "type": "select",
             "options": [
@@ -185,9 +184,9 @@
             "validator": []
         }
     ],
-    "personal-male-shoes": [
+    "adult-male-shoes": [
         {
-            "name": "male-shoes-type",
+            "name": "shoes-type",
             "label": "Type",
             "type": "select",
             "options": [
@@ -210,7 +209,7 @@
             "validators": []
         },
         {
-            "name": "male-shoes-size",
+            "name": "shoes-size",
             "label": "Size",
             "type": "select",
             "options": [
@@ -223,11 +222,22 @@
                 { "name": "> 42", "value": "> 42"}
             ],
             "validators": []
+        },
+        {
+            "name": "color",
+            "label": "Color",
+            "type": "select",
+            "options": [
+                { "name": "Black", "value": "black" },
+                { "name": "White", "value": "White" },
+                { "name": "Multicolor", "value": "multicolor" }
+            ],
+            "validator": []
         }
     ],
-    "personal-female-clothes": [
+    "adult-female-clothes": [
         {
-            "name": "female-clothes-type",
+            "name": "clothes-type",
             "label": "Type",
             "type": "select",
             "options": [
@@ -244,7 +254,7 @@
             "validators": []
         },
         {
-            "name": "female-clothes-size",
+            "name": "clothes-size",
             "label": "Size",
             "type": "select",
             "options": [
@@ -283,9 +293,9 @@
             "validator": []
         }
     ],
-    "personal-female-shoes": [
+    "adult-female-shoes": [
         {
-            "name": "female-shoes-type",
+            "name": "shoes-type",
             "label": "Type",
             "type": "select",
             "options": [
@@ -310,7 +320,7 @@
             "validators": []
         },
         {
-            "name": "female-shoes-size",
+            "name": "shoes-size",
             "label": "Size",
             "type": "select",
             "options": [
@@ -325,9 +335,20 @@
                 { "name": "One-size", "value": "one-size" }
             ],
             "validators": []
+        },
+        {
+            "name": "color",
+            "label": "Color",
+            "type": "select",
+            "options": [
+                { "name": "Black", "value": "black" },
+                { "name": "White", "value": "White" },
+                { "name": "Multicolor", "value": "multicolor" }
+            ],
+            "validator": []
         }
     ],
-    "kids-boys-clothes": [
+    "child-male-clothes": [
         {
             "name": "clothes-type",
             "label": "Type",
@@ -344,7 +365,7 @@
             "validators": []
         },
         {
-            "name": "kids-clothes-size",
+            "name": "clothes-size",
             "label": "Size",
             "type": "select",
             "options": [
@@ -391,7 +412,7 @@
             "validator": []
         }
     ],
-    "kids-girls-clothes": [
+    "child-female-clothes": [
         {
             "name": "clothes-type",
             "label": "Type",
@@ -410,7 +431,7 @@
             "validators": []
         },
         {
-            "name": "kids-clothes-size",
+            "name": "clothes-size",
             "label": "Size",
             "type": "select",
             "options": [
@@ -457,9 +478,9 @@
             "validator": []
         }
     ],
-    "kids-shoes": [
+    "child-female-shoes": [
         {
-            "name": "kids-shoes-type",
+            "name": "shoes-type",
             "label": "Type",
             "type": "select",
             "options": [
@@ -471,7 +492,7 @@
             ]
         },
         {
-            "name": "kids-shoes-size",
+            "name": "shoes-size",
             "label": "Size",
             "type": "select",
             "options": [
@@ -500,9 +521,76 @@
                 { "name": "> 36", "value": "> 36" },
                 { "name": "One-size", "value": "one-size" }
             ]
+        },
+        {
+            "name": "color",
+            "label": "Color",
+            "type": "select",
+            "options": [
+                { "name": "Black", "value": "black" },
+                { "name": "White", "value": "White" },
+                { "name": "Multicolor", "value": "multicolor" }
+            ],
+            "validator": []
         }
     ],
-    "kids-school": [
+    "child-male-shoes": [
+        {
+            "name": "shoes-type",
+            "label": "Type",
+            "type": "select",
+            "options": [
+                { "name": "Boots", "value": "boots" },
+                { "name": "Sneakers", "value": "sneakers" },
+                { "name": "Slippers", "value": "slippers" },
+                { "name": "Sandals", "value": "sandals"},
+                { "name": "Other", "value": "other" }
+            ]
+        },
+        {
+            "name": "shoes-size",
+            "label": "Size",
+            "type": "select",
+            "options": [
+                { "name": "< 16", "value": "< 16" },
+                { "name": "16", "value": "16" },
+                { "name": "17", "value": "17" },
+                { "name": "18", "value": "18" },
+                { "name": "19", "value": "19" },
+                { "name": "20", "value": "20" },
+                { "name": "21", "value": "21" },
+                { "name": "22", "value": "22" },
+                { "name": "23", "value": "23" },
+                { "name": "24", "value": "24" },
+                { "name": "25", "value": "25" },
+                { "name": "26", "value": "26" },
+                { "name": "27", "value": "27" },
+                { "name": "28", "value": "28" },
+                { "name": "29", "value": "29" },
+                { "name": "30", "value": "30" },
+                { "name": "31", "value": "31" },
+                { "name": "32", "value": "32" },
+                { "name": "33", "value": "33" },
+                { "name": "34", "value": "34" },
+                { "name": "35", "value": "35" },
+                { "name": "36", "value": "36" },
+                { "name": "> 36", "value": "> 36" },
+                { "name": "One-size", "value": "one-size" }
+            ]
+        },
+        {
+            "name": "color",
+            "label": "Color",
+            "type": "select",
+            "options": [
+                { "name": "Black", "value": "black" },
+                { "name": "White", "value": "White" },
+                { "name": "Multicolor", "value": "multicolor" }
+            ],
+            "validator": []
+        }
+    ],
+    "child-school": [
         {
             "name": "school-type",
             "label": "Type",
