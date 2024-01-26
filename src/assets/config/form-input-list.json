@@ -273,7 +273,7 @@
         "type": "textarea",
         "validators": [ 
             { "type": "minLength", "value": 1, "errorText": "minLength" },
-            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+            { "type": "maxLength", "value": 300, "errorText": "maxLength" } 
         ]
     },
     "city": {

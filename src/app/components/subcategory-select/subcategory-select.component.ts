@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SubcategoryType } from 'src/app/interfaces/category';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { CategoryType, SubcategoryType } from 'src/app/interfaces/category';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -15,8 +15,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   ]
 })
 export class SubcategorySelectComponent implements OnInit {
+
   category: any[];
-  selectedCategory: any
+  @Input() selectedCategory: any 
   @Output() updateCategoryType: EventEmitter<any> = new EventEmitter()
 
   constructor() { }
@@ -24,122 +25,125 @@ export class SubcategorySelectComponent implements OnInit {
   ngOnInit() {
     this.category = [
       {
-        name: "Personal",
-        subcategory: [
+        label: "Personal",
+        options: [
           {
-            name: "Male shoes",
-            collection: "personal-shoes",
-            type: "adult-male-shoes"
+            label: "Male shoes",
+            category: "personal-shoes",
+            subcategory: "adult-male-shoes"
           },
           {
-            name: "Male clothes",
-            collection: "personal-clothes",
-            type: "adult-male-clothes"
+            label: "Male clothes",
+            category: "personal-clothes",
+            subcategory: "adult-male-clothes"
           },
           {
-            name: "Female shoes",
-            collection: "personal-shoes",
-            type: "adult-female-shoes"
+            label: "Female shoes",
+            category: "personal-shoes",
+            subcategory: "adult-female-shoes"
           },
           {
-            name: "Female clothes",
-            collection: "personal-clothes",
-            type: "adult-female-clothes"
+            label: "Female clothes",
+            category: "personal-clothes",
+            subcategory: "adult-female-clothes"
           },
           {
-            name: "Bags",
-            collection: "personal-accessories",
-            type: "adult-bags"
+            label: "Bags",
+            category: "personal-bags",
+            subcategory: "adult-bags"
           },
           {
-            name: "Other",
-            collection: "personal-accessories",
-            type: "adult-other" 
+            label: "Other",
+            category: "personal-accessories",
+            subcategory: "adult-other" 
           }
         ]
       },
       {
-        name: "Kids",
-        subcategory: [
+        label: "Kids",
+        options: [
           {
-            name: "Boys clothes",
-            collection: "personal-clothes",
-            type: "child-male-clothes"
+            label: "Boys clothes",
+            category: "personal-clothes",
+            subcategory: "child-male-clothes"
           },
           {
-            name: "Girls clothes",
-            collection: "personal-clothes",
-            type: "child-female-clothes"
+            label: "Girls clothes",
+            category: "personal-clothes",
+            subcategory: "child-female-clothes"
           },
           {
-            name: "Boys shoes",
-            collection: "personal-shoes",
-            type: "child-male-shoes"
+            label: "Boys shoes",
+            category: "personal-shoes",
+            subcategory: "child-male-shoes"
           },
           {
-            name: "Girls shoes",
-            collection: "personal-shoes",
-            type: "child-female-shoes"
+            label: "Girls shoes",
+            category: "personal-shoes",
+            subcategory: "child-female-shoes"
           },
           {
-            name: "School",
-            collection: "kids-all",
-            type: "child-school"
+            label: "School",
+            category: "kids-all",
+            subcategory: "child-school"
           },
           {
-            name: "Newborn",
-            collection: "kids-all",
-            type: "child-newborn"
+            label: "Newborn",
+            category: "kids-all",
+            subcategory: "child-newborn"
           },
           {
-            name: "Other",
-            collection: "kids-all",
-            type: "child-other"
+            label: "Other",
+            category: "kids-all",
+            subcategory: "child-other"
           }
         ]
       },
       {
-        name: "Home",
-        subcategory: [
+        label: "Home",
+        options: [
           {
-            name: "Furniture",
-            collection: "home-all",
-            type: "home-furniture"
+            label: "Furniture",
+            category: "home-all",
+            subcategory: "home-furniture"
           },
           {
-            name: "Appliances",
-            collection: "home-all",
-            type: "home-appliances"
+            label: "Appliances",
+            category: "home-all",
+            subcategory: "home-appliances"
           },
           {
-            name: "Decor",
-            collection: "home-all",
-            type: "home-decor"
+            label: "Decor",
+            category: "home-all",
+            subcategory: "home-decor"
           },
           {
-            name: "Other",
-            collection: "home-all",
-            type: "home-other"
+            label: "Other",
+            category: "home-all",
+            subcategory: "home-other"
           }
         ]
       },
       {
-        name: "Pets",
-        subcategory: [
+        label: "Pets",
+        options: [
           {
-            name: "Pets",
-            type: "pets-pets"
+            label: "Pets",
+            category: "pets-all",
+            subcategory: "pets-pets"
           },
           {
-            name: "Accesorries",
-            type: "pets-accesorries"
+            label: "Accesorries",
+            category: "pets-all",
+            subcategory: "pets-accessories"
           }
         ]
       }
     ];
+    this.selectedCategory = this.category[0].options[0]
   };
-  changeCategory(ev: {ev: Event, value: {name: string, type: SubcategoryType, collection: string}}): void {
-    this.updateCategoryType.emit(ev)
-  }
 
+  changeCategory(ev: {ev: Event, value: {label: string,  category: CategoryType, subcategory: SubcategoryType,}}): void {
+    this.updateCategoryType.emit(ev)
+  };
 }

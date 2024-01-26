@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalType } from 'src/app/interfaces/modal';
 import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
@@ -15,18 +14,18 @@ export class UserItemsComponent implements OnInit {
   types: string[] = ["Request", "Donate", "Exchange"]
   btn: string = this.types[1]
 
-  showModal: ModalType
+  showItemsUserForm: boolean = false;
 
   constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {
-    this.showModal = 'item-form'
-    this.modalService.showModal$.subscribe(data => this.showModal = data)
+    // this.showModal = 'item-form'
+    this.modalService.showModal$.subscribe(data => this.showItemsUserForm = data)
     for(let i = 0; i < 4; i++) { this.itemsSell.push(i) }
     for(let i = 0; i < 3; i++) { this.itemsBuy.push(i) }
   };
   addItem(): void {
-    this.modalService.show('item-form')
+    this.showItemsUserForm = true
   }
   preview(): void {
     this.btn = this.types[0]

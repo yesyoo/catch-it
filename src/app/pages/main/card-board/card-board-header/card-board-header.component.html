@@ -1,8 +1,20 @@
 <div class="board-header">
-    <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input type="text" pInputText placeholder="Search">         
-    </span>
-    <app-dealtype-select></app-dealtype-select>
-    <app-subcategory-select></app-subcategory-select>
+    <div class="board-header-top">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText placeholder="Search">         
+        </span>
+        <app-dealtype-select (updateDealType)="updateDealParams($event)"></app-dealtype-select>
+        <app-subcategory-select (updateCategoryType)="updateCategoryParams($event)"></app-subcategory-select>
+        <button class="btn btn-light" (click)="openFilterForm()">Filter</button>
+    </div>
+    <div class="board-header-bottom">
+        <app-card-board-filter *ngIf="filterForm"
+                               [categoryType]="selectedCategory"
+                               [subcategoryType]="selectedSubcategory"
+                               [dealType]="dealType"
+                               [showFilter]="filterForm"
+                               (filterParams)="updateFilter($event)">
+        </app-card-board-filter>
+    </div>
 </div>

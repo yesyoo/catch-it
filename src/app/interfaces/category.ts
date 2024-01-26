@@ -1,4 +1,11 @@
-export type CategoryType = 'personal' | 'kids' | 'home' | "pets"
+export type CategoryType = 
+  'personal-shoes' 
+| 'personal-clothes' 
+| 'personal-bags' 
+| 'personal-accessories'
+| 'kids-all'
+| 'pets-all'
+| 'home-all'
 
 export type SubcategoryType =
   'adult-male-shoes' 

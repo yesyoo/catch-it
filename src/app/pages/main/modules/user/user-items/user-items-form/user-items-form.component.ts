@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { SubcategoryType } from 'src/app/interfaces/category';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { CategoryType, SubcategoryType } from 'src/app/interfaces/category';
 import { DealType } from 'src/app/interfaces/deal-type';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ModalService } from '../../../../../../services/modal/modal.service';
 import { ItemService } from 'src/app/services/item/item.service';
+import { UnionCategoryType, IItem } from 'src/app/interfaces/items';
 
 @Component({
   selector: 'app-user-items-form',
@@ -14,23 +15,22 @@ import { ItemService } from 'src/app/services/item/item.service';
 })
 export class UserItemsFormComponent implements OnInit {
 
+  @Input() show: boolean = false
+  userId: string = "user123";
+  dealType: DealType = 'donate';
+  subcategoryType: SubcategoryType = 'adult-male-shoes'; 
   categoryConfig: any;
-  formInputConfig: any
-  dealType: DealType = 'donate'
-  subcategoryType: SubcategoryType;
-  userId: string = "user123"
-  menu: any[];
-  path: string;
+  formInputConfig: any;
 
   // form
   form: FormGroup;
-  firstFormName: string = 'first'
-  secondFormName: string = 'second'
-  firstForm: FormGroup
-  secondForm: FormGroup
+  firstFormName: string = 'first';
+  secondFormName: string = 'second';
+  firstForm: FormGroup;
+  secondForm: FormGroup;
   firstFormFields: any[] = [];
   secondFormFields: any[] = [];
-  formIsValid: boolean = false
+  path: string = 'personal-shoes';
 
   constructor(private formBuilder: FormBuilder,
               private itemService: ItemService,
@@ -39,11 +39,7 @@ export class UserItemsFormComponent implements OnInit {
               private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.menu = [
-      { name: "Donate", value: "donate" },
-      { name: "Request", value: "request" },
-      { name: "Exchange", value: "exchange" }
-    ];
+    this.modalService.showModal$.subscribe(data => this.show = data )
 
     this.http.get('../../../../../../../assets/config/form-category-list.json').subscribe(data => {
       this.categoryConfig = data;
@@ -51,10 +47,17 @@ export class UserItemsFormComponent implements OnInit {
         this.formInputConfig = array;
 
         this.firstFormFields = this.updateFormInputs(this.dealType)
+        this.secondFormFields = this.updateFormInputs(this.subcategoryType)
+
         this.form = this.formBuilder.group({})
         this.firstForm = this.formBuilder.group({})
+        this.secondForm = this.formBuilder.group({})
+
         this.form.addControl(this.firstFormName, this.firstForm)
         this.addFormControls(this.firstForm, this.firstFormFields)
+
+        this.form.addControl(this.secondFormName, this.secondForm)
+        this.addFormControls(this.secondForm, this.secondFormFields)
       })
     })
   };
@@ -103,7 +106,7 @@ export class UserItemsFormComponent implements OnInit {
     })
   };
 
-  changeDealType(ev: {ev: Event, value: {name: string, value: DealType}}): void {
+  changeDealType(ev: {ev: Event, value: {label: string, value: DealType}}): void {
     this.dealType = ev.value.value
     this.firstFormFields = this.updateFormInputs(this.dealType)
     this.form.removeControl(this.firstFormName)
@@ -113,9 +116,9 @@ export class UserItemsFormComponent implements OnInit {
     this.addFormControls(this.firstForm, this.firstFormFields)
   };
 
-  changeCategoryType(ev: {ev: Event, value: {name: string, type: SubcategoryType, collection: string}}): void {
-    this.subcategoryType = ev.value.type
-    this.path = ev.value.collection
+  changeCategoryType(ev: {ev: Event, value: {label: string, category: CategoryType, subcategory: SubcategoryType}}): void {
+    this.subcategoryType = ev.value.subcategory
+    this.path = ev.value.category
     this.secondFormFields = this.updateFormInputs(this.subcategoryType)
 
     this.form.removeControl(this.secondFormName)
@@ -123,8 +126,6 @@ export class UserItemsFormComponent implements OnInit {
     this.secondFormName = this.generateGroupName()
     this.form.addControl(this.secondFormName, this.secondForm)
     this.addFormControls(this.secondForm, this.secondFormFields)
-
-    this.formIsValid = true
   };
 
   onSubmit(): any {
@@ -140,28 +141,30 @@ export class UserItemsFormComponent implements OnInit {
         img: this.form.get(this.firstFormName)?.value.img || null,
       };
       
-      let data: {userId: string, deal: string, form: {item: any, category: any}} = {
+      let data: {userId: string, dealType: DealType, subcategoryType: SubcategoryType, form: {itemProp: IItem, categoryProp: UnionCategoryType}} = {
         userId: this.userId,
-        deal: this.dealType,
+        dealType: this.dealType,
+        subcategoryType: this.subcategoryType,
         form: {
-          item: firstForm,
-          category: this.form.get(this.secondFormName)?.value
+          itemProp: firstForm,
+          categoryProp: this.form.get(this.secondFormName)?.value
         }
       };
 
       if(this.subcategoryType.includes('adult') || this.subcategoryType.includes('child')) {
         if(this.subcategoryType.includes('female')) {
-          data.form.category['gender'] = 'female'
+          data.form.categoryProp['gender'] = 'female'
         } else if(this.subcategoryType.includes('male')) {
-          data.form.category['gender'] = 'male'
+          data.form.categoryProp['gender'] = 'male'
         } else { 
-          data.form.category['gender'] = 'genderless'
+          data.form.categoryProp['gender'] = 'genderless'
         }
         this.subcategoryType.includes('adult') ?
-        data.form.category['age'] = 'adult' : data.form.category['age'] = 'child'
+        data.form.categoryProp['age'] = 'adult' : data.form.categoryProp['age'] = 'child'
       };
 
       console.log('post', data)
+      console.log(this.path)
       this.itemService.setItem(this.path, data).subscribe()      
     } else {
       console.log('set category')

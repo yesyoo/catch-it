@@ -12,7 +12,7 @@ export class ItemService {
 
   constructor(private itemRestService: ItemRestService) { }
 
-  setItem(path: string, data: {userId: string, deal: string, form: { item: any, category: any }}): Observable<any> {
+  setItem(path: string, data: {userId: string, dealType: string, subcategoryType: string, form: { itemProp: any, categoryProp: any }}): Observable<any> {
     return this.itemRestService.postItem(path, data)
   };
 

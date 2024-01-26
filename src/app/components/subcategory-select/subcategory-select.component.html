@@ -1,9 +1,8 @@
 <p-cascadeSelect (onChange)="changeCategory($event)" 
                  [(ngModel)]="selectedCategory" 
                  [options]="category" 
-                 optionLabel="name" 
-                 optionGroupLabel="name"
-                 [optionGroupChildren]="['subcategory']" 
-                 [style]="{'minWidth': '14rem'}"
-                 placeholder="Select category">
+                 optionLabel="label" 
+                 optionGroupLabel="label"
+                 [optionGroupChildren]="['options']" 
+                 [style]="{'minWidth': '14rem'}">
 </p-cascadeSelect>

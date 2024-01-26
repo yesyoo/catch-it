@@ -11,7 +11,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 export class ModalComponent implements OnInit {
 
   @ViewChild('overlay') overlay: ElementRef<HTMLDivElement>;
-  showModal: ModalType
+  showModal: boolean
   modalClose: boolean = false
   messageText: string;
    
@@ -19,12 +19,13 @@ export class ModalComponent implements OnInit {
   constructor(private modalService: ModalService) { }
 
   ngOnInit(): void {
-    this.modalService.showModal$.pipe(take(1)).subscribe(data => this.showModal = data)
+    // this.modalService.showModal$.pipe(take(1)).subscribe(data => this.showModal = data)
     this.messageText = this.modalService.getMessage()
   };
 
   close(): void {
     this.modalService.show(false)
+    console.log('close')
   };
   
   overlayClose(ev: Event): void {

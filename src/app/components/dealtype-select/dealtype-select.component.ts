@@ -16,6 +16,7 @@ import { DealType } from 'src/app/interfaces/deal-type';
 export class DealtypeSelectComponent implements OnInit {
   deal: any[]
   selectedDeal: any
+  
   @Output() updateDealType: EventEmitter<any> = new EventEmitter()
 
   constructor() { }
@@ -23,22 +24,22 @@ export class DealtypeSelectComponent implements OnInit {
   ngOnInit(): void {
     this.deal = [
       {
-        name: "Donate",
+        label: "Donate",
         value: "donate"
       },
       {
-        name: "Request",
+        label: "Request",
         value: "request"
       },
       {
-        name: "Exchange",
+        label: "Exchange",
         value: "exchange"
       }
     ];
     this.selectedDeal= this.deal[0]
   };
-  changeDeal(ev: {ev: Event, value: {name: string, value: DealType}}): void {
-    this.updateDealType.emit(ev.value.value)
+  changeDeal(ev: {ev: Event, value: {label: string, value: DealType}}): void {
+    this.updateDealType.emit(ev)
   };
 
 }

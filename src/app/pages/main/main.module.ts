@@ -9,8 +9,14 @@ import { CardBoardHeaderComponent } from './card-board/card-board-header/card-bo
 import { DealtypeSelectComponent } from 'src/app/components/dealtype-select/dealtype-select.component';
 import { SubcategorySelectComponent } from '../../components/subcategory-select/subcategory-select.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { ItemCardComponent } from 'src/app/components/item-card/item-card.component';
 import { ModalModule } from '../modal/modal.module';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { ItemCardComponent } from './card-board/item-card/item-card.component';
+import { CardBoardFilterComponent } from './card-board/card-board-header/card-board-filter/card-board-filter.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { TabMenuModule } from 'primeng/tabmenu';
+
 
 
 @NgModule({
@@ -18,7 +24,9 @@ import { ModalModule } from '../modal/modal.module';
     MainComponent,
     HeaderComponent,
     CardBoardComponent,
-    CardBoardHeaderComponent
+    CardBoardHeaderComponent,
+    ItemCardComponent,
+    CardBoardFilterComponent
   ],
   imports: [
     CommonModule,
@@ -26,8 +34,13 @@ import { ModalModule } from '../modal/modal.module';
     DealtypeSelectComponent,
     SubcategorySelectComponent,
     InputTextModule,
-    ItemCardComponent,
-    ModalModule
+    ModalModule,
+    ReactiveFormsModule,
+    DropdownModule, 
+    TabMenuModule
+  ],
+  providers: [
+    ModalService
   ]
 })
 export class MainModule { }

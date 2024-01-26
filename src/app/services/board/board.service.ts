@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BoardService {
-  cards: any[]
-  targetCard: any
 
   constructor() { }
+
 }
+

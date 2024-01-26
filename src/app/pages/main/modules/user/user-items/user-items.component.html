@@ -20,6 +20,5 @@
         <h4 (click)="addItem()" class="mb-2">Add +</h4>
     </div>
 </div>
-<app-modal *ngIf="showModal === 'item-form'">
-    <app-user-items-form></app-user-items-form>
-</app-modal>
+
+<app-user-items-form *ngIf="showItemsUserForm"></app-user-items-form>
