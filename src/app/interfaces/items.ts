@@ -1,3 +1,6 @@
+import { Category, Collection } from "./category";
+import { Deal } from "./deal-type";
+
 export type Condition = "new" | "used" | "other";
 export type Delivery = "dpd" | "yandex" | "cdek" | "all" | "no-delivery" | "other";
 export type DealType = "donate" | "request" | "exchange";
@@ -40,4 +43,13 @@ export interface IPersonalShoes {
     gender?: string,
     age?: string
 };
+
+export interface IPostItemData {
+    userId: string,
+    collection: Collection,
+    category: Category,
+    deal: Deal,
+    item: IItem,
+    itemCat: UnionCategoryType
+}
 

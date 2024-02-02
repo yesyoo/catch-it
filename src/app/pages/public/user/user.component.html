@@ -1,0 +1,24 @@
+<div class="main-container">
+<!--/////////////////////////////////////////////////////////////////-->
+    <div class="user-container">
+        <div *ngIf="user" class="user-top">
+            <div>user logo</div>
+            <div>{{user.username}}</div>
+        </div>
+        <div class="user-nav">
+            <div>mes</div>
+            <div>bo</div>
+            <div>set</div>
+        </div>
+        <button (click)="addForm()">add +</button>
+        <app-user-item-form *ngIf="showForm" (closeThisForm)="this.showForm = false"></app-user-item-form>
+        <app-user-items></app-user-items>
+        <app-user-settings></app-user-settings>
+
+    </div>
+<!--/////////////////////////////////////////////////////////////////-->    
+    <div class="board-container">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+

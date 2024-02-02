@@ -329,5 +329,59 @@
         "label": "Image",
         "name": "image",
         "type": "file"
+    },
+    "user-name": {
+        "label": "Name",
+        "name": "name",
+        "type": "text",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "user-lastname": {
+        "label": "Last name",
+        "name": "lastName",
+        "type": "text",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "user-login": {
+        "label": "Login",
+        "name": "login",
+        "type": "text",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "user-email": {
+        "label": "Email",
+        "name": "email",
+        "type": "text",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "user-password": {
+        "label": "Password",
+        "name": "password",
+        "type": "password",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
+    },
+    "user-password-repeat": {
+        "label": "Repeat password",
+        "name": "passwordRepeat",
+        "type": "password",
+        "validators": [ 
+            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
+        ]
     }
 }

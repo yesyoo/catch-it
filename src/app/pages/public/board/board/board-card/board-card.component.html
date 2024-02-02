@@ -1,0 +1,11 @@
+<div class="modal-card">
+    <!-- <div>{{item._id}}</div> -->
+    <div>title: {{item.item.title}}</div>
+    <div>size: {{item.itemCat.size}}</div>
+    <div *ngIf="!user">
+        <button (click)="login()">Login</button>
+    </div>
+    <div *ngIf="user">
+        <button (click)="goToUser(item.userId)">Go to user</button>
+    </div>
+</div>

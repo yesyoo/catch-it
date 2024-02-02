@@ -1,1 +1,1 @@
-export type DealType = "donate" | "request" | "exchange"
+export type Deal = "donate" | "request" | "exchange"

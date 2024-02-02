@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { CategoryType, SubcategoryType } from 'src/app/interfaces/category';
+import { Collection, Category } from 'src/app/interfaces/category';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from 'src/app/services/auth-interceptor/auth-interceptor';
 
 @Component({
   selector: 'app-subcategory-select',
@@ -11,51 +13,52 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   imports: [
     CascadeSelectModule, 
     ReactiveFormsModule, 
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class SubcategorySelectComponent implements OnInit {
 
-  category: any[];
+  categoryList: any[];
   @Input() selectedCategory: any 
   @Output() updateCategoryType: EventEmitter<any> = new EventEmitter()
 
   constructor() { }
 
   ngOnInit() {
-    this.category = [
+    this.categoryList = [
       {
         label: "Personal",
         options: [
           {
             label: "Male shoes",
-            category: "personal-shoes",
-            subcategory: "adult-male-shoes"
+            collection: "personal-shoes",
+            category: "adult-male-shoes"
           },
           {
             label: "Male clothes",
-            category: "personal-clothes",
-            subcategory: "adult-male-clothes"
+            collection: "personal-clothes",
+            category: "adult-male-clothes"
           },
           {
             label: "Female shoes",
-            category: "personal-shoes",
-            subcategory: "adult-female-shoes"
+            collection: "personal-shoes",
+            category: "adult-female-shoes"
           },
           {
             label: "Female clothes",
-            category: "personal-clothes",
-            subcategory: "adult-female-clothes"
+            collection: "personal-clothes",
+            category: "adult-female-clothes"
           },
           {
             label: "Bags",
-            category: "personal-bags",
-            subcategory: "adult-bags"
+            collection: "personal-bags",
+            category: "adult-bags"
           },
           {
             label: "Other",
-            category: "personal-accessories",
-            subcategory: "adult-other" 
+            collection: "personal-accessories",
+            category: "adult-other" 
           }
         ]
       },
@@ -64,38 +67,38 @@ export class SubcategorySelectComponent implements OnInit {
         options: [
           {
             label: "Boys clothes",
-            category: "personal-clothes",
-            subcategory: "child-male-clothes"
+            collection: "personal-clothes",
+            category: "child-male-clothes"
           },
           {
             label: "Girls clothes",
-            category: "personal-clothes",
-            subcategory: "child-female-clothes"
+            collection: "personal-clothes",
+            category: "child-female-clothes"
           },
           {
             label: "Boys shoes",
-            category: "personal-shoes",
-            subcategory: "child-male-shoes"
+            collection: "personal-shoes",
+            category: "child-male-shoes"
           },
           {
             label: "Girls shoes",
-            category: "personal-shoes",
-            subcategory: "child-female-shoes"
+            collection: "personal-shoes",
+            category: "child-female-shoes"
           },
           {
             label: "School",
-            category: "kids-all",
-            subcategory: "child-school"
+            collection: "kids-all",
+            category: "child-school"
           },
           {
             label: "Newborn",
-            category: "kids-all",
-            subcategory: "child-newborn"
+            collection: "kids-all",
+            category: "child-newborn"
           },
           {
             label: "Other",
-            category: "kids-all",
-            subcategory: "child-other"
+            collection: "kids-all",
+            category: "child-other"
           }
         ]
       },
@@ -104,23 +107,23 @@ export class SubcategorySelectComponent implements OnInit {
         options: [
           {
             label: "Furniture",
-            category: "home-all",
-            subcategory: "home-furniture"
+            collection: "home-all",
+            category: "home-furniture"
           },
           {
             label: "Appliances",
-            category: "home-all",
-            subcategory: "home-appliances"
+            collection: "home-all",
+            category: "home-appliances"
           },
           {
             label: "Decor",
-            category: "home-all",
-            subcategory: "home-decor"
+            collection: "home-all",
+            category: "home-decor"
           },
           {
             label: "Other",
-            category: "home-all",
-            subcategory: "home-other"
+            collection: "home-all",
+            category: "home-other"
           }
         ]
       },
@@ -129,21 +132,21 @@ export class SubcategorySelectComponent implements OnInit {
         options: [
           {
             label: "Pets",
-            category: "pets-all",
-            subcategory: "pets-pets"
+            collection: "pets-all",
+            category: "pets-pets"
           },
           {
             label: "Accesorries",
-            category: "pets-all",
-            subcategory: "pets-accessories"
+            collection: "pets-all",
+            category: "pets-accessories"
           }
         ]
       }
     ];
-    this.selectedCategory = this.category[0].options[0]
+    this.selectedCategory = this.categoryList[0].options[0]
   };
 
-  changeCategory(ev: {ev: Event, value: {label: string,  category: CategoryType, subcategory: SubcategoryType,}}): void {
+  updateCategory(ev: {ev: Event, value: {label: string,  collection: Collection, category: Category,}}): void {
     this.updateCategoryType.emit(ev)
   };
 }

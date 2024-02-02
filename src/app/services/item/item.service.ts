@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ItemRestService } from './item-rest.service';
 import { Observable } from 'rxjs';
+import { Category, Collection } from 'src/app/interfaces/category';
+import { Deal } from 'src/app/interfaces/deal-type';
+import { IPostItemData } from 'src/app/interfaces/items';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,7 @@ export class ItemService {
 
   constructor(private itemRestService: ItemRestService) { }
 
-  setItem(path: string, data: {userId: string, dealType: string, subcategoryType: string, form: { itemProp: any, categoryProp: any }}): Observable<any> {
+  postItem(path: string, data: IPostItemData): Observable<any> {
     return this.itemRestService.postItem(path, data)
   };
 
@@ -24,4 +27,10 @@ export class ItemService {
     let params = string;
     return this.itemRestService.getItemsByParams(params)
   };
+  getAllItemsByUserId(userId: string): Observable<any> {
+    return  this.itemRestService.getAllItemsByUserId(userId)
+  }
+  deleteItemById(itemId: string, category: string): Observable<any> {
+    return this.itemRestService.deleteItemById(itemId, category)
+  }
 }

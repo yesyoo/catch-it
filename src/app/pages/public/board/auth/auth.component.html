@@ -1,0 +1,44 @@
+<div class="auth-container">
+    <div class="auth-header">
+        <div (click)="changeFormType()">Login</div>
+        <div (click)="changeFormType()">Sign up</div>
+    </div>
+    <form *ngIf="formType === 'authorization'" [formGroup]="formAuth">
+        <div>
+            <label for="">Email</label>
+            <input type="text" pInputText formControlName="email">
+        </div>
+        <div>
+            <label for="">Passsword</label>
+            <input type="password" pInputText formControlName="password">
+        </div>
+    </form>
+    <form *ngIf="formType === 'registration'" [formGroup]="formReg">
+        <div>
+            <label for="">Email</label>
+            <input type="text" pInputText formControlName="email">
+        </div>
+        <div>
+            <label for="">Username</label>
+            <input type="text" pInputText formControlName="username">
+        </div>
+        <div>
+            <label for="">City</label>
+            <input type="text" pInputText formControlName="city">
+        </div>
+        <div>
+            <label for="">District</label>
+            <input type="text" pInputText formControlName="district">
+        </div>
+        <div>
+            <label for="">Password</label>
+            <input type="password" pInputText formControlName="password">
+        </div>
+        <div>
+            <label for="">Repeat Password</label>
+            <input type="password" pInputText formControlName="passwordRepeat">
+        </div>
+    </form>
+    <button (click)="submit()">Submit</button>
+</div>
+

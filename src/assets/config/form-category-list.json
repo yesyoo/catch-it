@@ -85,5 +85,20 @@
         "city",
         "district",
         "img"
+    ],
+    "registration": [
+        "user-name",
+        "user-lastname",
+        "user-login",
+        "user-email",
+        "city",
+        "user-password",
+        "user-password-repeat"
+
+    ],
+    "authorization": [
+        "user-login",
+        "user-password"
+
     ]
 }

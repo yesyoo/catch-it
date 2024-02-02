@@ -1,7 +1,9 @@
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { DealType } from 'src/app/interfaces/deal-type';
+import { Deal } from 'src/app/interfaces/deal-type';
+import { AuthInterceptor } from 'src/app/services/auth-interceptor/auth-interceptor';
 
 @Component({
   selector: 'app-dealtype-select',
@@ -10,7 +12,8 @@ import { DealType } from 'src/app/interfaces/deal-type';
   standalone: true,
   imports: [
     SelectButtonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class DealtypeSelectComponent implements OnInit {
@@ -25,20 +28,20 @@ export class DealtypeSelectComponent implements OnInit {
     this.deal = [
       {
         label: "Donate",
-        value: "donate"
+        type: "donate"
       },
       {
         label: "Request",
-        value: "request"
+        type: "request"
       },
       {
         label: "Exchange",
-        value: "exchange"
+        type: "exchange"
       }
     ];
     this.selectedDeal= this.deal[0]
   };
-  changeDeal(ev: {ev: Event, value: {label: string, value: DealType}}): void {
+  changeDeal(ev: {ev: Event, value: {label: string, type: Deal}}): void {
     this.updateDealType.emit(ev)
   };
 

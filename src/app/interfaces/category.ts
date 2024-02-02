@@ -1,4 +1,4 @@
-export type CategoryType = 
+export type Collection = 
   'personal-shoes' 
 | 'personal-clothes' 
 | 'personal-bags' 
@@ -7,7 +7,7 @@ export type CategoryType =
 | 'pets-all'
 | 'home-all'
 
-export type SubcategoryType =
+export type Category =
   'adult-male-shoes' 
 | 'adult-male-clothes' 
 | 'adult-female-clothes' 

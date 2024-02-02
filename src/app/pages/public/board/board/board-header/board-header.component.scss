@@ -1,0 +1,15 @@
+.board-header {
+    position: relative;
+    margin-bottom: 50px;
+};
+
+.board-header-top {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+};
+
+.board-header-bottom {
+    position: absolute;
+    top: 60px;
+}
