@@ -5,7 +5,6 @@
 
     <div class="modal-component">
         <ng-content></ng-content> 
-        <button class="close btn" (click)="close()">x</button>
         <div *ngIf="modalClose" class="modal-close">
             <p>{{messageText}}</p>
             <button (click)="closeModal()">да</button>

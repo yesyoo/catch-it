@@ -22,7 +22,11 @@
       "es2020",
       "dom"
     ],
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "paths": {
+      
+      "@img/*": ["./src/assets/img*"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

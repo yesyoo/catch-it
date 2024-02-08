@@ -9,6 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConfigFormsService } from './services/config/config-forms/config-forms.service';
 import { AuthInterceptor } from './services/auth-interceptor/auth-interceptor';
 import { UserService } from './services/user/user.service';
+import { AuthService } from './services/auth/auth.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { UserService } from './services/user/user.service';
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp, 
-      deps: [ConfigFormsService],
+      deps: [ConfigFormsService, AuthService],
       multi: true
     },
     UserService
@@ -39,6 +40,7 @@ import { UserService } from './services/user/user.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-function initializeApp(config: ConfigFormsService, user: UserService) {
+function initializeApp(config: ConfigFormsService, user: AuthService) {
+  user.getUserIdFromLocalStorage()
   return () => config.loadPromise().then(() => {});
 }

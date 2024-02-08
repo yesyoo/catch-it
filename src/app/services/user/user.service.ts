@@ -11,6 +11,20 @@ export class UserService {
   user: IUser | null
 
   constructor(private rest: UserRestService) { }
+ 
+  getUserPromise(): Promise<any> {
+    return new Promise((res, rej) => {
+      if(this.user) {
+        res(this.user)
+      } 
+      if(!this.user) {
+        setTimeout(() => {
+          if(this.user) res(this.user)
+          else rej()
+        }, 100)
+      }
+    })
+  };
 
   getUserId(): string | null {
     const user = localStorage.getItem('user')
@@ -22,7 +36,7 @@ export class UserService {
 
   setUser(data: IUserResponse) {
     this.user = {
-      id: data.userId,
+      id: data.user,
       username: data.username,
       city: data.city,
       district: data.district,
@@ -36,12 +50,12 @@ export class UserService {
     return this.user ? this.user : null
   };
 
-  getUserById(userId: string): Observable<IUserResponse> {
-    return this.rest.getUserById(userId)
+  getUserById(id: string): Observable<IUserResponse> {
+    return this.rest.getUserById(id)
   };
 
-  _getUserById(userId: string): Observable<any> {
-    return this.rest._getUserById(userId)
+  _getUserById(id: string): Observable<any> {
+    return this.rest._getUserById(id)
   };
 
 

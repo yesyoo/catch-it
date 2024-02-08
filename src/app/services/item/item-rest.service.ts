@@ -12,23 +12,35 @@ export class ItemRestService {
 
   constructor(private http: HttpClient) { }
 
-  postItem(path: string, data: IPostItemData): Observable<any> {
-    return this.http.post(`http://localhost:3003/items/${path}`, data)
+  postItem(data: FormData): Observable<any> {
+    return this.http.post(`http://localhost:3003/items`, data)
   };
 
-  getById(itemId: string): Observable<any> {
-    return this.http.get(`http://localhost:3003/items?_id=${itemId}`)
+  getById(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/items/id?id=${id}`)
   };
 
-  getItemsByParams(params: any): Observable<any> {
-    return this.http.get(`http://localhost:3003/items?${params}`)
+  getByParams(params: any): Observable<any> {
+    return this.http.get(`http://localhost:3003/items/params?${params}`)
   };
 
-  getAllItemsByUserId(userId: string): Observable<any> {
-    return this.http.get(`http://localhost:3003/items/user?userId=${userId}`)
-  }
-  deleteItemById(itemId: string, subcategoryType: string) : Observable<any> {
-    return this.http.delete(`http://localhost:3003/items/delete?id=${itemId}&subcategoryType=${subcategoryType}`)
+  getByUserIdOwner(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/items/user?id=${id}`)
+  };
+  getByUserIdUsers(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/items/users?id=${id}`)
+  };
+
+  deleteById(id: string, collection: string): Observable<any> {
+    return this.http.delete(`http://localhost:3003/items/delete?id=${id}&collection=${collection}`)
+  };
+
+  deleteAllInCollection(collection: string): Observable<any> {
+    return this.http.delete(`http://localhost:3003/items/all?collection=${collection}`)
+  };
+
+  updateItemByParams(data: {id: string, collection: string, params: string}): Observable<any> {
+    return this.http.patch(`http://localhost:3003/items/update`, data)
   }
 
 }

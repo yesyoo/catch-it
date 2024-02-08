@@ -1,5 +1,80 @@
-.modal-card {
+.modal-container {
+    position: relative;
+};
+.card-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+};
+.img-container {
     width: 400px;
-    height: 300px;
-    background: rgb(255, 255, 197);
+    height: 500px;
+    background: rgb(255, 255, 255);
+
+}
+img {
+    width: 400px;
+    height: 500px;
+    object-fit: cover;
+};
+.data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+};
+.item-title {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.item-options {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    color: rgb(133, 133, 133);
+};
+
+.item-location {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.card-controls-btn {
+    margin-left: 5px;
+    border: 2px solid rgb(185, 173, 173);
+}
+.card-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.card-toast {
+    position: absolute;
+    text-align: center;
+    align-items: center;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 60px;
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 2px solid rgb(131, 131, 131);
+}
+.user-btn {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: rgba(0, 247, 255, 0.103);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px solid rgba(63, 63, 63, 0.685);
 }

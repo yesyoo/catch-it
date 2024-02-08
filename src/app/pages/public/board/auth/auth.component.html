@@ -1,19 +1,28 @@
+<p-dialog [closable]="false" 
+          [dismissableMask]="true" 
+          [modal]="true" 
+          [(visible)]="display"
+          (onHide)="onHide()"
+          header="Title">
 <div class="auth-container">
     <div class="auth-header">
-        <div (click)="changeFormType()">Login</div>
-        <div (click)="changeFormType()">Sign up</div>
+        <div (click)="changeFormType('authorization')">Login</div>
+        <div (click)="changeFormType('registration')">Sign up</div>
     </div>
-    <form *ngIf="formType === 'authorization'" [formGroup]="formAuth">
+    <form *ngIf="type === 'authorization'" [formGroup]="formAuth">
         <div>
             <label for="">Email</label>
-            <input type="text" pInputText formControlName="email">
+            <input type="text" pInputText formControlName="email" pInputText>
         </div>
         <div>
             <label for="">Passsword</label>
             <input type="password" pInputText formControlName="password">
         </div>
     </form>
-    <form *ngIf="formType === 'registration'" [formGroup]="formReg">
+    <button *ngIf="type === 'authorization'" (click)="submit(type)" [disabled]="!formAuth.valid">Submit</button>
+    
+
+    <form *ngIf="type === 'registration'" [formGroup]="formReg">
         <div>
             <label for="">Email</label>
             <input type="text" pInputText formControlName="email">
@@ -38,7 +47,10 @@
             <label for="">Repeat Password</label>
             <input type="password" pInputText formControlName="passwordRepeat">
         </div>
+        
     </form>
-    <button (click)="submit()">Submit</button>
+    <button *ngIf="type === 'registration'" (click)="submit(type)" [disabled]="!formReg.valid">Submit</button>
+    
+    
 </div>
-
+</p-dialog>

@@ -72,6 +72,6 @@ export class BoardHeaderFilterComponent implements OnInit, OnChanges {
                     .replace(/"/g, '')
                     .replace(/,/g, '&')
                     .replace(/:/g, '=')
-    this.updateFilterParamsRequest.emit(`subcategoryType=${this.category}&${res}`)
+    this.updateFilterParamsRequest.emit(`category=${this.category}&${res}`)
   };
 }

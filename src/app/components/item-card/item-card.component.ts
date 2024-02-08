@@ -43,7 +43,7 @@ export class ItemCardComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.item = this.board.getCard()
+    this.item = this.board.getSelectedCard()
     console.log('карты вызвана', this.item)
 
     this.user = this.userService.getUser()

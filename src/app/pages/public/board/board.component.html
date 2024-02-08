@@ -1,10 +1,15 @@
-<div class="button-auth">
-    <button (click)="auth()" class="btn btn-success">{{btnLabel}}</button>
-</div>
 <div class="board-container">
-    <div class="board">
-        <app-board-header></app-board-header>
-        <app-board-items></app-board-items>
+    <div class="board-header-container">
+        <app-board-header *ngIf="showBoardHeader"></app-board-header>
         <router-outlet></router-outlet>
     </div>
+    <div class="board-cards">
+        <app-board-items></app-board-items>
+    </div>
+    
 </div>
+
+<button (click)="auth()" class="btn btn-success button-auth">{{button}}</button>
+
+
+

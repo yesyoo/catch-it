@@ -25,7 +25,6 @@ export interface IItem {
     city: string,
     district?: string
     delivery?: Delivery,
-    img?: string,
 };
 export interface IPersonalClothes {
     type: ClothesType,
@@ -33,7 +32,7 @@ export interface IPersonalClothes {
     season: Season,
     color: Color,
     gender?: string,
-    age?: string
+    adult?: boolean
 };
 export interface IPersonalShoes {
     type: ShoesType,
@@ -41,11 +40,11 @@ export interface IPersonalShoes {
     season: Season,
     color: Color,
     gender?: string,
-    age?: string
+    adult?: boolean
 };
 
 export interface IPostItemData {
-    userId: string,
+    user: string,
     collection: Collection,
     category: Category,
     deal: Deal,

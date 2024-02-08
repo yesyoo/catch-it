@@ -69,22 +69,19 @@
         "amount",
         "city",
         "district",
-        "delivery",
-        "img"
+        "delivery"
     ],
     "request": [
         "title",
         "description",
         "city",
-        "district",
-        "img"
+        "district"
     ],
     "exchange": [
         "title",
         "description",
         "city",
-        "district",
-        "img"
+        "district"
     ],
     "registration": [
         "user-name",

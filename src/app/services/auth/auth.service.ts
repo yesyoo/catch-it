@@ -10,13 +10,35 @@ import { IUserReg } from '../../interfaces/user';
 })
 export class AuthService {
 
-  userIsAuth: boolean
+  private rootPath: string = "" || "home";
+  ID: string;
 
   constructor(private rest: AuthRestService) { }
 
-  userState(data: boolean): boolean {
-    return this.userIsAuth = data
+  checkRole(id: string): Observable<any> {
+    return this.rest.checkRole(id)
   }
+
+  getUserIdFromLocalStorage(): string  {
+    const authUser = localStorage.getItem('user')
+    if(authUser) {
+      this.rootPath = 'home'
+      console.log('user:', JSON.parse(authUser)['id'])
+      return this.ID = JSON.parse(authUser)['id']
+    } else {
+      this.rootPath = ''
+      console.log('user not found')
+      return this.ID = ''
+    }
+  };
+
+  setRootPath(data: "" | "home") {
+      this.rootPath = data
+  };
+
+  getRootPath(): string {
+    return this.rootPath
+  };
 
   register(data: IUserReg): Observable<any> {
     return this.rest.register(data)
@@ -28,25 +50,28 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('user')
+    this.getUserIdFromLocalStorage()
   };
 
-  setToken(userId: string, access_token: string): void {
-    const user = {id:userId, access_token: access_token}
+  setToken(userId: string, access_token: string, role: string): void {
+    const user = {id:userId, access_token: access_token, role: role}
     localStorage.setItem(`user`, JSON.stringify(user))
+    this.getUserIdFromLocalStorage()
   };
 
-
-  getToken(): string | null {
+  getToken(): string  {
     let access_token: string
     const user = localStorage.getItem(`user`)
     if(user) {
       access_token = JSON.parse(user).access_token
       return access_token
-    } else return null
+    } else return ''
   };
 
-  deleteUser(userId: string): Observable<any> {
-    return this.rest.deleteUser(userId)
+  deleteUser(id: string): Observable<any> {
+    this.logout()
+    this.getUserIdFromLocalStorage()
+    return this.rest.deleteUser(id)
   };
   
   

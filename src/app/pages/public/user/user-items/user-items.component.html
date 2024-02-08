@@ -1,1 +1,18 @@
-<p>user-items works!</p>
+<div class="user-items" *ngIf="items">
+    <div class="item" *ngFor="let item of items">
+        <!-- <div>{{item.item.title}}</div> -->
+        <div class="item-content">
+            <div>
+                <img src="http://localhost:3003/public/{{item.img}}" alt="">
+            </div>
+            <div class="item-data">
+                <div class="item-date">20h</div>
+                <div class="item-date">hidden</div>
+
+            </div>
+
+        </div>
+        
+    </div>
+</div>
+

@@ -6,6 +6,8 @@ import { UserService } from '../../../services/user/user.service';
 import { IUser } from '../../../interfaces/user';
 import { IPostItemData } from '../../../interfaces/items';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-board',
@@ -13,26 +15,35 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  btnLabel: string = 'Login'
 
-  items: IPostItemData[];
-  user: IUser;
-
-  constructor(private boardService: BoardService,
-              private userService: UserService,
-              private itemService: ItemService,
-              private authService: AuthService) { }
+  private ID: string;
+  public button: 'Logout' | 'Login';
+  public showBoardHeader: boolean;
+  
+  constructor(private authService: AuthService,
+              private router: Router,
+              private boardService: BoardService) { }
 
   ngOnInit(): void {
-    const id = this.userService.getUserId()
-    if(id) {
-      this.btnLabel = 'Logout'
-    } else this.btnLabel = 'Login'
-  }
-  auth() {
-    if(this.btnLabel === 'Logout') {
+    this.ID = this.authService.getUserIdFromLocalStorage()
+    this.router.url.includes('user') ? this.showBoardHeader = false : this.showBoardHeader = true
+    this.router.events.subscribe((event: Event) => {
+      event instanceof NavigationEnd && event.url.includes('user') ? this.showBoardHeader = false : this.showBoardHeader = true
+    });
+    if(this.ID) {
+      this.button = 'Logout'
+      this.authService.setRootPath('home')
+    } else {
+      this.button = 'Login'
+      this.authService.setRootPath('')
+    }
+  };
+
+  auth(): void {
+    this.boardService.showAuthModal(true)
+    if(this.ID) {
       this.authService.logout()
-      this.boardService.navigate('/auth')
-    } else  this.boardService.navigate('/auth')
+    }
+    this.router.navigateByUrl('/auth')
   };
 }

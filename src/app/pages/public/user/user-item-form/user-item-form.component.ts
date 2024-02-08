@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Category, Collection } from 'src/app/interfaces/category';
 import { Deal } from 'src/app/interfaces/deal-type';
 import { IPostItemData } from 'src/app/interfaces/items';
 import { IUser } from 'src/app/interfaces/user';
+import { BoardService } from 'src/app/services/board/board.service';
 import { ConfigFormsService } from 'src/app/services/config/config-forms/config-forms.service';
 import { ItemService } from 'src/app/services/item/item.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -40,12 +40,17 @@ export class UserItemFormComponent implements OnInit {
   postData: IPostItemData
   @Output() closeForm: EventEmitter<boolean> = new EventEmitter()
 
+  display: boolean
+  imgFile: File
+
   constructor(private formBuilder: FormBuilder,
               private itemService: ItemService,
               private modalService: ModalService,
-              private userService: UserService ) { }
+              private userService: UserService,
+              private board: BoardService) { }
 
   ngOnInit(): void {
+    this.display = true
     this.user = this.userService.getUser()
     this.modalService.showModal$.subscribe(data => this.show = data )
     this.categoryConfig = ConfigFormsService.forms
@@ -60,6 +65,8 @@ export class UserItemFormComponent implements OnInit {
     this.addFormControls(this.firstForm, this.firstFormFields)
     this.form.addControl(this.secondFormName, this.secondForm)
     this.addFormControls(this.secondForm, this.secondFormFields)
+
+    console.log('this.user', this.user)
   };
 
   updateFormInputs(type: Deal | Category): any[] {
@@ -123,49 +130,23 @@ export class UserItemFormComponent implements OnInit {
     this.addFormControls(this.secondForm, this.secondFormFields)
   };
 
-  preview() {
-    if(this.user) {
-        const firstForm = {
-          title: this.form.get(this.firstFormName)?.value.title,
-          description: this.form.get(this.firstFormName)?.value.description,
-          condition: this.form.get(this.firstFormName)?.value.condition || null,
-          amount: this.form.get(this.firstFormName)?.value.amount || null,
-          city: this.form.get(this.firstFormName)?.value.city,
-          district: this.form.get(this.firstFormName)?.value.district,
-          delivery: this.form.get(this.firstFormName)?.value.delivery || null,
-          img: this.form.get(this.firstFormName)?.value.img || null,
-        };
-        let data: IPostItemData = {
-          userId: this.user.id,
-          collection: this.path,
-          category: this.category,
-          deal: this.deal,
-          item: firstForm,
-          itemCat: this.form.get(this.secondFormName)?.value
-          };
-        if(this.category.includes('adult') || this.category.includes('child')) {
-          if(this.category.includes('female')) {
-            data.itemCat['gender'] = 'female'
-          } else if(this.category.includes('male')) {
-            data.itemCat['gender'] = 'male'
-          } else { 
-            data.itemCat['gender'] = 'genderless'
-          }
-          this.category.includes('adult') ?
-          data.itemCat['age'] = 'adult' : data.itemCat['age'] = 'child'
-        };
-        this.postData = data
-
-        this.renderPreviewCard = {
-          userId: this.postData.userId,
-          deal: this.postData.deal,
-          item: this.postData.item,
-          itemCat: this.postData.itemCat
-        }
-        console.log(this.postData)
-        this.showPreview = true
-      };
-    this.itemService.postItem(this.path, this.postData).subscribe(data => console.log('item saved'))  
+  submit() {    
+    if(this.user) { 
+      let formData = new FormData()
+      formData.append('user', this.user.id)
+      formData.append('collection', this.path)
+      formData.append('category', this.category)
+      formData.append('deal', this.deal)
+      formData.append('item', JSON.stringify(this.form.get(this.firstFormName)?.value))
+      formData.append('cat', JSON.stringify(this.form.get(this.secondFormName)?.value))
+      formData.append('img', this.imgFile)
+ 
+      this.itemService.postItem(formData).subscribe(data => {
+        this.board.getUserStorage().unshift(data)
+        
+        this.itemService.updateLocalStorageItemsList(data)
+      })
+    };
   };
    
   onSubmit(): any {
@@ -185,4 +166,12 @@ export class UserItemFormComponent implements OnInit {
       this.showPreview = false
     }
   };
+
+  selectFile(ev: any) {
+    if(ev.target.files.length > 0) {
+      const file = ev.target.files[0];
+      this.imgFile = file
+      console.log(this.imgFile)
+    };
+  }
 }

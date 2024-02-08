@@ -11,6 +11,10 @@ export class AuthRestService {
 
   constructor(private http: HttpClient) { }
 
+  checkRole(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/users/admin/${id}`)
+  }
+
   register(data: IUserReg): Observable<any> {
     console.log('reg =>')
     return this.http.post('http://localhost:3003/users/register', data)

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { IUserReg } from '../../../../interfaces/user';
+import { BoardService } from '../../../../services/board/board.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,60 +11,70 @@ import { IUserReg } from '../../../../interfaces/user';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  formType: 'authorization' | 'registration' = 'authorization'
+  type: 'authorization' | 'registration' = 'authorization'
   formAuth: FormGroup;
   formReg: FormGroup;
+  display: boolean = true
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private boardService: BoardService) { }
 
   ngOnInit(): void {
-    this.formAuth = new FormGroup({})
+    this.boardService.authModal$.subscribe(data => this.display = data)
     this.formAuth = new FormGroup(
       {
-        email: new FormControl('', {validators: Validators.required}),
-        password: new FormControl('', {validators: Validators.required}),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [Validators.required]),
       }
     );
     this.formReg = new FormGroup(
       {
-        email: new FormControl('', {validators: Validators.required}),
-        username: new FormControl('', {validators: Validators.required}),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        username: new FormControl('', [Validators.required]),
         city: new FormControl(''),
         district: new FormControl(''),
-        password: new FormControl('', {validators: Validators.required}),
-        passwordRepeat: new FormControl('', {validators: Validators.required}),
+        password: new FormControl('', [Validators.required]),
+        passwordRepeat: new FormControl('', [Validators.required]),
       }
     );
-  }
-
-  changeFormType() {
-    this.formType === 'authorization' ? this.formType = 'registration' : this.formType = 'authorization'
+  };
+  
+  changeFormType(type: 'authorization' | 'registration') {
+    if(this.type !== type) {
+      this.type = type
+    }
   };
 
-  submit() {
-    if(this.formType === 'authorization') {
+  submit(type: string) {
+    if(type === 'authorization') {
       this.authService.login(this.formAuth.getRawValue()).subscribe(data => {
-        this.authService.setToken(data.id, data.access_token)
+        this.authService.setToken(data.id, data.access_token, data.role);
         setTimeout(() => {this.router.navigateByUrl('/home')}, 100)
-      })
+      });
+
     } else {
-      const reg = this.formReg.getRawValue()
-      if(reg.password === reg.passwordRepeat) {
+      const value = this.formReg.getRawValue()
+      if(value.password === value.passwordRepeat) {
         const postData: IUserReg = {
-          email: reg.email,
-          password: reg.password,
+          email: value.email,
+          password: value.password,
           userData: {
-            username: reg.username,
-            city: reg.city,
-            district: reg.district
+            username: value.username,
+            city: value.city,
+            district: value.district
           }
         }
-        this.authService.register(postData).subscribe(data => {
-          this.formType = 'authorization'
+        this.authService.register(postData).subscribe(() => {
+          this.type = 'authorization'
         })
-      } else { console.log('psw => |')}
+      } else { 
+        console.log('psw => | toast error')
+      }
     }
-  }
+  };
 
+  onHide() {
+    this.boardService.showAuthModal(false)
+  };
 }

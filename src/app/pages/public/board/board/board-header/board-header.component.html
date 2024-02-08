@@ -6,10 +6,11 @@
         </span>
         <app-dealtype-select (updateDealType)="updateDealParams($event)"></app-dealtype-select>
         <app-subcategory-select (updateCategoryType)="updateCategoryParams($event)"></app-subcategory-select>
+        <button class="btn btn-light" (click)="refresh()">Refresh</button>
         <button class="btn btn-light" (click)="openFilter()">Filter</button>
     </div>
     <div class="board-header-bottom">
-        <app-board-header-filter *ngIf="showFilter"
+        <app-board-header-filter *ngIf="!showFilter"
                                [show]="showFilter"
                                [collection]="collection"
                                [category]="category"

@@ -1,12 +1,30 @@
-.board-container {
-    padding: 30px;
-};
-.board {
-    background: rgb(71, 71, 71);
-    padding: 10px;
+@import 'variables';
+
+::-webkit-scrollbar {
+    width: 6px;
+    overflow-y: scroll;
+    background: rgb(26, 26, 26);
 }
+::-webkit-scrollbar-thumb {
+    background: rgb(53, 53, 53);
+};
+
+.board-header-container {
+    height: 120px;
+    width: 100%;
+};
+.board-container {
+    width: 75vw;
+    height: 80vh;
+    border-radius: 5px;
+    padding: 0 15px;
+};
+.board-cards {
+    overflow-y: scroll;
+    height: 700px;
+};
 .button-auth {
     position: fixed;
-    right: 10px;
-    top: 10px;
-}
+    right: 20px;
+    top: 20px;
+};

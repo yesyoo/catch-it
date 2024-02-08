@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PublicComponent } from './public.component';
-import { BoardModule } from './board/board.module';
-import { UserModule } from './user/user.module';
-import { AuthGuard } from '../../guards/auth/auth.guard';
+import { UnAuthGuard } from '../../guards/un-auth/un-auth.guard';
+
 
 const routes: Routes = [
   {
     path: "", component: PublicComponent,
+    canActivate: [UnAuthGuard],
     loadChildren: () => import('./board/board.module').then(m => m.BoardModule)
   },
   {
     path: "home", component: PublicComponent,
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+  },
+  {
+    path: "**", redirectTo: ''
   }
 ];
 

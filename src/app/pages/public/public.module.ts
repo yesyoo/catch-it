@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import {DialogModule} from 'primeng/dialog';
 
 
 @NgModule({
@@ -20,7 +21,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FormsModule,
     InputTextModule,
     InputNumberModule,
-    InputTextareaModule 
+    InputTextareaModule,
+    DialogModule
+
   ]
 })
 export class PublicModule { }

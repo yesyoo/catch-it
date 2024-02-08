@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PublicModule } from './pages/public/public.module';
+import { AdminGuard } from './guards/admin/admin.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./pages/public/public.module').then(m => m.PublicModule),
+    path: 'admin',
+    canActivate: [AdminGuard],
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
+    path: '',
+    loadChildren: () => import('./pages/public/public.module').then(m => m.PublicModule),
   }
-  // {
-  //   path: '**',
-  //   loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule)
-  // }
 ];
 
 @NgModule({

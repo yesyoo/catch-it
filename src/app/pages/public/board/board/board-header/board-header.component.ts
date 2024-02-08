@@ -32,18 +32,22 @@ export class BoardHeaderComponent implements OnInit {
   constructor(private itemService: ItemService,
               private board: BoardService) { }
 
-  // как вариант могу делать реквесты напрямую из хедера и эмитить значение в борду
 
   ngOnInit(): void {
-    this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => {
-      this.board.setCards(data)
-
+    this.board.checkStorage().then(res => {
+      if(res === false) {
+        this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => this.board.setCards(data))
+      }
     })
   };
 
   path(): string {
     return `${this.dealParams}&${this.collectionParams}&${this.categoryParams}`
   };
+
+  refresh() {
+    this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => this.board.setCards(data))
+  }
   
   updateCategoryParams(ev: {ev: Event, value: {label: string, collection: Collection, category: Category}}): void {
     this.collection = ev.value.collection
@@ -52,7 +56,7 @@ export class BoardHeaderComponent implements OnInit {
     this.categoryParams = `category=${ev.value.category}`;
     this.itemService.getItemsByParams(this.path()).subscribe(data => {
       this.board.setCards(data)
-      // this.updateCards.emit(data)
+  
     })
   };
 
@@ -61,14 +65,14 @@ export class BoardHeaderComponent implements OnInit {
     this.dealParams = `deal=${ev.value.type}`;
     this.itemService.getItemsByParams(this.path()).subscribe(data => {
       this.board.setCards(data)
-      // this.updateCards.emit(data)
+      console.log('deal update')
+
     })
   };
 
   updateFilterParams(params: string): void {
     this.itemService.getItemsByParams(`${this.dealParams}&${this.collectionParams}&${params}`).subscribe(data => {
       this.board.setCards(data)
-      // this.updateCards.emit(data)
     })
  };
 

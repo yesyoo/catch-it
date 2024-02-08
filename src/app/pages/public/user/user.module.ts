@@ -13,6 +13,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
+import { BoardModule } from '../board/board.module';
+import { BoardComponent } from '../board/board.component';
 
 
 @NgModule({
@@ -32,8 +35,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     DropdownModule,
     InputTextModule,
     InputNumberModule,
-    InputTextareaModule 
-  ]
+    InputTextareaModule,
+    DialogModule
+  ],
+
  
 })
 export class UserModule { }

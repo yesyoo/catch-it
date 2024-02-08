@@ -27,7 +27,7 @@ export interface IUserResponse {
     district?: string,
     description?: string,
     img: string,
-    userId: string
+    user: string
 }
 
 export type UserType = 'owner' | 'user' | 'unknow' | 'preview'

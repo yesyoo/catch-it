@@ -1,3 +1,20 @@
-<div *ngIf="item" class="modal-user">
-    <div>{{item.username}}</div>
+<div class="board-user-container">
+    <div (click)="closeUserPage()" class="close">-- back -></div>
+
+    <div *ngIf="!owner" class="user user-container">
+        <div class="user-img"></div>
+        <div class="user-data" *ngIf="selectedUser">
+            <div>123</div>
+            <div>{{selectedUser.username}}<span style="margin-left: 10px;">4.9</span></div>
+            <div>{{selectedUser.city}}<span style="margin-left: 10px;" *ngIf="selectedUser.district">{{selectedUser.district}}</span></div>
+        </div>
+    </div>
+
+    <div *ngIf="owner" class="owner user-container">
+        <div>Select</div>
+        <div>Select all</div>
+    </div>
+
+
 </div>
+<router-outlet></router-outlet>

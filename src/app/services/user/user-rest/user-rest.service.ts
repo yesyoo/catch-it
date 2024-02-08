@@ -10,12 +10,12 @@ export class UserRestService {
 
   constructor(private http: HttpClient) { }
 
-  _getUserById(userId: string): Observable<any> {
-    return this.http.get(`http://localhost:3003/users/id?id=${userId}`)
+  _getUserById(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/users/id?id=${id}`)
   };
 
-  getUserById(userId: string): Observable<any> {
-    return this.http.get(`http://localhost:3003/users/user-data?userId=${userId}`)
+  getUserById(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/users/user-data?user=${id}`)
   }
  
 }

@@ -1,3 +1,54 @@
-.item-card {
-    background: rgb(82, 82, 82);
+.card {
+    background: rgb(27, 27, 27);
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    color: rgb(173, 173, 173);
+    font-size: 0.9rem;
 }
+.card-title {
+    background: rgb(32, 32, 32);
+    position: relative;
+}
+.hidden {
+    color: grey;
+    position: absolute;
+    right: 6px;
+};
+
+.card:hover {
+    background: rgb(31, 31, 31);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.199);
+}
+.card-content {
+    display: flex;
+    flex-direction: row;
+}
+.card-img {
+    height: 165px;
+    width: 150px;
+ 
+}
+.card-img img {
+    width:150px;
+    height:165px;
+    object-fit:cover;
+ }
+.card-data {
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.cards-container {
+    border-radius: 5px;
+}
+.card-content {
+    display: flex;
+}
+
+
+
+
+
+ 
