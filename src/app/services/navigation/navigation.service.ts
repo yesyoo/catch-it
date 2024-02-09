@@ -19,7 +19,6 @@ export class NavigationService {
   };
 
   profile(): void {
-    
     this.router.navigateByUrl(`${this.rootPath}/user/${this.authService.ID}`)
   }
 
@@ -39,8 +38,12 @@ export class NavigationService {
       this.router.navigateByUrl(`${this.rootPath}/item/${item}`)
     }
   };
-  isUserPage(): boolean {
+  matchUsersId(): boolean {
     if(this.router.url.includes('user')) return true 
     else return false
   };
+  admin() {
+    this.router.navigateByUrl(`/admin`)
+
+  }
 }

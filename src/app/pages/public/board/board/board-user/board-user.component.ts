@@ -4,8 +4,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { BoardService } from 'src/app/services/board/board.service';
 import { ItemService } from 'src/app/services/item/item.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { IUser, IUserResponse } from '../../../../../interfaces/user';
-import { IPostItemData } from '../../../../../interfaces/items';
 import { NavigationService } from '../../../../../services/navigation/navigation.service';
 
 @Component({
@@ -17,7 +15,7 @@ export class BoardUserComponent implements OnInit, OnDestroy {
 
   private authID: string;
   selectedUser: any;
-  owner: boolean;
+  type: 'owner' | 'visitor';
 
   constructor(private authService: AuthService,
               private board: BoardService,
@@ -28,6 +26,7 @@ export class BoardUserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const id = this.board.getSelectedUserId()
+    console.log('id', id)
     if(id) {
       // from click()
       this.checkOwner(id)
@@ -40,17 +39,17 @@ export class BoardUserComponent implements OnInit, OnDestroy {
   checkOwner(id: string) {
     this.authID = this.authService.getUserIdFromLocalStorage()
     if(!this.authID) {
-      this.owner = false
+      this.type = 'visitor'
       this.getUserDataDB(id)
     } else {
       if(this.authID !== id) {
-        this.owner = false
+        this.type = 'visitor'
         this.getUserDataDB(id)
       } else {
-        this.owner = true
+        this.type = 'owner'
         this.userService.getUserPromise().then(user => {
           this.selectedUser = user;
-          this.board.changeBoardType('owner')
+          this.board.updateCardListFor('owner')
          })
       }
     }
@@ -63,8 +62,9 @@ export class BoardUserComponent implements OnInit, OnDestroy {
     this.itemService.getByUserId(id).subscribe(cards => {
       if(Array.isArray(cards)) {
         // cards.sort(function(a, b) { return b.date - a.date })
-        this.board.changeBoardType('users')
-        this.board.setCards(cards)
+        this.board.updateCardListFor('visitor')
+        this.board.setVisitorCards(cards)
+        this.board.setAnyUserCards(cards)
       }
     })   
   };
@@ -74,8 +74,12 @@ export class BoardUserComponent implements OnInit, OnDestroy {
   };
 
   closeUserPage() {
-    this.board.changeBoardType('users')
+    this.board.updateCardListFor('visitor')
     this.navigationService.home()
   };
+
+  addCheckbox() {
+    
+  }
 
 }

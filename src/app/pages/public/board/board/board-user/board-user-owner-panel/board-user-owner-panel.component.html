@@ -1,0 +1,20 @@
+<div class="user-container">
+    <button class="btn-back" (click)="back()">back</button>
+    <div class="select-line">
+        <span class="btn-access" *ngIf="checkbox">
+            <button class="btn-select" (click)="setAccessValue(false)">Hide</button>
+            <span class="btn-divide">|</span>
+            <button class="btn-select" (click)="setAccessValue(true)">Unhide</button>
+            <span class="btn-divide">|</span>
+            <button class="btn-select">Delete</button>
+        </span>
+        
+
+        <button class="btn-select" *ngIf="checkbox" (click)="selectAll()">Select all</button>
+        <div *ngIf="checkbox"> -- </div>
+        <button class="btn-select" (click)="select()">Select</button>
+    </div>
+        
+        
+</div>
+

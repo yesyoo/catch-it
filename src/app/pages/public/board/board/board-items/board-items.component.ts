@@ -12,26 +12,34 @@ import { NavigationService } from 'src/app/services/navigation/navigation.servic
 export class BoardItemsComponent implements OnInit {
   items: any[];
   itemsReverse: any[];
-  type: 'users' | 'owner' = 'users'
+  type: 'visitor' | 'owner' | 'anyUser' = 'owner'
+
+  showCheckbox: boolean;
 
   constructor(private board: BoardService,
               private goTo: NavigationService) { }
 
   ngOnInit(): void {
     
-    
-    console.log('boardItems init and subscribe boardType changes =>')
-    this.board.boardType$.subscribe(type => {
-      if(type === 'users') {
-        this.items = this.board.getStorage()
+    this.board.storageType$.subscribe(storageType => {
+      if(storageType === 'visitor') {
+        this.type = 'visitor'
+        this.items = this.board.getVisitorStorage()
         this.itemsReverse = this.items.sort(function(a, b) { return b.date - a.date })
-        console.log('get users cards', this.items)
       }
-      if(type === 'owner') {
-        this.items = this.board.getUserStorage()
+      if(storageType === 'owner') {
+        this.type = 'owner'
+        this.items = this.board.getOwnerStorage()
         this.itemsReverse = this.items.sort(function(a, b) { return b.date - a.date })
-        console.log('get owner cards', this.items)
       }
+
+      ////
+      // if(storageType === 'anyUser') {
+      //   this.type = 'visitor'
+      //   this.items = this.board.getAnyUserStorage()
+      //   this.itemsReverse = this.items.sort(function(a, b) { return b.date - a.date })
+      // }
+      ///
     });
   };
 

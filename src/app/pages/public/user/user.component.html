@@ -9,12 +9,17 @@
                     <div>4.7</div>
                 </div>
             </div>
+            <div *ngIf="isAdmin" 
+                  style="margin-bottom:20px; color: rgb(138, 138, 138)" 
+                  class="btn"
+                  (click)="goAdmin()">Admin page =></div>
     
             <div class="user-nav">
                 <div>@</div>
                 <div>3</div>
                 <div (click)="openSettings()">#</div>
             </div>
+            
             
             <app-user-item-form *ngIf="showForm" (closeThisForm)="this.showForm = false"></app-user-item-form>
             <app-user-items></app-user-items>

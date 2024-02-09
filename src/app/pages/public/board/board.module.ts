@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BoardRoutingModule } from './board-routing.module';
 import { BoardComponent } from './board.component';
-import { BoardHeaderComponent } from './board/board-header/board-header.component';
+
 import { BoardItemsComponent } from './board/board-items/board-items.component';
 import { BoardUserComponent } from './board/board-user/board-user.component';
 import { BoardCardComponent } from './board/board-card/board-card.component';
@@ -18,6 +18,12 @@ import { ModalComponent } from '../../modal/modal.component';
 import { BoardCardOwnerPanelComponent } from './board/board-card/board-card-owner-panel/board-card-owner-panel.component';
 import { DialogModule } from 'primeng/dialog';
 import { ItemCardComponent } from 'src/app/components/item-card/item-card.component';
+import { BoardUserVisitorPanelComponent } from './board/board-user/board-user-visitor-panel/board-user-visitor-panel.component';
+import { BoardUserOwnerPanelComponent } from './board/board-user/board-user-owner-panel/board-user-owner-panel.component';
+import { BoardCardVisitorPanelComponent } from './board/board-card/board-card-visitor-panel/board-card-visitor-panel.component';
+import { BoardHeaderComponent } from './board/board-header/board-header.component';
+import { BoardItemsOwnerComponent } from './board/board-items/board-items-owner/board-items-owner.component';
+import { BoardItemsVisitorComponent } from './board/board-items/board-items-visitor/board-items-visitor.component';
 
 
 @NgModule({
@@ -29,7 +35,12 @@ import { ItemCardComponent } from 'src/app/components/item-card/item-card.compon
     BoardCardComponent,
     BoardHeaderFilterComponent,
     AuthComponent,
-    BoardCardOwnerPanelComponent
+    BoardCardOwnerPanelComponent,
+    BoardUserVisitorPanelComponent,
+    BoardUserOwnerPanelComponent,
+    BoardCardVisitorPanelComponent,
+    BoardItemsOwnerComponent,
+    BoardItemsVisitorComponent
   ],
   imports: [
     CommonModule,

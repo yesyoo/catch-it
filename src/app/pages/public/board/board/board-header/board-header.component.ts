@@ -32,11 +32,14 @@ export class BoardHeaderComponent implements OnInit {
   constructor(private itemService: ItemService,
               private board: BoardService) { }
 
-
   ngOnInit(): void {
-    this.board.checkStorage().then(res => {
-      if(res === false) {
-        this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => this.board.setCards(data))
+    this.board.checkVisitorStorage().then(res => {
+      if(!res) {
+        this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => {
+          this.board.setVisitorCards(data)
+        })
+      } else {
+        this.board.updateCardListFor('visitor')
       }
     })
   };
@@ -46,7 +49,7 @@ export class BoardHeaderComponent implements OnInit {
   };
 
   refresh() {
-    this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => this.board.setCards(data))
+    this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => this.board.setVisitorCards(data))
   }
   
   updateCategoryParams(ev: {ev: Event, value: {label: string, collection: Collection, category: Category}}): void {
@@ -55,7 +58,7 @@ export class BoardHeaderComponent implements OnInit {
     this.collectionParams = `collection=${ev.value.collection}`;
     this.categoryParams = `category=${ev.value.category}`;
     this.itemService.getItemsByParams(this.path()).subscribe(data => {
-      this.board.setCards(data)
+      this.board.setVisitorCards(data)
   
     })
   };
@@ -64,7 +67,7 @@ export class BoardHeaderComponent implements OnInit {
     this.deal = ev.value.type
     this.dealParams = `deal=${ev.value.type}`;
     this.itemService.getItemsByParams(this.path()).subscribe(data => {
-      this.board.setCards(data)
+      this.board.setVisitorCards(data)
       console.log('deal update')
 
     })
@@ -72,7 +75,7 @@ export class BoardHeaderComponent implements OnInit {
 
   updateFilterParams(params: string): void {
     this.itemService.getItemsByParams(`${this.dealParams}&${this.collectionParams}&${params}`).subscribe(data => {
-      this.board.setCards(data)
+      this.board.setVisitorCards(data)
     })
  };
 

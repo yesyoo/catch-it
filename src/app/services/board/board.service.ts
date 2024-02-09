@@ -8,71 +8,77 @@ import { ItemService } from '../item/item.service';
 })
 export class BoardService {
 
-  selectedCard: any
-  selectedUserId: string;
+  private selectedCard: any
+  private selectedUserId: string;
 
-  storage: any[] = [];
-  userStorage: any[] = [];
+  private visitorStorage: any[] = [];
+  private ownerStorage: any[] = [];
+  private anyUserStorage: any = [];
 
-  private cards: Subject<any> = new Subject()
-  readonly cards$ = this.cards.asObservable()
-
-  private userCards: Subject<any> = new Subject()
-  readonly userCards$ = this.userCards.asObservable()
+  private visitorCards: Subject<any> = new Subject()
+  readonly visitorCards$ = this.visitorCards.asObservable()
+  private ownerCards: Subject<any> = new Subject()
+  readonly ownerCards$ = this.ownerCards.asObservable()
+  private targetUserCards: Subject<any> = new Subject()
+  readonly targetUserCards$ = this.targetUserCards.asObservable()
 
   private user: Subject<boolean> = new Subject()
   readonly user$ = this.user.asObservable()
 
-  private boardType: Subject<'users' | 'owner'> = new Subject()
-  readonly boardType$ = this.boardType.asObservable()
+  private storageType: Subject<'visitor' | 'owner' | 'anyUser'> = new Subject()
+  readonly storageType$ = this.storageType.asObservable()
 
   private authModal: Subject<boolean> = new Subject()
   readonly authModal$ = this.authModal.asObservable()
 
 
-  constructor(private router: Router) { }
+  constructor() { }
 
-  checkStorage(): Promise<boolean> {
+  checkOwnerStorage(): Promise<boolean> {
     return new Promise((res) => {
-      if(Array.isArray(this.storage)) { this.storage.length <= 0 ? res(false) : res(true) }
+      if(Array.isArray(this.visitorStorage)) { this.visitorStorage.length <= 0 ? res(false) : res(true) }
     })
   };
 
-  checkUserStorage(): Promise<boolean> {
+  checkVisitorStorage(): Promise<boolean> {
     return new Promise((res) => {
-      if(Array.isArray(this.userStorage)) { this.userStorage.length <= 0 ? res(false) : res(true) }
+      if(Array.isArray(this.ownerStorage)) { this.ownerStorage.length <= 0 ? res(false) : res(true) }
     })
   };
 
-  changeBoardType(type: 'users' | 'owner') {
-    return this.boardType.next(type)
+  updateCardListFor(type: 'visitor' | 'owner' | 'anyUser') {
+    return this.storageType.next(type)
   }
 
-  setCards(data: any) {
-    this.storage = data;
-    this.boardType.next('users')
-    this.cards.next(data)
+  setVisitorCards(data: any) {
+    this.visitorStorage = data;
+    this.storageType.next('visitor')
+    this.visitorCards.next(data)
   };
 
-  setUserCards(data: any) {
-    this.userStorage = data;
-    // this.boardType.next('owner')
-    this.userCards.next(data)
+  setOwnerCards(data: any) {
+    this.ownerStorage = data;
+    this.ownerCards.next(data)
+  }
+  setAnyUserCards(data: any) {
+    this.anyUserStorage = data;
+    this.storageType.next(data)
   }
 
-  getStorage() {
-    return this.storage
+  getVisitorStorage() {
+    return this.visitorStorage
   };
 
-  getUserStorage() {
-    return this.userStorage
+  getOwnerStorage() {
+    return this.ownerStorage
   };
-
+  getAnyUserStorage() {
+    return this.anyUserStorage
+  }
 
   showAuthModal(data: boolean) {
     this.authModal.next(data)
   }
-
 
   showUser(data: boolean) {
     this.user.next(data)
@@ -92,10 +98,6 @@ export class BoardService {
 
   getSelectedUserId(): string | null {
     return this.selectedUserId
-  };
-
-  navigate(path: string) {
-    this.router.navigateByUrl(path)
   };
 
 }

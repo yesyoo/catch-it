@@ -1,0 +1,29 @@
+.user-container {
+    position:relative ;
+}
+button {
+    color: rgb(151, 151, 151);
+};
+
+button:hover {
+    color: rgb(146, 167, 161);
+}
+
+.btn-divide {
+    margin: 0 20px;
+}
+.btn-select, .btn-back  {
+    border: none;
+    background: none;
+}
+.btn-access {
+    margin-right: 40px;
+}
+.select-line{
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}

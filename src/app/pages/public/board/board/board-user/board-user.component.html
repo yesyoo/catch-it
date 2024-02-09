@@ -1,20 +1,7 @@
-<div class="board-user-container">
-    <div (click)="closeUserPage()" class="close">-- back -></div>
-
-    <div *ngIf="!owner" class="user user-container">
-        <div class="user-img"></div>
-        <div class="user-data" *ngIf="selectedUser">
-            <div>123</div>
-            <div>{{selectedUser.username}}<span style="margin-left: 10px;">4.9</span></div>
-            <div>{{selectedUser.city}}<span style="margin-left: 10px;" *ngIf="selectedUser.district">{{selectedUser.district}}</span></div>
-        </div>
-    </div>
-
-    <div *ngIf="owner" class="owner user-container">
-        <div>Select</div>
-        <div>Select all</div>
-    </div>
-
-
+<div *ngIf="type === 'visitor'" class="board-user-container">
+    <app-board-user-visitor-panel [user]="selectedUser" class="w-100"></app-board-user-visitor-panel>
+</div>
+<div *ngIf="type === 'owner'" class="board-user-container">
+    <app-board-user-owner-panel [user]="selectedUser" class="w-100"></app-board-user-owner-panel>
 </div>
 <router-outlet></router-outlet>

@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 import { BoardService } from 'src/app/services/board/board.service';
-import { ItemService } from 'src/app/services/item/item.service';
-import { UserService } from '../../../services/user/user.service';
-import { IUser } from '../../../interfaces/user';
-import { IPostItemData } from '../../../interfaces/items';
+
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { ThisReceiver } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-board',
@@ -29,6 +26,7 @@ export class BoardComponent implements OnInit {
     this.router.url.includes('user') ? this.showBoardHeader = false : this.showBoardHeader = true
     this.router.events.subscribe((event: Event) => {
       event instanceof NavigationEnd && event.url.includes('user') ? this.showBoardHeader = false : this.showBoardHeader = true
+      
     });
     if(this.ID) {
       this.button = 'Logout'
@@ -37,6 +35,7 @@ export class BoardComponent implements OnInit {
       this.button = 'Login'
       this.authService.setRootPath('')
     }
+  
   };
 
   auth(): void {

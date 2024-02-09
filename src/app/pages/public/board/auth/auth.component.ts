@@ -50,7 +50,10 @@ export class AuthComponent implements OnInit {
     if(type === 'authorization') {
       this.authService.login(this.formAuth.getRawValue()).subscribe(data => {
         this.authService.setToken(data.id, data.access_token, data.role);
-        setTimeout(() => {this.router.navigateByUrl('/home')}, 100)
+        setTimeout(() => {
+          this.router.navigateByUrl('/home');
+          this.boardService.updateCardListFor('visitor')
+        }, 100)
       });
 
     } else {
@@ -68,6 +71,7 @@ export class AuthComponent implements OnInit {
         this.authService.register(postData).subscribe(() => {
           this.type = 'authorization'
         })
+       
       } else { 
         console.log('psw => | toast error')
       }

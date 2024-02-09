@@ -16,17 +16,19 @@ export class AdminGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const user = localStorage.getItem('user')
       if(user) {
-        const id = JSON.parse(user)['id']
-        this.authService.checkRole(id).pipe(map((data) => data)).subscribe(data => {
-          if(data === 'admin') {
-            return true
-          } else {
-            return this.router.navigateByUrl('/')
-          }
-        })
-          
- 
-
+        const role = JSON.parse(user)['role']
+        if(role === 'admin') {
+          return true
+        } else {
+          return this.router.navigateByUrl('/')
+        }
+        // this.authService.checkRole(id).pipe(map((data) => data)).subscribe(data => {
+        //   if(data === 'admin') {
+        //     return true
+        //   } else {
+        //     
+        //   }
+        // })
       //   if(role === 'admin') {
       //     return true
       //   } else {

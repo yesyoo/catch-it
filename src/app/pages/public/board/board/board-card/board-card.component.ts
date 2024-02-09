@@ -14,109 +14,64 @@ import { NavigationService } from 'src/app/services/navigation/navigation.servic
   templateUrl: './board-card.component.html',
   styleUrls: ['./board-card.component.scss']
 })
-export class BoardCardComponent implements OnInit, OnDestroy, OnChanges {
-  item: any
-  user: IUser | null
-  userType: 'owner' | 'user' | 'guest' | 'admin'
-  rootPath: string;
-  display: boolean = true
-
-  showToast: boolean;
-  toastMessage: string = "good"
+export class BoardCardComponent implements OnInit {
 
   ID: string;
-  isUserPage: boolean = this.navigationService.isUserPage()
+  userType: 'owner' | 'visitor' | 'unauthorized' | 'admin';
+  isOwnerPage: boolean = this.navigationService.matchUsersId();
+
+  item: any;
+
+  display: boolean = true;
+  showToast: boolean;
+  toastMessage: string;
 
   constructor(private authService: AuthService,
               private board: BoardService,
-              private router: Router,
-              private userService: UserService,
               private itemService: ItemService,
               private activatedRoute: ActivatedRoute,
               private navigationService: NavigationService) { }
 
-
-
   ngOnInit(): void {
-    console.log('[eqyz ytgjyznyfz')
-    this.ID = this.authService.getUserIdFromLocalStorage()
-    this.rootPath = this.authService.getRootPath()
+    //подписаться на тип юзера
     this.display = true
-    this.user = this.userService.getUser()
+    this.ID = this.authService.getUserIdFromLocalStorage()
     this.item = this.board.getSelectedCard()
-
     
-
-    // direct link
-    if(!this.item) {      
+    if(!this.item) { 
       this.activatedRoute.params.subscribe(data => {
         this.itemService.getById(data['id']).subscribe(data => {
-          this.item = data
-          if(this.ID) this.ID === this.item.user ? this.userType = 'owner' : this.userType = 'user' 
-          else this.userType = 'guest'
+          this.item = data;
+          this.matchUser();
         })
       })
-    } 
-    
-    // routing
-    if(this.ID) this.ID === this.item.user ? this.userType = 'owner' : this.userType = 'user'
-    else this.userType = 'guest'
+    } else { this.matchUser() };
+  };
+  
+  matchUser() {
+    if(this.ID) {
+      this.ID === this.item.user ? this.userType = 'owner' : this.userType = 'visitor'
+    } else { this.userType = 'unauthorized' };
+  };
+
+  goToUser(id: string) {
+    this.board.setSelectedUserId(id)
+    this.navigationService.user(id)
   };
 
   closeCard() {
     window.history.back()
   };
-
-  openUserPage(id: string) {
-    this.board.setSelectedUserId(id)
-    this.router.navigateByUrl(`${this.rootPath}/user/${id}`)
-  };
-
-  deleteItem() {
-    this.itemService.deleteItemById(this.item._id, this.item.collection).subscribe(data => {
-    
-      
-      
-      this.board.setUserCards(this.board.getUserStorage().filter(item => item._id !== this.item._id))
-      
-      this.showToastandCloseCard('deleted')
-      this.board.changeBoardType('owner')
-    
-    })
-  };
-
-  updateItem() {}
-  addBookmark() {}
-  sendMessage() {}
-  report(){}
-
-  hideItem(data: boolean) {
-    const update: string = JSON.stringify({show: data})
-    this.itemService.updateItem({id: this.item._id, collection: this.item.collection, params: update}).subscribe(data => {
-      this.showToastandCloseCard('hidden')
-    })
+  
+  onHide() {
+    this.closeCard()
   };
 
   login() {
     this.navigationService.auth()
   };
-  showDialog() {
-    this.display = true;
- 
-  };
 
-  ngOnDestroy(): void {
-    this.display = false;
-  };
-
-  onHide() {
-    this.closeCard()
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes['show']) console.log('hide')
-  }
-  showToastandCloseCard(message: string): void {
+  showToastAndExit(message: string): void {
     this.toastMessage = message
       this.showToast = true
       setTimeout(() => { window.history.back() }, 500)

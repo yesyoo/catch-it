@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   user: IUser | null
   showForm: boolean = false
   isBoardOpen: boolean = false
+  isAdmin: boolean = false
 
   constructor(private userService: UserService,
               private itemService: ItemService,
@@ -25,6 +26,14 @@ export class UserComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    //
+    const u: any = localStorage.getItem('user')
+    if(u) {
+      if(JSON.parse(u)['role'] === 'admin') {
+        this.isAdmin = true
+      }
+    }
+    //
     this.user = this.userService.getUser()
     const id: string | null = this.userService.getUserId()
     if(id) {
@@ -32,7 +41,7 @@ export class UserComponent implements OnInit {
         this.userService.setUser(data)
         this.user = this.userService.getUser()
         this.itemService.getByOwnerId(id).subscribe(items => {
-          this.board.setUserCards(items)
+          this.board.setOwnerCards(items)
           console.log('user items:', items)
         })
         console.log('user:', this.user)
@@ -41,16 +50,22 @@ export class UserComponent implements OnInit {
   };
   addForm() {
     this.isBoardOpen = true;
-    this.board.changeBoardType('owner')
+    this.board.updateCardListFor('owner')
     this.navigationService.profile()
     setTimeout(() => {this.showForm = true}, 600)
     
   }
   openBoard() {
-      this.board.changeBoardType('owner')
+    if(this.user) {
+      this.board.setSelectedUserId(this.user.id)
+      this.board.updateCardListFor('owner')
       this.navigationService.profile()
+    }
   };
   openSettings() {
     // this.router.navigateByUrl('home/settings')
+  }
+  goAdmin() {
+    this.navigationService.admin()
   }
 }

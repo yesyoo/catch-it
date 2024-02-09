@@ -1,0 +1,9 @@
+<div class="user-container">
+    <div class="user-img"></div>
+        <div class="user-data" *ngIf="user">
+        <div>{{user.username}}<span style="margin-left: 10px;">4.9</span></div>
+        <div>{{user.city}}<span style="margin-left: 10px;" *ngIf="user.district">{{user.district}}</span></div>
+    </div>
+    <button (click)="back()" class="btn-back">back</button>
+</div>
+

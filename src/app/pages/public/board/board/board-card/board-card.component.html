@@ -5,45 +5,46 @@
           [dismissableMask]="true" 
           (onHide)="onHide()"
           class="modal-container">
+
     <div class="card-container">
-        <button *ngIf="!isUserPage" class="user-btn" (click)="openUserPage(item.user)">Go to user</button>
-        <div *ngIf="showToast" class="card-toast">{{toastMessage}}</div>
-        <div class="img-container">
-            <img src="http://localhost:3003/public/{{item.img}}" alt="/">
-        </div>
+        <div class="img-container"><img src="http://localhost:3003/public/{{item.img}}" alt="/"></div>
         <div class="data-container">
             <div class="item">
-                <div class="item-title">{{item.item.title}}</div>
-                <div class="item-options">
-                    <div>{{item.item.condition}} / {{item.cat.gender}} / {{item.cat.size}}</div>
-                    <div>{{item.cat.type}} / {{item.cat.season}} / {{item.cat.color}}</div>
+
+                <div class="options">
+                    <div *ngIf="item.collection === 'personal-shoes'">
+                        <ng-container *ngTemplateOutlet="personal; context: {item}"></ng-container>
+                    </div>
                 </div>
-                <p>{{item.item.description}}</p>
+                
+                <div class="item-title">{{item.item.title}}</div>
+ 
+                <p class="item-description">{{item.item.description}}</p>
             </div>
             <div class="item-location">
                 <div>{{item.item.city}}<span *ngIf="item.item.district" style="margin-left:10px">{{item.item.district}}</span></div>
                 <div *ngIf="item.item.delivery">Delivery: {{item.item.delivery}}</div>
             </div>
-            <div class="controls-container">
-                <div *ngIf="userType === 'owner'" class="card-btn">
 
-                    <button *ngIf="item.show" (click)="hideItem(false)" class="card-controls-btn btn">Hide</button>
-                    <button *ngIf="!item.show" (click)="hideItem(true)" class="card-controls-btn btn">Unhide</button>
-                    <button (click)="updateItem()" class="card-controls-btn btn">update</button>
-                    <button (click)="deleteItem()" class="card-controls-btn btn">delete</button>
-                </div>
-                <div *ngIf="userType === 'user'" class="card-btn">
-                    <button (click)="addBookmark()" class="card-controls-btn btn">bookmark</button>
-                    <button (click)="sendMessage()" class="card-controls-btn btn">message</button>
-                    <button (click)="report()" class="card-controls-btn btn">report</button>
-                </div>
-                <div *ngIf="userType === 'guest'" class="card-btn">
-                    <button (click)="login()" class="card-controls-btn btn">login</button>
-                </div>
+            <div class="controls-container">
+                <app-board-card-owner-panel *ngIf="userType === 'owner'" 
+                                            [item]="item"
+                                            (toast)="showToastAndExit($event)"></app-board-card-owner-panel>
+                <app-board-card-visitor-panel *ngIf="userType === 'visitor'" [item]="item"></app-board-card-visitor-panel>
+                <button *ngIf="userType === 'unauthorized'" (click)="login()" class="card-controls-btn card-btn btn">login</button>
             </div>
+
         </div>
+        <button *ngIf="!isOwnerPage" class="user-btn" (click)="goToUser(item.user)">Go to user</button>
+        <div *ngIf="showToast" class="card-toast">{{toastMessage}}</div>
     </div>        
-    
 </p-dialog>
+
+<ng-template #personal let-item="item">
+    <div class="item-options">
+        <div>{{item.item.condition}} / {{item.cat.gender}} / {{item.cat.size}}</div>
+        <div>{{item.cat.type}} / {{item.cat.season}} / {{item.cat.color}}</div>
+    </div>
+</ng-template>
 
 

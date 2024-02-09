@@ -1,15 +1,15 @@
 :root {
-    --main-red: rgb(43, 46, 46);
-    --main-red2:rgb(56, 59, 58);
-    --main-blue: rgb(244, 244, 248); 
-    --brand-color: #800000;
-    --font-light: rgb(196, 195, 188);
+    
+    --medium-black:rgb(30, 30, 30);
+    --light-black: rgb(40, 40, 40); 
+    --dark-grey: rgb(50, 50, 50); 
+    --font-dark: rgb(180, 180, 180);
+    --font-medium: rgb(200, 200, 200);
+    --font-light: rgb(210, 210, 210);
+    --light-green: rgb(99, 126, 118);
 
-
-
-    .bg-grey-noise {
-        // background-image: url('assets/img/4.jpg');
-        // background-size: 200px;
-        background: rgb(71, 71, 71);
-    }
+    --background-black: rgb(26, 26, 26);
+    --card-background: rgb(34, 34, 34);
+    --card-background-hover: rgb(38, 38, 38);
+    --card-title: rgb(40, 40, 40);
 }
