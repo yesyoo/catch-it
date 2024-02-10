@@ -10,15 +10,12 @@
         <div class="img-container"><img src="http://localhost:3003/public/{{item.img}}" alt="/"></div>
         <div class="data-container">
             <div class="item">
-
                 <div class="options">
                     <div *ngIf="item.collection === 'personal-shoes'">
                         <ng-container *ngTemplateOutlet="personal; context: {item}"></ng-container>
                     </div>
                 </div>
-                
                 <div class="item-title">{{item.item.title}}</div>
- 
                 <p class="item-description">{{item.item.description}}</p>
             </div>
             <div class="item-location">
@@ -27,11 +24,11 @@
             </div>
 
             <div class="controls-container">
-                <app-board-card-owner-panel *ngIf="userType === 'owner'" 
+                <app-board-card-owner-panel *ngIf="viewerType === 'owner-user'" 
                                             [item]="item"
                                             (toast)="showToastAndExit($event)"></app-board-card-owner-panel>
-                <app-board-card-visitor-panel *ngIf="userType === 'visitor'" [item]="item"></app-board-card-visitor-panel>
-                <button *ngIf="userType === 'unauthorized'" (click)="login()" class="card-controls-btn card-btn btn">login</button>
+                <app-board-card-visitor-panel *ngIf="viewerType === 'visitor-user'" [item]="item"></app-board-card-visitor-panel>
+                <button *ngIf="viewerType === 'unauthorized-user'" (click)="login()" class="card-controls-btn card-btn btn">login</button>
             </div>
 
         </div>

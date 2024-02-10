@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { IUser, IUserResponse } from 'src/app/interfaces/user';
 import { UserRestService } from './user-rest/user-rest.service';
 
@@ -9,6 +9,8 @@ import { UserRestService } from './user-rest/user-rest.service';
 export class UserService {
 
   user: IUser | null
+
+
 
   constructor(private rest: UserRestService) { }
  
@@ -57,6 +59,8 @@ export class UserService {
   _getUserById(id: string): Observable<any> {
     return this.rest._getUserById(id)
   };
+
+
 
 
 }

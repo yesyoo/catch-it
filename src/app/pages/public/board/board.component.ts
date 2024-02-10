@@ -15,7 +15,8 @@ export class BoardComponent implements OnInit {
 
   private ID: string;
   public button: 'Logout' | 'Login';
-  public showBoardHeader: boolean;
+  public showBoardSearchPanel: boolean;
+  public errorMessage: string | null
   
   constructor(private authService: AuthService,
               private router: Router,
@@ -23,11 +24,12 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.ID = this.authService.getUserIdFromLocalStorage()
-    this.router.url.includes('user') ? this.showBoardHeader = false : this.showBoardHeader = true
+    this.router.url.includes('user') ? this.showBoardSearchPanel = false : this.showBoardSearchPanel = true
     this.router.events.subscribe((event: Event) => {
-      event instanceof NavigationEnd && event.url.includes('user') ? this.showBoardHeader = false : this.showBoardHeader = true
-      
+      event instanceof NavigationEnd && event.url.includes('user') ? this.showBoardSearchPanel = false : this.showBoardSearchPanel = true
     });
+    this.boardService.error$.subscribe(error => this.errorMessage = error);
+
     if(this.ID) {
       this.button = 'Logout'
       this.authService.setRootPath('home')

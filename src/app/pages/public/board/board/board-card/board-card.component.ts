@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { AuthRestService } from 'src/app/services/auth/auth-rest.service';
 import { Collection } from '../../../../../interfaces/category';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
+import { ViewerType } from 'src/app/types/types';
+import { PanelService } from 'src/app/services/panel/panel.service';
 
 @Component({
   selector: 'app-board-card',
@@ -17,7 +19,7 @@ import { NavigationService } from 'src/app/services/navigation/navigation.servic
 export class BoardCardComponent implements OnInit {
 
   ID: string;
-  userType: 'owner' | 'visitor' | 'unauthorized' | 'admin';
+  viewerType: ViewerType;
   isOwnerPage: boolean = this.navigationService.matchUsersId();
 
   item: any;
@@ -30,7 +32,8 @@ export class BoardCardComponent implements OnInit {
               private board: BoardService,
               private itemService: ItemService,
               private activatedRoute: ActivatedRoute,
-              private navigationService: NavigationService) { }
+              private navigationService: NavigationService,
+              private panel: PanelService) { }
 
   ngOnInit(): void {
     //подписаться на тип юзера
@@ -50,13 +53,22 @@ export class BoardCardComponent implements OnInit {
   
   matchUser() {
     if(this.ID) {
-      this.ID === this.item.user ? this.userType = 'owner' : this.userType = 'visitor'
-    } else { this.userType = 'unauthorized' };
+      this.ID === this.item.user ? this.viewerType = 'owner-user' : this.viewerType = 'visitor-user'
+    } else { this.viewerType = 'unauthorized-user' };
   };
 
   goToUser(id: string) {
-    this.board.setSelectedUserId(id)
-    this.navigationService.user(id)
+    if(this.ID === id) {
+      this.panel.openOwnerPanel(true)
+      this.navigationService.user(id)
+    } else {
+      this.panel.openAnyPanel(id)
+
+      // this.board.setSelectedUserId(id)
+      this.navigationService.user(id)
+  
+    }
+    
   };
 
   closeCard() {

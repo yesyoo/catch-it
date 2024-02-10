@@ -1,10 +1,11 @@
 <div class="board-container">
     <div class="board-header-container">
-        <app-board-header *ngIf="showBoardHeader"></app-board-header>
+        <app-board-search-panel *ngIf="showBoardSearchPanel"></app-board-search-panel>
         <router-outlet></router-outlet>
     </div>
     <div class="board-cards">
-        <app-board-items></app-board-items>
+        <app-board-card-list></app-board-card-list>
+        <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
     </div>
     
 </div>

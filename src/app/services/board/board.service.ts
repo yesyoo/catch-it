@@ -1,86 +1,103 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { StorageType } from 'src/app/types/types';
 import { ItemService } from '../item/item.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
+  // отвечает за хранения стореджей
+
+  // селектед юзерс и кардс - это кардс сервис
 
   private selectedCard: any
   private selectedUserId: string;
 
-  private visitorStorage: any[] = [];
+  private mainStorage: any[] = [];
   private ownerStorage: any[] = [];
-  private anyUserStorage: any = [];
+  private anyStorage: any = [];
 
-  private visitorCards: Subject<any> = new Subject()
-  readonly visitorCards$ = this.visitorCards.asObservable()
+  private mainCards: Subject<any> = new Subject()
+  readonly mainCards$ = this.mainCards.asObservable()
   private ownerCards: Subject<any> = new Subject()
   readonly ownerCards$ = this.ownerCards.asObservable()
-  private targetUserCards: Subject<any> = new Subject()
-  readonly targetUserCards$ = this.targetUserCards.asObservable()
+  private anyCards: Subject<any> = new Subject()
+  readonly anyCards$ = this.anyCards.asObservable()
 
   private user: Subject<boolean> = new Subject()
   readonly user$ = this.user.asObservable()
 
-  private storageType: Subject<'visitor' | 'owner' | 'anyUser'> = new Subject()
+  private storageType: Subject<StorageType> = new Subject()
   readonly storageType$ = this.storageType.asObservable()
 
   private authModal: Subject<boolean> = new Subject()
   readonly authModal$ = this.authModal.asObservable()
 
+  readonly error: Subject<string> = new Subject()
+  readonly error$ = this.error.asObservable()
+
 
   constructor() { }
 
-  checkOwnerStorage(): Promise<boolean> {
-    return new Promise((res) => {
-      if(Array.isArray(this.visitorStorage)) { this.visitorStorage.length <= 0 ? res(false) : res(true) }
-    })
+  checkStorage(storageType: StorageType): Promise<boolean> {
+    switch(storageType) {
+      case 'owner-storage':
+        return new Promise((res) => {
+          if(Array.isArray(this.ownerStorage)) { this.ownerStorage.length <= 0 ? res(false) : res(true) }
+          else res(false)
+        });
+      case 'main-storage':
+        return new Promise((res) => {
+          if(Array.isArray(this.mainStorage)) { this.mainStorage.length <= 0 ? res(false) : res(true) }
+          else res(false)
+        });
+      case 'any-storage': 
+        return new Promise((res) => {
+          if(Array.isArray(this.mainStorage)) { this.mainStorage.length <= 0 ? res(false) : res(true) }
+          else res(false)
+        });
+    };
   };
 
-  checkVisitorStorage(): Promise<boolean> {
-    return new Promise((res) => {
-      if(Array.isArray(this.ownerStorage)) { this.ownerStorage.length <= 0 ? res(false) : res(true) }
-    })
-  };
-
-  updateCardListFor(type: 'visitor' | 'owner' | 'anyUser') {
+  show(type: StorageType) {
     return this.storageType.next(type)
   }
 
-  setVisitorCards(data: any) {
-    this.visitorStorage = data;
-    this.storageType.next('visitor')
-    this.visitorCards.next(data)
-  };
-
-  setOwnerCards(data: any) {
-    this.ownerStorage = data;
-    this.ownerCards.next(data)
+  setToStorage(data: any, storageType: StorageType) {
+    switch(storageType) {
+      case 'main-storage':
+        this.mainStorage = data;
+        this.mainCards.next(data);
+        break;
+      case 'owner-storage':
+        this.ownerStorage = data;
+        this.ownerCards.next(data);
+        break;
+      case 'any-storage':
+        this.anyStorage = data;
+        this.anyCards.next(data);
+        break;
+    };
   }
-  setAnyUserCards(data: any) {
-    this.anyUserStorage = data;
-    this.storageType.next(data)
-  }
 
-  getVisitorStorage() {
-    return this.visitorStorage
+  getStorage(storageType: StorageType) {
+    switch(storageType) {
+      case 'main-storage':
+        return this.mainStorage;
+      case 'owner-storage':
+        return this.ownerStorage;
+      case 'any-storage':
+        return this.anyStorage
+    };
   };
-
-  getOwnerStorage() {
-    return this.ownerStorage
-  };
-  getAnyUserStorage() {
-    return this.anyUserStorage
-  }
 
   showAuthModal(data: boolean) {
     this.authModal.next(data)
   }
 
-  showUser(data: boolean) {
+  showUserPanel(data: boolean) {
     this.user.next(data)
   }
 
@@ -98,6 +115,10 @@ export class BoardService {
 
   getSelectedUserId(): string | null {
     return this.selectedUserId
+  };
+
+  sendErrorMessage(data: string) {
+    this.error.next(data)
   };
 
 }

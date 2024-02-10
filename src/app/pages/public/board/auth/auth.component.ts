@@ -52,7 +52,7 @@ export class AuthComponent implements OnInit {
         this.authService.setToken(data.id, data.access_token, data.role);
         setTimeout(() => {
           this.router.navigateByUrl('/home');
-          this.boardService.updateCardListFor('visitor')
+          this.boardService.show('main-storage')
         }, 100)
       });
 

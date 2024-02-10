@@ -20,8 +20,12 @@ export class BoardCardOwnerPanelComponent implements OnInit {
 
   deleteItem() {
     this.itemService.deleteItemById(this.item._id, this.item.collection).subscribe(res => {
-      this.board.setOwnerCards(this.board.getOwnerStorage().filter(item => item._id !== this.item._id))
-      this.board.updateCardListFor('owner')
+      const cards: any[] = this.board.getStorage('owner-storage');
+      cards.filter(item => item._id !== this.item._id)
+      this.board.setToStorage(cards, "owner-storage")
+      this.board.show('owner-storage')
+      // this.board.setOwnerCards(this.board.getOwnerStorage().filter(item => item._id !== this.item._id))
+      // this.board.updateStorageType('owner')
       this.toast.emit('deleted')
     })
   };

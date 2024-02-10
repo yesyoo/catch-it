@@ -142,8 +142,8 @@ export class UserItemFormComponent implements OnInit {
       formData.append('img', this.imgFile)
  
       this.itemService.postItem(formData).subscribe(data => {
-        this.board.getOwnerStorage().unshift(data)
-        
+        this.board.getStorage('owner-storage').unshift(data)
+    
         this.itemService.updateLocalStorageItemsList(data)
       })
     };

@@ -1,9 +1,9 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BoardComponent } from './board.component';
-import { BoardUserComponent } from './board/board-user/board-user.component';
 import { BoardCardComponent } from './board/board-card/board-card.component';
 import { AuthComponent } from './auth/auth.component';
+import { BoardUserPanelComponent } from './board/board-user-panel/board-user-panel.component';
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
         path: 'auth', component: AuthComponent
       },
       {
-        path: 'user/:id', component: BoardUserComponent,
+        path: 'user/:id', component: BoardUserPanelComponent,
         children: [
           {
             path: 'item/:id', component: BoardCardComponent
