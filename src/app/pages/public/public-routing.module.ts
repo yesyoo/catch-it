@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicComponent } from './public.component';
 import { UnAuthGuard } from '../../guards/un-auth/un-auth.guard';
 
-
 const routes: Routes = [
   {
     path: "", component: PublicComponent,

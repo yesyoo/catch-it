@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
-import { UserItemsComponent } from './user-items/user-items.component';
 import { UserItemFormComponent } from './user-item-form/user-item-form.component';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DealtypeSelectComponent } from '../../../components/dealtype-select/dealtype-select.component';
 import { SubcategorySelectComponent } from 'src/app/components/subcategory-select/subcategory-select.component';
@@ -16,14 +14,16 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import { BoardModule } from '../board/board.module';
 import { BoardComponent } from '../board/board.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { UserMessagesComponent } from './user-messages/user-messages.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    UserItemsComponent,
     UserItemFormComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    UserMessagesComponent
   ],
   imports: [
     CommonModule,

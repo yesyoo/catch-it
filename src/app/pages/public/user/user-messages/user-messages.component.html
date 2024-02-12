@@ -1,0 +1,10 @@
+<p-dialog [closable]="false" [modal]="true" header="Title" [(visible)]="display">
+    <ng-template pTemplate="header">
+        <div class="form-header">
+            <button class="btn-close-form" (click)="closeMessages.emit()">x</button>
+       </div>
+    </ng-template>
+    <div class="messages-container">
+        <div>Messages</div>
+    </div>
+</p-dialog>

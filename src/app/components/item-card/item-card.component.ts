@@ -73,7 +73,7 @@ hide() {
 
 }
 deleteCard() {
-  this.itemService.deleteItemById(this.item._id, this.item.subcategoryType).subscribe(data => {
+  this.itemService.deleteOneByIdAndCollection(this.item._id, this.item.subcategoryType).subscribe(data => {
     this.modalService.show(false)
     console.log('from-server', data.response)
   })

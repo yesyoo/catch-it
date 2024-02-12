@@ -43,12 +43,28 @@ export interface IPersonalShoes {
     adult?: boolean
 };
 
-export interface IPostItemData {
+export interface IPostItem {
     user: string,
     collection: Collection,
     category: Category,
     deal: Deal,
     item: IItem,
-    itemCat: UnionCategoryType
+    cat: UnionCategoryType,
+    img?: File
+};
+export interface IItemDB {
+    _id: string,
+    user: string,
+    collection: Collection,
+    category: Category,
+    deal: Deal,
+    date: number,
+    show: boolean,
+    reserved: boolean,
+    blocked: boolean,
+    item: IItem,
+    cat: UnionCategoryType,
+    img?: string
 }
+
 

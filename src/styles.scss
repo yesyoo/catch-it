@@ -7,9 +7,18 @@
     --font-medium: rgb(200, 200, 200);
     --font-light: rgb(210, 210, 210);
     --light-green: rgb(99, 126, 118);
+    --white: rgb(248, 248, 248);
 
     --background-black: rgb(26, 26, 26);
     --card-background: rgb(34, 34, 34);
     --card-background-hover: rgb(38, 38, 38);
     --card-title: rgb(40, 40, 40);
+    --main-orange: rgb(255, 153, 0);
+}
+.auth-button {
+    background: none;
+    padding: 20px;
+    border: none;
+    color: red;
+
 }

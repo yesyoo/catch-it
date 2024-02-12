@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { BoardService } from 'src/app/services/board/board.service';
+import { BookmarkService } from 'src/app/services/bookmark/bookmark.service';
 import { ItemService } from 'src/app/services/item/item.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { PanelService } from 'src/app/services/panel/panel.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { StorageType } from 'src/app/types/types';
 import { IUser } from '../../../interfaces/user';
+import { AuthRestService } from '../../../services/auth/auth-rest.service';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +19,12 @@ import { IUser } from '../../../interfaces/user';
 export class UserComponent implements OnInit {
   
   user: IUser | null
+  private ID: string = this.auth.getAuthUserID()
+
   showForm: boolean = false
+  showSettings: boolean = false;
+  showMessages: boolean = false;
+
   ownerPanelOpen: boolean = false
   isAdmin: boolean = false
 
@@ -24,11 +32,18 @@ export class UserComponent implements OnInit {
               private itemService: ItemService,
               private navigationService: NavigationService,
               private board: BoardService,
-              private panel: PanelService) {
-   }
+              private panel: PanelService,
+              private authService: AuthService,
+              private bookmarks: BookmarkService,
+              private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.panel.homecoming$.subscribe(res => this.ownerPanelOpen = res)
+    this.panel.homecoming$.subscribe(res => this.ownerPanelOpen = res);
+    this.bookmarks.getAllBookmarks().subscribe(data => {
+      this.bookmarks.setBookmarksListId(data)
+      console.log('bb', this.bookmarks.getBookmarksListId())
+    });
+    
     //
     const u: any = localStorage.getItem('user')
     if(u) {
@@ -43,17 +58,13 @@ export class UserComponent implements OnInit {
       this.userService.getUserById(id).subscribe(data => {
         this.userService.setUser(data)
         this.user = this.userService.getUser()
-        // this.itemService.getByOwnerId(id).subscribe(items => {
-        //   this.board.setOwnerCards(items)
-        //   console.log('user items:', items)
-        // })
-        // console.log('user:', this.user)
       })
     } else console.log('userId not found')
+
   };
   addForm() {
     this.ownerPanelOpen = true;
-    this.board.show('owner-storage')
+    this.board.render('owner-storage')
     this.navigationService.profile()
     setTimeout(() => {this.showForm = true}, 600)
     
@@ -63,7 +74,7 @@ export class UserComponent implements OnInit {
       if(!this.ownerPanelOpen) {
         this.panel.openOwnerPanel(true)
         this.board.setSelectedUserId(this.user.id)
-        this.board.show('owner-storage')
+        this.board.render('owner-storage')
         this.navigationService.profile()
       } else {
         this.panel.openOwnerPanel(false)
@@ -71,9 +82,36 @@ export class UserComponent implements OnInit {
       }
     }
   };
-  openSettings() {
-    // this.router.navigateByUrl('home/settings')
+  logout() {
+    this.authService.logout()
+    this.board.showAuthModal(true)
+    this.navigationService.auth()
   }
+ 
+  openSettings() {
+    this.ownerPanelOpen = true;
+
+    setTimeout(() => {this.showSettings = true}, 600)
+  };
+  openMessages() {
+    this.ownerPanelOpen = true;
+
+    setTimeout(() => {this.showMessages = true}, 600)
+  };
+
+  openBookmarks() {
+    if(this.user) {
+      if(!this.ownerPanelOpen) {
+        this.panel.openOwnerPanel(true)
+        this.board.setSelectedUserId(this.user.id)
+        this.board.render('owner-storage')
+        this.navigationService.profile()
+      } else {
+        this.panel.openOwnerPanel(false)
+        this.navigationService.home()
+      }
+    }
+  };
   goAdmin() {
     this.navigationService.admin()
   }

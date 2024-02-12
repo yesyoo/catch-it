@@ -26,7 +26,12 @@ import { BoardUserpanelAnyComponent } from './board/board-user-panel/board-userp
 import { BoardCardListComponent } from './board/board-card-list/board-card-list.component';
 import { BoardPreviewCardOwnerComponent } from './board/board-card-list/board-preview-card-owner/board-preview-card-owner.component';
 import { BoardPreviewCardAnyComponent } from './board/board-card-list/board-preview-card-any/board-preview-card-any.component';
-
+import { MessageModule } from 'primeng/message'
+import { MessagesModule } from 'primeng/messages'
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { DealtypeSwitchComponent } from './board/board-search-panel/dealtype-switch/dealtype-switch.component';
+import { PanelService } from 'src/app/services/panel/panel.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,8 @@ import { BoardPreviewCardAnyComponent } from './board/board-card-list/board-prev
     BoardUserpanelAnyComponent,
     BoardCardListComponent,
     BoardPreviewCardOwnerComponent,
-    BoardPreviewCardAnyComponent
+    BoardPreviewCardAnyComponent,
+    DealtypeSwitchComponent
   ],
   imports: [
     CommonModule,
@@ -54,8 +60,14 @@ import { BoardPreviewCardAnyComponent } from './board/board-card-list/board-prev
     ModalModule,
     DialogModule,
     InputTextModule,
-    ItemCardComponent
+    ItemCardComponent,
+    MessageModule,
+    MessagesModule,
+    ToastModule
   ],
-  providers: []
+  providers: [
+    MessageService,
+    PanelService
+  ]
 })
 export class BoardModule { }

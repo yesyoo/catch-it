@@ -1,3 +1,17 @@
+.board-container {
+    margin: 0 auto;
+    height: 100vh;
+    width: 80vw;
+};
+.board-panel-container {
+    margin: 10px 0;
+};
+.board-list-container {
+    overflow-y: scroll;
+    min-height: 80vh;
+    max-height: 90vh;
+};
+
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -7,26 +21,14 @@
 ::-webkit-scrollbar-thumb {
     background: rgb(53, 53, 53);
 };
-
-.board-header-container {
-    height: 100px;
-    width: 100%;
-    margin-bottom: 10px;
-    // box-shadow: 0px 30px 40px 0px green;
-    
-};
-.board-container {
-    width: 75vw;
-    height: 80vh;
-    border-radius: 5px;
-
-};
-.board-cards {
-    overflow-y: scroll;
-    height: 760px;
-    padding: 0;
+.main {
     margin: 0;
-};
+    padding: 0;
+}
+
+
+
+
 .button-auth {
     position: fixed;
     right: 20px;
@@ -38,4 +40,19 @@
     text-align: center;
     font-size: 1.4rem;
     color: rgb(95, 95, 95)
+}
+
+.auth-btn {
+    position: fixed;
+    right: 40px;
+    top: 10px;
+    background-color: none;
+    background: none;
+    padding: 20px;
+    color: var(--main-orange);
+    border: none;
+    letter-spacing: 0.2rem;
+}
+.auth-btn:hover {
+    text-shadow: 0 0 1px var(--main-orange);
 }

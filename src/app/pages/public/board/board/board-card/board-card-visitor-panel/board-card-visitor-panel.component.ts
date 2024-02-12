@@ -14,7 +14,7 @@ export class BoardCardVisitorPanelComponent implements OnInit {
   ngOnInit(): void {
   };
 
-  addBookmark() {
+  bookmark() {
     console.log('add bookmark =>')
   };
 

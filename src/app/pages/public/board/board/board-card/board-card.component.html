@@ -24,6 +24,10 @@
             </div>
 
             <div class="controls-container">
+                <button *ngIf="!isOwnerPage" class="user-btn" (click)="goToUser(item.user)">
+                    <i class="pi pi-angle-left" style="margin-right:10px"></i>
+                    <i class="pi pi-user"></i>
+                </button>
                 <app-board-card-owner-panel *ngIf="viewerType === 'owner-user'" 
                                             [item]="item"
                                             (toast)="showToastAndExit($event)"></app-board-card-owner-panel>
@@ -32,7 +36,7 @@
             </div>
 
         </div>
-        <button *ngIf="!isOwnerPage" class="user-btn" (click)="goToUser(item.user)">Go to user</button>
+
         <div *ngIf="showToast" class="card-toast">{{toastMessage}}</div>
     </div>        
 </p-dialog>

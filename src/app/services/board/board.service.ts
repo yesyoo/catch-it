@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { IItem } from 'src/app/interfaces/items';
 import { StorageType } from 'src/app/types/types';
 import { ItemService } from '../item/item.service';
 
@@ -17,14 +18,17 @@ export class BoardService {
 
   private mainStorage: any[] = [];
   private ownerStorage: any[] = [];
+  private bookmarkStorage: any[] = [];
   private anyStorage: any = [];
 
-  private mainCards: Subject<any> = new Subject()
-  readonly mainCards$ = this.mainCards.asObservable()
-  private ownerCards: Subject<any> = new Subject()
-  readonly ownerCards$ = this.ownerCards.asObservable()
-  private anyCards: Subject<any> = new Subject()
-  readonly anyCards$ = this.anyCards.asObservable()
+  private currentStorageType: StorageType;
+ 
+  // private mainCards: Subject<any> = new Subject()
+  // readonly mainCards$ = this.mainCards.asObservable()
+  // private ownerCards: Subject<any> = new Subject()
+  // readonly ownerCards$ = this.ownerCards.asObservable()
+  // private anyCards: Subject<any> = new Subject()
+  // readonly anyCards$ = this.anyCards.asObservable()
 
   private user: Subject<boolean> = new Subject()
   readonly user$ = this.user.asObservable()
@@ -48,6 +52,11 @@ export class BoardService {
           if(Array.isArray(this.ownerStorage)) { this.ownerStorage.length <= 0 ? res(false) : res(true) }
           else res(false)
         });
+        case 'bookmark-storage': 
+        return new Promise((res) => {
+          if(Array.isArray(this.bookmarkStorage)) { this.bookmarkStorage.length <= 0 ? res(false) : res(true) }
+          else res(false)
+        });
       case 'main-storage':
         return new Promise((res) => {
           if(Array.isArray(this.mainStorage)) { this.mainStorage.length <= 0 ? res(false) : res(true) }
@@ -61,31 +70,53 @@ export class BoardService {
     };
   };
 
-  show(type: StorageType) {
+  render(type: StorageType) {
+    this.currentStorageType = type
     return this.storageType.next(type)
+  }
+  getCurrentStorageType() {
+    return this.currentStorageType
   }
 
   setToStorage(data: any, storageType: StorageType) {
     switch(storageType) {
       case 'main-storage':
         this.mainStorage = data;
-        this.mainCards.next(data);
+        break;
+      case 'bookmark-storage':
+        this.bookmarkStorage = data;
         break;
       case 'owner-storage':
         this.ownerStorage = data;
-        this.ownerCards.next(data);
         break;
       case 'any-storage':
         this.anyStorage = data;
-        this.anyCards.next(data);
         break;
     };
   }
+  // updateStorage(data: any, storageType: StorageType, callback: any)  {
+  //   switch(storageType) {
+  //     case 'main-storage':
+  //       this.mainCards.next(callback);
+  //       break;
+  //     case 'owner-storage':
+  //       this.ownerStorage = data;
+  //       this.ownerCards.next(callback);
+  //       break;
+  //     case 'any-storage':
+  //       this.anyStorage = data;
+  //       this.anyCards.next(data);
+  //       break;
+  //   };
+
+  // }
 
   getStorage(storageType: StorageType) {
     switch(storageType) {
       case 'main-storage':
         return this.mainStorage;
+      case 'bookmark-storage':
+        return this.bookmarkStorage;
       case 'owner-storage':
         return this.ownerStorage;
       case 'any-storage':

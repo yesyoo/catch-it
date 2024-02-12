@@ -1,6 +1,38 @@
 .user-container {
-    position:relative ;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+    padding: 0 20px;
+};
+.user-navigation {
+    display: flex;
+    flex-direction: row;
+};
+
+button {
+    border: none;
+    background: none;
+    letter-spacing: 0.1rem;
+};
+.btn-back {
+    position: absolute;
+    right: -40px;
+};
+.btn-back:hover {
+    color: var(--main-orange)
 }
+
+.navigation-btn:hover {
+    color: var(--main-orange);
+}
+.navigation-btn-active {
+    color: var(--main-orange);
+}
+
 button {
     color: rgb(151, 151, 151);
 };
@@ -10,19 +42,20 @@ button:hover {
 }
 
 .btn-divide {
-    margin: 0 20px;
+    margin: 0 10px;
+    color: rgb(59, 59, 59);
 }
 .btn-select, .btn-back  {
     border: none;
     background: none;
 }
 .btn-access {
-    margin-right: 40px;
+    margin-right: 60px;
 }
 .select-line{
-    position: absolute;
-    top: 40px;
-    right: 10px;
+    // position: absolute;
+    // top: 40px;
+    // right: 10px;
     display: flex;
     flex-direction: row;
     align-items: baseline;

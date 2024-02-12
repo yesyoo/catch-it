@@ -43,7 +43,7 @@ export class BoardCardComponent implements OnInit {
     
     if(!this.item) { 
       this.activatedRoute.params.subscribe(data => {
-        this.itemService.getById(data['id']).subscribe(data => {
+        this.itemService.getOneById(data['id']).subscribe(data => {
           this.item = data;
           this.matchUser();
         })

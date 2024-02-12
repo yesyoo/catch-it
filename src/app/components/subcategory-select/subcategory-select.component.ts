@@ -1,20 +1,24 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Collection, Category } from 'src/app/interfaces/category';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from 'src/app/services/auth-interceptor/auth-interceptor';
+import { NONE_TYPE } from '@angular/compiler';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-subcategory-select',
   templateUrl: './subcategory-select.component.html',
   styleUrls: ['./subcategory-select.component.scss'],
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     CascadeSelectModule, 
     ReactiveFormsModule, 
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ]
 })
 export class SubcategorySelectComponent implements OnInit {
@@ -22,10 +26,11 @@ export class SubcategorySelectComponent implements OnInit {
   categoryList: any[];
   @Input() selectedCategory: any 
   @Output() updateCategoryType: EventEmitter<any> = new EventEmitter()
-
+ 
   constructor() { }
 
   ngOnInit() {
+
     this.categoryList = [
       {
         label: "Personal",
@@ -144,9 +149,11 @@ export class SubcategorySelectComponent implements OnInit {
       }
     ];
     this.selectedCategory = this.categoryList[0].options[0]
+
   };
 
   updateCategory(ev: {ev: Event, value: {label: string,  collection: Collection, category: Category,}}): void {
     this.updateCategoryType.emit(ev)
   };
+  
 }

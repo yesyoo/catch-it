@@ -1,15 +1,20 @@
-<div class="board-header">
-    <div class="board-header-top">
+<div class="searchbar-container">
+    <div class="searchbar">
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input type="text" pInputText placeholder="Search">         
         </span>
-        <app-dealtype-select (updateDealType)="updateDealParams($event)"></app-dealtype-select>
+        <!-- <app-dealtype-select (updateDealType)="updateDealParams($event)"></app-dealtype-select> -->
+        <app-dealtype-switch (type)="updateDealParams($event)" class="dealtype-container"></app-dealtype-switch>
         <app-subcategory-select (updateCategoryType)="updateCategoryParams($event)"></app-subcategory-select>
-        <button class="btn btn-light" (click)="refresh()">Refresh</button>
-        <button class="btn btn-light" (click)="openFilter()">Filter</button>
+        <div class="buttons-container">
+            <button class="button" (click)="openFilter()"><i class="pi pi-sliders-h"></i></button>
+            <button class="button" (click)="refresh()"><i class="pi pi-refresh"></i></button>
+            
+        </div>
+        
     </div>
-    <div class="board-header-bottom">
+    <div class="filter-container">
         <app-board-search-filter *ngIf="!showFilter"
                                [show]="showFilter"
                                [collection]="collection"

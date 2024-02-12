@@ -9,10 +9,13 @@
         <div (click)="changeFormType('authorization')">Login</div>
         <div (click)="changeFormType('registration')">Sign up</div>
     </div>
+
+
     <form *ngIf="type === 'authorization'" [formGroup]="formAuth">
         <div>
             <label for="">Email</label>
             <input type="text" pInputText formControlName="email" pInputText>
+            <!-- <small class="text-danger"></small> -->
         </div>
         <div>
             <label for="">Passsword</label>
@@ -21,6 +24,9 @@
     </form>
     <button *ngIf="type === 'authorization'" (click)="submit(type)" [disabled]="!formAuth.valid">Submit</button>
     
+
+
+
 
     <form *ngIf="type === 'registration'" [formGroup]="formReg">
         <div>

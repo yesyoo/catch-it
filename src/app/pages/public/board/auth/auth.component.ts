@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { IUserReg } from '../../../../interfaces/user';
 import { BoardService } from '../../../../services/board/board.service';
+import { MessageService } from 'primeng/api';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -16,9 +18,12 @@ export class AuthComponent implements OnInit {
   formReg: FormGroup;
   display: boolean = true
 
+  
+
   constructor(private authService: AuthService,
               private router: Router,
-              private boardService: BoardService) { }
+              private boardService: BoardService,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.boardService.authModal$.subscribe(data => this.display = data)
@@ -38,6 +43,7 @@ export class AuthComponent implements OnInit {
         passwordRepeat: new FormControl('', [Validators.required]),
       }
     );
+
   };
   
   changeFormType(type: 'authorization' | 'registration') {
@@ -45,38 +51,59 @@ export class AuthComponent implements OnInit {
       this.type = type
     }
   };
+submitAuthorization() {
+  this.authService.login(this.formAuth.getRawValue()).subscribe(data => {
+    if(data) {
+      this.authService.setToken(data.id, data.access_token, data.role);
+      setTimeout(() => {
+        this.router.navigateByUrl('/home');
+        this.boardService.render('main-storage')
+      }, 100)
+    } 
+    
+  },
+  (err: HttpErrorResponse) => {
+    console.log('err', err);
+    const serverError = <any>err.error
+    this.messageService.add({severity:'warn', summary: serverError.errorText})
+  });
+ };
 
-  submit(type: string) {
-    if(type === 'authorization') {
-      this.authService.login(this.formAuth.getRawValue()).subscribe(data => {
-        this.authService.setToken(data.id, data.access_token, data.role);
-        setTimeout(() => {
-          this.router.navigateByUrl('/home');
-          this.boardService.show('main-storage')
-        }, 100)
-      });
-
-    } else {
-      const value = this.formReg.getRawValue()
-      if(value.password === value.passwordRepeat) {
-        const postData: IUserReg = {
-          email: value.email,
-          password: value.password,
-          userData: {
-            username: value.username,
-            city: value.city,
-            district: value.district
-          }
-        }
-        this.authService.register(postData).subscribe(() => {
-          this.type = 'authorization'
-        })
-       
-      } else { 
-        console.log('psw => | toast error')
+submitRegistration() {
+  const value = this.formReg.getRawValue()
+  if(value.password !== value.passwordRepeat) {
+    this.messageService.add({severity:'warn', summary: 'Passowrds do not match'})
+  } else {
+    let username = value.username.toLowerCase();
+    let city = value.city.toLowerCase();
+    let district = value.district.toLowerCase()
+    const postData: IUserReg = {
+      email: value.email,
+      password: value.password,
+      userData: {
+        username: username.charAt(0).toUpperCase() + username.slice(1),
+        city: city.charAt(0).toUpperCase() + city.slice(1),
+        district: district.charAt(0).toUpperCase() + district.slice(1)
       }
+    };
+    this.authService.register(postData).subscribe((res) => {
+      if(res) {
+        this.type = 'authorization'
+      }
+    }, 
+    (err: HttpErrorResponse) => {
+      console.log('err', err);
+      const serverError = <any>err.error
+      this.messageService.add({severity:'warn', summary: serverError.errorText})
+     });
     }
   };
+   
+  submit(type: string) {
+    type === 'authorization' ? this.submitAuthorization() : this.submitRegistration()
+  };
+  
+  
 
   onHide() {
     this.boardService.showAuthModal(false)

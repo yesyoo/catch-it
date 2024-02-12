@@ -70,11 +70,12 @@ img {
     border: 2px solid rgb(131, 131, 131);
 }
 .user-btn {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    background: rgba(189, 189, 189, 0.103);
-    padding: 5px 10px;
+    // position: absolute;
+    // left: 10px;
+    // top: 10px;
+    background: white;
+    color: var(--main-orange);
+    padding: 5px 20px;
     border-radius: 5px;
-    border: 2px solid rgba(48, 48, 48, 0.685);
+    border: 2px solid var(--main-orange);
 }

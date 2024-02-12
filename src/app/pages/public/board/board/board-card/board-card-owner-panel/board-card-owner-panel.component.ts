@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IItemDB as IItemDB } from 'src/app/interfaces/items';
 import { BoardService } from 'src/app/services/board/board.service';
 import { ItemService } from 'src/app/services/item/item.service';
 
@@ -19,23 +20,33 @@ export class BoardCardOwnerPanelComponent implements OnInit {
   };
 
   deleteItem() {
-    this.itemService.deleteItemById(this.item._id, this.item.collection).subscribe(res => {
-      const cards: any[] = this.board.getStorage('owner-storage');
-      cards.filter(item => item._id !== this.item._id)
-      this.board.setToStorage(cards, "owner-storage")
-      this.board.show('owner-storage')
-      // this.board.setOwnerCards(this.board.getOwnerStorage().filter(item => item._id !== this.item._id))
-      // this.board.updateStorageType('owner')
+    this.itemService.deleteOneByIdAndCollection(this.item._id, this.item.collection).subscribe(res => {
+      const cards: IItemDB[] = this.board.getStorage('owner-storage').filter((item: IItemDB) => item._id !== this.item._id);
+      this.board.setToStorage(cards, 'owner-storage')
+
+      if(this.board.getCurrentStorageType() === 'owner-storage') {
+        this.board.render('owner-storage')
+      }
       this.toast.emit('deleted')
     })
   };
 
-  hideItem(data: boolean) {
-    const update: string = JSON.stringify({show: data})
-    this.itemService.updateItem({id: JSON.stringify(this.item._id), collection: this.item.collection, params: update}).subscribe(res => {
+  hideItem(show: boolean) {
+    const param = {show: show};
+    this.itemService.updateShowHideFromArray([{id: this.item._id, collection: this.item.collection, show: show}]).subscribe(res => {
+      const cards: IItemDB[] = this.board.getStorage('owner-storage')
+      cards.forEach(item => {
+        if(item._id === this.item._id) {
+          item.show = show
+        }
+      })
+      this.board.setToStorage(cards, 'owner-storage')
+      if(this.board.getCurrentStorageType() === 'owner-storage') {
+        this.board.render('owner-storage')
+      }
+    
       this.toast.emit('hidded')
     })
   };
 
-  updateItem() {};
 };

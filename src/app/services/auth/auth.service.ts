@@ -11,12 +11,21 @@ import { IUserReg } from '../../interfaces/user';
 export class AuthService {
 
   private rootPath: string = "" || "home";
-  ID: string;
+  private authUserId: string;
 
   constructor(private rest: AuthRestService) { }
 
-  checkRole(id: string): Observable<any> {
-    return this.rest.checkRole(id)
+  checkRole(id: string): Promise<any> {
+    return new Promise((res => {
+      res(this.rest.checkRole(id))
+    }))
+  };
+
+  getAuthUserID() {
+    return this.authUserId
+  }
+  setAuthUserID(id: string) {
+    this.authUserId = id
   }
 
   getUserIdFromLocalStorage(): string  {
@@ -24,11 +33,11 @@ export class AuthService {
     if(authUser) {
       this.rootPath = 'home'
       console.log('user:', JSON.parse(authUser)['id'])
-      return this.ID = JSON.parse(authUser)['id']
+      return this.authUserId = JSON.parse(authUser)['id']
     } else {
       this.rootPath = ''
       console.log('user not found')
-      return this.ID = ''
+      return this.authUserId = ''
     }
   };
 

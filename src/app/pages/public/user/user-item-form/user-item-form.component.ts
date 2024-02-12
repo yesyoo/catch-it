@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category, Collection } from 'src/app/interfaces/category';
 import { Deal } from 'src/app/interfaces/deal-type';
-import { IPostItemData } from 'src/app/interfaces/items';
+import { IPostItem, IItemDB } from 'src/app/interfaces/items';
 import { IUser } from 'src/app/interfaces/user';
 import { BoardService } from 'src/app/services/board/board.service';
 import { ConfigFormsService } from 'src/app/services/config/config-forms/config-forms.service';
@@ -37,7 +37,7 @@ export class UserItemFormComponent implements OnInit {
   path: Collection = 'personal-shoes';
 
   renderPreviewCard: any
-  postData: IPostItemData
+  postData: IPostItem
   @Output() closeForm: EventEmitter<boolean> = new EventEmitter()
 
   display: boolean
@@ -141,10 +141,10 @@ export class UserItemFormComponent implements OnInit {
       formData.append('cat', JSON.stringify(this.form.get(this.secondFormName)?.value))
       formData.append('img', this.imgFile)
  
-      this.itemService.postItem(formData).subscribe(data => {
-        this.board.getStorage('owner-storage').unshift(data)
-    
-        this.itemService.updateLocalStorageItemsList(data)
+      this.itemService.postItem(formData).subscribe((data: IItemDB) => {
+        const cards: IItemDB[] = this.board.getStorage('owner-storage').unshift(data)
+        this.board.setToStorage(cards, 'owner-storage')
+        // this.itemService.updateLocalStorageItemsList(data)
       })
     };
   };

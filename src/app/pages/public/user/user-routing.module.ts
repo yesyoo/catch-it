@@ -4,7 +4,6 @@ import { UserComponent } from './user.component';
 import { BoardModule } from '../board/board.module';
 import { AuthGuard } from '../../../guards/auth/auth.guard';
 import { BoardComponent } from '../board/board.component';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 const routes: Routes = [
   {

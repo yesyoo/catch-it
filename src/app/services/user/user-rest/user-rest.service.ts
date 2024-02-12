@@ -17,5 +17,8 @@ export class UserRestService {
   getUserById(id: string): Observable<any> {
     return this.http.get(`http://localhost:3003/users/user-data?user=${id}`)
   }
+  deleteUserAndItems(id: string): Observable<any> {
+    return this.http.delete(`http://localhost:3003/users/delete-user-and-items?id=${id}`)
+  }
  
 }

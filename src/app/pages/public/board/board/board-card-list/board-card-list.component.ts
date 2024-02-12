@@ -16,48 +16,24 @@ export class BoardCardListComponent implements OnInit {
 
 
   constructor(private board: BoardService,
-              private nav: NavigationService) { }
+              private navigation: NavigationService) { }
 
   ngOnInit(): void {
     this.board.storageType$.subscribe(storageType => {
-      if(storageType === 'any-storage') {
-        this.viewerType = 'visitor-user'
-        this.items = this.board.getStorage('any-storage')
-        if(this.items.length <= 0) {
-          this.board.sendErrorMessage('Items not found')
-          this.itemsReverse = []
-        } else {
-          this.board.sendErrorMessage('')
-          this.itemsReverse = this.items.sort(function(a, b) { return b.date - a.date })
-        }
-      };
-      if(storageType === 'main-storage') {
-        this.viewerType = 'visitor-user'
-        this.items = this.board.getStorage('main-storage')
-        if(this.items.length <= 0) {
-          this.board.sendErrorMessage('Items not found')
-          this.itemsReverse = []
-        } else {
-          this.board.sendErrorMessage('')
-          this.itemsReverse = this.items.sort(function(a, b) { return b.date - a.date })
-        }
-      };
-      if(storageType === 'owner-storage') {
-        this.viewerType = 'owner-user'
-        this.items = this.board.getStorage('owner-storage')
-        if(this.items.length <= 0) {
-          this.board.sendErrorMessage('Items not found')
-          this.itemsReverse = []
-        } else {
-          this.board.sendErrorMessage('')
-          this.itemsReverse = this.items.sort(function(a, b) { return b.date - a.date })
-        }
+      storageType === 'owner-storage' ? this.viewerType = 'owner-user' : this.viewerType = 'visitor-user';
+      this.items = this.board.getStorage(storageType);
+      if(this.items.length == 0) {
+        this.board.sendErrorMessage('Items not found')
+        this.itemsReverse = []
+      } else {
+        this.board.sendErrorMessage('')
+        this.itemsReverse = this.items.sort(function(a, b) { return b.date - a.date })
       }
     });
   };
   openCard(item: any) {
     this.board.setSelectedCard(item);
     this.board.setSelectedUserId(item.user)
-    this.nav.item(item._id, item.user)
+    this.navigation.item(item._id, item.user)
   };
 }

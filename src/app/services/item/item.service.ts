@@ -3,7 +3,7 @@ import { ItemRestService } from './item-rest.service';
 import { Observable } from 'rxjs';
 import { Category, Collection } from 'src/app/interfaces/category';
 import { Deal } from 'src/app/interfaces/deal-type';
-import { IPostItemData } from 'src/app/interfaces/items';
+import { IPostItem } from 'src/app/interfaces/items';
 
 @Injectable({
   providedIn: 'root'
@@ -14,33 +14,44 @@ export class ItemService {
   itemId: string;
 
   constructor(private itemRestService: ItemRestService) { }
-
-
+  ////////////////////////////////////////////////////
   postItem(data: FormData): Observable<any> {
     return this.itemRestService.postItem(data)
   };
-
-  getById(id: string): Observable<any> {
-    return this.itemRestService.getById(id)
+  /////////////////////////////////////////////////
+  getOneById(id: string): Observable<any> {
+    return this.itemRestService.getOneById(id)
   };
-
-  getItemsByParams(string: string): Observable<any> {
-    let params = string;
-    return this.itemRestService.getByParams(params)
+  getManyByParams(params: string): Observable<any> {
+    return this.itemRestService.getManyByParams(params)
   };
-
-  getByUserId(id: string): Observable<any> {
-    return this.itemRestService.getByUserIdUsers(id)
+  getAllByOwnerId(id: string): Observable<any> {
+    return this.itemRestService.getAllByOwnerId(id)
   };
-
-  getByOwnerId(id: string): Observable<any> {
-    return this.itemRestService.getByUserIdOwner(id)
+  getManyByUserId(id: string): Observable<any> {
+    return this.itemRestService.getManyByUserId(id)
   };
-
-  deleteItemById(id: string, collection: string): Observable<any> {
-    return this.itemRestService.deleteById(id, collection)
+  getManyFromArray(array: any[]): Observable<any> {
+    return this.itemRestService.getManyFromArray(array)
+  }
+  /////////////////////////////////////////////////
+  deleteOneByIdAndCollection(id: string, collection: string): Observable<any> {
+    return this.itemRestService.deleteOneByIdAndCollection(id, collection)
   };
-
+  deleteManyFromArray(array: {id: string, collection: string}[]): Observable<any> {
+    return this.itemRestService.deleteManyFromArray(array)
+  };
+  deleteAllInCollection(collection: string): Observable<any> {
+    return this.itemRestService.deleteAllInCollection(collection)
+  };
+  deleteAllByUserId(id: string): Observable<any> {
+    return this.itemRestService.deleteAllByUserId(id)
+  };
+  ////////////////////////////////////////////////////////////
+  updateShowHideFromArray(array: {id: string, collection: string, show: boolean}[]): Observable<any> {
+    return this.itemRestService.updateShowHideFromArray(array)
+  };
+  /////////////////////////////////////////////////////////////////
   updateLocalStorageItemsList(data: any): void {
     const string = localStorage.getItem('items') 
     if(string) {
@@ -66,7 +77,4 @@ export class ItemService {
     }
   };
 
-  updateItem(data: {id: string, collection: string,  params: string}): Observable<any> {
-    return this.itemRestService.updateItemByParams(data)
-  }
 }

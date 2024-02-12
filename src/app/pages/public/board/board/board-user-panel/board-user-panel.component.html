@@ -1,7 +1,12 @@
 <div *ngIf="userPanelType === 'board-user-any-panel'" class="board-user-container">
-    <app-board-userpanel-any [user]="selectedUser" class="w-100"></app-board-userpanel-any>
+    <app-board-userpanel-any [user]="selectedUser" 
+                             class="w-100"></app-board-userpanel-any>
 </div>
+
 <div *ngIf="userPanelType === 'board-user-owner-panel'" class="board-user-container">
-    <app-board-userpanel-owner [user]="selectedUser" class="w-100"></app-board-userpanel-owner>
+    <app-board-userpanel-owner [user]="selectedUser" 
+                               class="w-100"
+                               [storageType]="storageType"></app-board-userpanel-owner>
 </div>
+
 <router-outlet></router-outlet>

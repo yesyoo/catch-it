@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-user-settings',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserSettingsComponent implements OnInit {
 
+  display: boolean;
+  @Output() closeSettings: EventEmitter<any> = new EventEmitter()
+  @Input() show: boolean = false
+
   constructor() { }
 
   ngOnInit(): void {
+    this.display = true
   }
+  
 
 }

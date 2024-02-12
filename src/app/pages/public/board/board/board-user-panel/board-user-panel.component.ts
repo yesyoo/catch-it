@@ -37,15 +37,16 @@ export class BoardUserPanelComponent implements OnInit {
         this.viewerType = 'owner-user';
         this.selectedUser = this.userService.getUser();
         this.userPanelType = 'board-user-owner-panel'
+        this.storageType = 'owner-storage';
         const items = this.board.getStorage('owner-storage')
         if(items.length > 0) {
-          this.board.show('owner-storage');
+          this.board.render('owner-storage');
         } else {
-          this.itemService.getByOwnerId('65c1e644fec7a96c177abcb9').subscribe(data => {
+          this.itemService.getAllByOwnerId('65c1e644fec7a96c177abcb9').subscribe(data => {
             if(Array.isArray(data)) {
               if(data.length > 0) {
                 this.board.setToStorage(data, 'owner-storage');
-                this.board.show('owner-storage');
+                this.board.render('owner-storage');
               }
             }
 
@@ -55,11 +56,11 @@ export class BoardUserPanelComponent implements OnInit {
       };
     });
     const selectedUserId = this.board.getSelectedUserId()
-    if(selectedUserId) { this.checkOwner(selectedUserId) }
-    else { this.activatedRoute.params.subscribe(path => this.checkOwner(path['id'])) };
+    if(selectedUserId) { this.checkViewer(selectedUserId) }
+    else { this.activatedRoute.params.subscribe(path => this.checkViewer(path['id'])) };
   };
 
-  checkOwner(id: string) {
+  checkViewer(id: string) {
     this.ID = this.authService.getUserIdFromLocalStorage()
     if(!this.ID) {
       this.viewerType = 'unauthorized-user';
@@ -73,16 +74,17 @@ export class BoardUserPanelComponent implements OnInit {
     };
     if(this.ID === id) {
       this.viewerType = 'owner-user';
+      this.storageType = 'owner-storage';
       this.userPanelType = 'board-user-owner-panel';
       this.userService.getUserPromise().then(data => {
         this.selectedUser = data;
         this.board.checkStorage('owner-storage').then(res => {
           if(!res) {
-            this.itemService.getByOwnerId(this.ID).subscribe(data => {
+            this.itemService.getAllByOwnerId(this.ID).subscribe(data => {
               if(Array.isArray(data)) {
                 if(data.length > 0) {
                   this.board.setToStorage(data, 'owner-storage');
-                  this.board.show('owner-storage');
+                  this.board.render('owner-storage');
                 } else {
                   // this.board.sendErrorMessage('Cards not found')
                 }
@@ -90,7 +92,7 @@ export class BoardUserPanelComponent implements OnInit {
 
             })
           } else {
-            this.board.show('owner-storage');
+            this.board.render('owner-storage');
           };
         })
        });
@@ -101,10 +103,10 @@ export class BoardUserPanelComponent implements OnInit {
     this.userService.getUserById(id).subscribe(data => {
       this.selectedUser = data;
     });
-    this.itemService.getByUserId(id).subscribe(data => {
+    this.itemService.getManyByUserId(id).subscribe(data => {
       if(Array.isArray(data)) {
         this.board.setToStorage(data, 'any-storage');
-        this.board.show('any-storage');
+        this.board.render('any-storage');
       } else { 
         // this.board.sendErrorMessage('Cards not found')
       }
@@ -116,7 +118,7 @@ export class BoardUserPanelComponent implements OnInit {
   };
 
   closeUserPage() {
-    this.board.show('main-storage')
+    this.board.render('main-storage')
     this.navigationService.home()
   };
 

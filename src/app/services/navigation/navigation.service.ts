@@ -7,19 +7,18 @@ import { AuthService } from '../auth/auth.service';
 })
 export class NavigationService {
 
+  rootPath: string = this.authService.getRootPath()
+
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private authService: AuthService) { }
-
-  rootPath: string = this.authService.getRootPath()
-
 
   home(): void {
     this.router.navigateByUrl(this.rootPath)
   };
 
   profile(): void {
-    this.router.navigateByUrl(`${this.rootPath}/user/${this.authService.ID}`)
+    this.router.navigateByUrl(`home/user/${this.authService.getAuthUserID()}`)
   }
 
   auth():void {

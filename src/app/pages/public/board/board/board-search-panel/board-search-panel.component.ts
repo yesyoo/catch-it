@@ -27,8 +27,12 @@ export class BoardSearchPanelComponent implements OnInit {
 
   defaultRequestParams: string = 'deal=donate&collection=personal-shoes&category=adult-male-shoes'
 
+  overlap: boolean = true;
+
   @Output() openFilterOutput: EventEmitter<boolean> = new EventEmitter()
   @Output() updateCards: EventEmitter<any[]> = new EventEmitter()
+
+
 
   constructor(private itemService: ItemService,
               private board: BoardService) { }
@@ -36,12 +40,12 @@ export class BoardSearchPanelComponent implements OnInit {
   ngOnInit(): void {
     this.board.checkStorage('main-storage').then(res => {
       if(!res) {
-        this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => {
+        this.itemService.getManyByParams(this.defaultRequestParams).subscribe(data => {
           this.board.setToStorage(data, 'main-storage')
-          this.board.show('main-storage')
+          this.board.render('main-storage')
         })
       } else {
-        this.board.show('main-storage')
+        this.board.render('main-storage')
       }
     })
   };
@@ -51,9 +55,9 @@ export class BoardSearchPanelComponent implements OnInit {
   };
 
   refresh() {
-    this.itemService.getItemsByParams(this.defaultRequestParams).subscribe(data => { 
+    this.itemService.getManyByParams(this.defaultRequestParams).subscribe(data => { 
       this.board.setToStorage(data, 'main-storage');
-      this.board.show('main-storage');
+      this.board.render('main-storage');
     })
   }
   
@@ -62,25 +66,33 @@ export class BoardSearchPanelComponent implements OnInit {
     this.category = ev.value.category
     this.collectionParams = `collection=${ev.value.collection}`;
     this.categoryParams = `category=${ev.value.category}`;
-    this.itemService.getItemsByParams(this.path()).subscribe(data => {
+    this.itemService.getManyByParams(this.path()).subscribe(data => {
       this.board.setToStorage(data, 'main-storage')
-      this.board.show('main-storage')
+      this.board.render('main-storage')
     })
   };
 
-  updateDealParams(ev: {ev: Event, value: {label: string, type: DealType}}): void {
-    this.deal = ev.value.type
-    this.dealParams = `deal=${ev.value.type}`;
-    this.itemService.getItemsByParams(this.path()).subscribe(data => {
+  // updateDealParams(ev: {ev: Event, value: {label: string, type: DealType}}): void {
+  //   this.deal = ev.value.type
+  //   this.dealParams = `deal=${ev.value.type}`;
+  //   this.itemService.getManyByParams(this.path()).subscribe(data => {
+  //     this.board.setToStorage(data, 'main-storage')
+  //     this.board.renderList('main-storage')
+  //   })
+  // };
+  updateDealParams(type: DealType): void {
+    this.deal = type
+    this.dealParams = `deal=${type}`;
+    this.itemService.getManyByParams(this.path()).subscribe(data => {
       this.board.setToStorage(data, 'main-storage')
-      this.board.show('main-storage')
+      this.board.render('main-storage')
     })
   };
 
   updateFilterParams(params: string): void {
-    this.itemService.getItemsByParams(`${this.dealParams}&${this.collectionParams}&${params}`).subscribe(data => {
+    this.itemService.getManyByParams(`${this.dealParams}&${this.collectionParams}&${params}`).subscribe(data => {
       this.board.setToStorage(data, 'main-storage')
-      this.board.show('main-storage')
+      this.board.render('main-storage')
     })
  };
 
