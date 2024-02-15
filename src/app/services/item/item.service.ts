@@ -1,80 +1,104 @@
 import { Injectable } from '@angular/core';
 import { ItemRestService } from './item-rest.service';
 import { Observable } from 'rxjs';
-import { Category, Collection } from 'src/app/interfaces/category';
-import { Deal } from 'src/app/interfaces/deal-type';
-import { IPostItem } from 'src/app/interfaces/items';
+import { IItemDB } from '../../interfaces/items';
+import { StorageService } from '../storage/storage.service';
+import { StorageType } from 'src/app/types/types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  items: any[] = [];
-  item: any[];
-  itemId: string;
 
-  constructor(private itemRestService: ItemRestService) { }
-  ////////////////////////////////////////////////////
-  postItem(data: FormData): Observable<any> {
-    return this.itemRestService.postItem(data)
+  constructor(private rest: ItemRestService,
+              private storage: StorageService) { }
+
+  postItem(data: FormData): Promise<any> {
+    return new Promise(res => {
+      this.rest.postItem(data).subscribe((item: IItemDB) => {
+        this.storage.saveItem(item)
+        res(true)
+      })
+    })
   };
-  /////////////////////////////////////////////////
-  getOneById(id: string): Observable<any> {
-    return this.itemRestService.getOneById(id)
+  
+  getManyFromArray(data: {id: string, collection: string}[], storageType: StorageType): Promise<any> {
+    return new Promise(res => {
+      this.rest.getManyFromArray(data).subscribe((response: IItemDB[]) => {
+        this.storage.setToStorage(response, storageType)
+        res(true)
+      })
+    })
   };
-  getManyByParams(params: string): Observable<any> {
-    return this.itemRestService.getManyByParams(params)
+
+  getManyByParams(params: string): Promise<any> {
+    return new Promise(res => {
+      this.rest.getManyByParams(params).subscribe((response: IItemDB[]) => {
+        this.storage.setToStorage(response, 'main-storage');
+        res(true)
+      })
+    })
   };
-  getAllByOwnerId(id: string): Observable<any> {
-    return this.itemRestService.getAllByOwnerId(id)
+
+  getAllByOwnerId(id: string): Promise<any> {
+    return new Promise(res => {
+      this.rest.getAllByOwnerId(id).subscribe((data: IItemDB[]) => {
+        this.storage.setToStorage(data, 'owner-storage')
+        res(true)
+      })
+    })
   };
-  getManyByUserId(id: string): Observable<any> {
-    return this.itemRestService.getManyByUserId(id)
+
+  getAllByUserId(id: string): Promise<any> {
+    return new Promise(res => {
+      this.rest.getManyByUserId(id).subscribe((data: IItemDB[]) => {
+        this.storage.setToStorage(data, 'any-storage')
+        res(true)
+      })
+    })
   };
-  getManyFromArray(array: any[]): Observable<any> {
-    return this.itemRestService.getManyFromArray(array)
-  }
-  /////////////////////////////////////////////////
-  deleteOneByIdAndCollection(id: string, collection: string): Observable<any> {
-    return this.itemRestService.deleteOneByIdAndCollection(id, collection)
+
+  getOneById(id: string): Promise<any> {
+    return new Promise(res => {
+      this.rest.getOneById(id).subscribe((data: IItemDB) => {
+        this.storage.setOne(data)
+        res(true)
+      })
+    })
   };
-  deleteManyFromArray(array: {id: string, collection: string}[]): Observable<any> {
-    return this.itemRestService.deleteManyFromArray(array)
+     
+  deleteOne(itemId: string, collection: string): Promise<any> {
+    return new Promise(res => {
+      this.rest.deleteOne(itemId, collection).subscribe(() => {
+        this.storage.deleteOne(itemId, 'owner-storage');
+        res(true)
+      })
+    })
   };
-  deleteAllInCollection(collection: string): Observable<any> {
-    return this.itemRestService.deleteAllInCollection(collection)
+
+  updateAccessMany(data: {id: string, collection: string, show: boolean}[]): Promise<any> {
+    return new Promise(res => {
+      this.rest.updateAccessMany(data).subscribe(() => {
+        this.storage.updateAccessMany(data)
+        res(true)
+      })
+    })
   };
+
+  deleteMany(array: {id: string, collection: string}[], storageType: StorageType): Promise<any> {
+    return new Promise(res => {
+      this.rest.deleteMany(array).subscribe(() => {
+        this.storage.deleteMany(array, storageType)
+        res(true)
+      })
+    })
+  };
+
   deleteAllByUserId(id: string): Observable<any> {
-    return this.itemRestService.deleteAllByUserId(id)
-  };
-  ////////////////////////////////////////////////////////////
-  updateShowHideFromArray(array: {id: string, collection: string, show: boolean}[]): Observable<any> {
-    return this.itemRestService.updateShowHideFromArray(array)
-  };
-  /////////////////////////////////////////////////////////////////
-  updateLocalStorageItemsList(data: any): void {
-    const string = localStorage.getItem('items') 
-    if(string) {
-      let items: any[] = JSON.parse(string) 
-      if(items.length >= 5) {
-        items.shift()
-      }
-      items.push(data)
-      localStorage.setItem('items', JSON.stringify(items))
-    } else {
-      localStorage.setItem('items', JSON.stringify([data]))
-    };
-  };
-  deleteItemFromLocalStorage(id: string) {
-    const string = localStorage.getItem('items') 
-    if(string) {
-      let items: any[] = JSON.parse(string) 
-      for(let i = 0; i <= items.length; i++) {
-        if(items[i]._id === id) {
-          items.slice(i, 1)
-        }
-      }
-    }
+    return this.rest.deleteAllByUserId(id)
   };
 
+  deleteAllInCollection(collection: string): Observable<any> {
+    return this.rest.deleteAllInCollection(collection)
+  };
 }

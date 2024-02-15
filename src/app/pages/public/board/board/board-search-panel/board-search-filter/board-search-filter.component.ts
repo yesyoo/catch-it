@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Collection, Category } from 'src/app/interfaces/category';
 import { Deal } from 'src/app/interfaces/deal-type';
 import { DealType } from 'src/app/interfaces/items';
 import { ConfigFormsService } from 'src/app/services/config/config-forms/config-forms.service';
+import { IItemDB } from '../../../../../../interfaces/items';
 
 
 @Component({
@@ -18,13 +19,11 @@ export class BoardSearchFilterComponent implements OnInit {
   @Input() deal: Deal
   @Input() show: boolean;
   @Output() updateFilterParamsRequest: EventEmitter<string> = new EventEmitter()
-  items: any[] = []
-
+  items: IItemDB[] = []
   categoryFieldsConfig: any;
   inputListConfig: any;
   defaultFieldsNameList: string[] = ["condition", "delivery"];
-  fieldsNameListFromConfig: any[];
-
+  fieldsNameListFromConfig: any[] = [];
   form: FormGroup;
   inputs: any[] = [];
   

@@ -64,7 +64,8 @@ export interface IItemDB {
     blocked: boolean,
     item: IItem,
     cat: UnionCategoryType,
-    img?: string
+    img?: string,
+    bookmark?: boolean
 }
 
 

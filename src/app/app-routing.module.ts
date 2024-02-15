@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PublicModule } from './pages/public/public.module';
 import { AdminGuard } from './guards/admin/admin.guard';
 
 const routes: Routes = [

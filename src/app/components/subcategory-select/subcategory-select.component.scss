@@ -1,16 +1,40 @@
 
 .overlap-style {
     .p-cascadeselect {
-        background-color: var(--white)
+        background-color: rgb(45, 45, 45);
+        border: none;
     }
     .p-inputtext {
-        color: black;
+        color: rgb(180, 171, 171);
     }
     .p-cascadeselect .p-cascadeselect-trigger {
-        color: black;
+        color: rgb(167, 157, 157);
+        outline: none;
+        border: none;
     }
     .p-cascadeselect .p-cascadeselect-label {
         padding: 10px;
+        outline: none;
+        border: none;
+    }
+    .p-element .p-inputwrapper .ng-untouched .ng-pristine .ng-valid .p-inputwrapper-filled .p-inputwrapper-focus {
+
+    }
+    .p-inputwrapper-focus {
+        border: none;
+        outline: none;
+    }
+    .p-fosus {
+        border:none;
+    }
+    .p-cascadeselect:not(.p-disabled).p-focus {
+        box-shadow: none;
+        border: none;
+        transform: none;
+    }
+    .p-cascadeselect:not(.p-disabled):hover {
+        border: none;
+        transform: none;
     }
 
 }

@@ -32,11 +32,15 @@ export class ItemRestService {
     return this.http.post(`http://localhost:3003/items/get-many-from-array`, array)
   }
 
+  updateAccessMany(data: {id: string, collection: string, show: boolean}[]): Observable<any> {
+    return this.http.patch(`http://localhost:3003/items/update-show-hide-from-array`, data)
+  }
 
-  deleteOneByIdAndCollection(id: string, collection: string): Observable<any> {
+
+  deleteOne(id: string, collection: string): Observable<any> {
     return this.http.delete(`http://localhost:3003/items/delete-one-by-id-and-collection?id=${id}&collection=${collection}`)
   };
-  deleteManyFromArray(array: {id: string, collection: string}[]): Observable<any> {
+  deleteMany(array: {id: string, collection: string}[]): Observable<any> {
     return this.http.post(`http://localhost:3003/items/delete-by-id-and-collection-from-array`, array)
   };
   deleteAllInCollection(collection: string): Observable<any> {

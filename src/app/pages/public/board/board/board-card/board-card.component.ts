@@ -1,92 +1,80 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BoardService } from '../../../../../services/board/board.service';
-import { IUser } from '../../../../../interfaces/user';
-import { UserService } from 'src/app/services/user/user.service';
-import { ActivatedRoute, Event, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ItemService } from 'src/app/services/item/item.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { AuthRestService } from 'src/app/services/auth/auth-rest.service';
-import { Collection } from '../../../../../interfaces/category';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { ViewerType } from 'src/app/types/types';
 import { PanelService } from 'src/app/services/panel/panel.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-board-card',
   templateUrl: './board-card.component.html',
   styleUrls: ['./board-card.component.scss']
 })
-export class BoardCardComponent implements OnInit {
 
+export class BoardCardComponent implements OnInit {
   ID: string;
   viewerType: ViewerType;
-  isOwnerPage: boolean = this.navigationService.matchUsersId();
-
+  isOwnerPage: boolean = this.nav.matchUsersId();
   item: any;
-
   display: boolean = true;
-  showToast: boolean;
-  toastMessage: string;
 
-  constructor(private authService: AuthService,
+  constructor(private auth: AuthService,
               private board: BoardService,
               private itemService: ItemService,
               private activatedRoute: ActivatedRoute,
-              private navigationService: NavigationService,
-              private panel: PanelService) { }
+              private nav: NavigationService,
+              private panel: PanelService,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
-    //подписаться на тип юзера
     this.display = true
-    this.ID = this.authService.getUserIdFromLocalStorage()
+    this.ID = this.auth.getAuthUserID()
     this.item = this.board.getSelectedCard()
-    
-    if(!this.item) { 
+    if(this.item) { 
+      this.matchUser()
+    } else {
       this.activatedRoute.params.subscribe(data => {
-        this.itemService.getOneById(data['id']).subscribe(data => {
-          this.item = data;
+        this.itemService.getOneById(data['id']).then(() => {
+          this.item = this.storage.item
           this.matchUser();
         })
       })
-    } else { this.matchUser() };
+    }
   };
   
   matchUser() {
     if(this.ID) {
       this.ID === this.item.user ? this.viewerType = 'owner-user' : this.viewerType = 'visitor-user'
-    } else { this.viewerType = 'unauthorized-user' };
+    } else { 
+      this.viewerType = 'unauthorized-user' 
+    };
   };
 
-  goToUser(id: string) {
+  userPage(id: string) {
     if(this.ID === id) {
-      this.panel.openOwnerPanel(true)
-      this.navigationService.user(id)
+      this.nav.user(id)
     } else {
       this.panel.openAnyPanel(id)
-
-      // this.board.setSelectedUserId(id)
-      this.navigationService.user(id)
-  
+      this.nav.user(id)
     }
-    
   };
 
-  closeCard() {
-    window.history.back()
-  };
-  
   onHide() {
-    this.closeCard()
+    this.close()
   };
 
   login() {
-    this.navigationService.auth()
+    this.nav.auth()
   };
 
-  showToastAndExit(message: string): void {
-    this.toastMessage = message
-      this.showToast = true
-      setTimeout(() => { window.history.back() }, 500)
-  };
+  close(): void {
+    window.history.back()
+  }
+ 
+      
+  
 
 }

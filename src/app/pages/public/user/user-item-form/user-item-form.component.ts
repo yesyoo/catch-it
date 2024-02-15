@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { Category, Collection } from 'src/app/interfaces/category';
 import { Deal } from 'src/app/interfaces/deal-type';
-import { IPostItem, IItemDB } from 'src/app/interfaces/items';
+import { IPostItem } from 'src/app/interfaces/items';
 import { IUser } from 'src/app/interfaces/user';
 import { BoardService } from 'src/app/services/board/board.service';
 import { ConfigFormsService } from 'src/app/services/config/config-forms/config-forms.service';
 import { ItemService } from 'src/app/services/item/item.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-user-item-form',
@@ -47,7 +49,9 @@ export class UserItemFormComponent implements OnInit {
               private itemService: ItemService,
               private modalService: ModalService,
               private userService: UserService,
-              private board: BoardService) { }
+              private board: BoardService,
+              private messageService: MessageService,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
     this.display = true
@@ -141,30 +145,15 @@ export class UserItemFormComponent implements OnInit {
       formData.append('cat', JSON.stringify(this.form.get(this.secondFormName)?.value))
       formData.append('img', this.imgFile)
  
-      this.itemService.postItem(formData).subscribe((data: IItemDB) => {
-        const cards: IItemDB[] = this.board.getStorage('owner-storage').unshift(data)
-        this.board.setToStorage(cards, 'owner-storage')
-        // this.itemService.updateLocalStorageItemsList(data)
+      this.itemService.postItem(formData).then(() => {
+        this.messageService.add({severity:'success', life: 1000, summary: 'success'});
+        setTimeout(()=> { this.closeThisForm.emit() }, 1100)
       })
     };
   };
    
-  onSubmit(): any {
-    // this.itemService.postItem(this.path, this.postData).subscribe(data => console.log('item saved'))  
-  };
-
   generateGroupName(): string {
     return 'control_' + Date.now()
-  };
-
-  afterPreview(submit: boolean) {
-    if(submit) {
-      this.onSubmit()
-      this.showPreview = false
-      this.closeForm.emit(true)
-    } else  {
-      this.showPreview = false
-    }
   };
 
   selectFile(ev: any) {

@@ -5,19 +5,22 @@
         <button class="navigation-btn" (click)="switchStorageType('bookmark-storage')">Bookmarks</button>
     </div>
     <div class="select-line">
-        <span class="btn-access" *ngIf="checkbox">
+        <span class="btn-access" *ngIf="checkbox && storageType === 'owner-storage'">
             <button class="btn-select" (click)="switchShowHide(false)">hide</button>
             <span class="btn-divide">|</span>
             <button class="btn-select" (click)="switchShowHide(true)">unhide</button>
             <span class="btn-divide">|</span>
+            <button class="btn-select" (click)="deleteItem()">delete</button>
+        </span>
+        <span class="btn-access" *ngIf="checkbox && storageType === 'bookmark-storage'">
             <button class="btn-select">delete</button>
         </span>
         <button class="btn-select" *ngIf="checkbox" (click)="selectAll()">All</button>
         <span *ngIf="!checkbox"><i class="pi pi-chevron-left"></i></span>
         <span *ngIf="checkbox" style="margin: 0 10px;">:</span>
         <button class="btn-select" (click)="select()">Select</button>
-    </div>
-    <button class="btn-back" (click)="exit()"><i class="pi pi-times"></i></button>
-        
-        
+        <span class="btn-divide">|</span>
+        <!-- <button class="btn-select" (click)="exit()">Back</button>
+        <span class="btn-select"><i class="pi pi-times"></i></span> -->
+    </div>       
 </div>

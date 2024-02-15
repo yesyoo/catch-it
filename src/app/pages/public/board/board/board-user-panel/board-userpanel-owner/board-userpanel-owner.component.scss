@@ -6,7 +6,6 @@
     align-items: center;
     flex-grow: 1;
     height: 100%;
-    padding: 0 20px;
 };
 .user-navigation {
     display: flex;
@@ -59,4 +58,8 @@ button:hover {
     display: flex;
     flex-direction: row;
     align-items: baseline;
+}
+i {
+    font-size: 0.8rem;
+    color: grey
 }

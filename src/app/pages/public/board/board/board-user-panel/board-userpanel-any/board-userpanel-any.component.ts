@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { BoardService } from 'src/app/services/board/board.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 
 @Component({
@@ -10,13 +11,14 @@ export class BoardUserpanelAnyComponent implements OnInit {
 
   @Input() user: any;
 
-  constructor(private navigationService: NavigationService) { }
+  constructor(private navigationService: NavigationService,
+              private board: BoardService) { }
 
   ngOnInit(): void {
   }
-  back() {
+  exit() {
     this.navigationService.home()
-
+    this.board.render('main-storage')
   }
 
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IItemDB as IItemDB } from 'src/app/interfaces/items';
+import { MessageService } from 'primeng/api';
+import { IItemDB } from 'src/app/interfaces/items';
 import { BoardService } from 'src/app/services/board/board.service';
 import { ItemService } from 'src/app/services/item/item.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-board-card-owner-panel',
@@ -10,42 +12,36 @@ import { ItemService } from 'src/app/services/item/item.service';
 })
 export class BoardCardOwnerPanelComponent implements OnInit {
 
-  @Input() item: any
-  @Output() toast: EventEmitter<string> =  new EventEmitter()
+  @Input() item: IItemDB;
+  @Output() close: EventEmitter<string> =  new EventEmitter()
 
   constructor(private itemService: ItemService,
-              private board: BoardService) { }
+              private board: BoardService,
+              private messageService: MessageService,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
   };
 
   deleteItem() {
-    this.itemService.deleteOneByIdAndCollection(this.item._id, this.item.collection).subscribe(res => {
-      const cards: IItemDB[] = this.board.getStorage('owner-storage').filter((item: IItemDB) => item._id !== this.item._id);
-      this.board.setToStorage(cards, 'owner-storage')
-
-      if(this.board.getCurrentStorageType() === 'owner-storage') {
+    this.itemService.deleteOne(this.item._id, this.item.collection).then(() => {
+      if(this.storage.getType() === 'owner-storage') {
         this.board.render('owner-storage')
-      }
-      this.toast.emit('deleted')
+      };
+      this.messageService.add({severity:'success', life: 1000, summary: 'норм'});
+      setTimeout(()=> { this.close.emit() }, 1100)
     })
   };
 
   hideItem(show: boolean) {
-    const param = {show: show};
-    this.itemService.updateShowHideFromArray([{id: this.item._id, collection: this.item.collection, show: show}]).subscribe(res => {
-      const cards: IItemDB[] = this.board.getStorage('owner-storage')
-      cards.forEach(item => {
-        if(item._id === this.item._id) {
-          item.show = show
-        }
-      })
-      this.board.setToStorage(cards, 'owner-storage')
-      if(this.board.getCurrentStorageType() === 'owner-storage') {
+    let message: string 
+    this.itemService.updateAccessMany([{id: this.item._id, collection: this.item.collection, show: show}]).then(() => {
+      show === false ? message = 'Hidden' : message = 'Unhidden'
+      if(this.storage.getType() === 'owner-storage') {
         this.board.render('owner-storage')
       }
-    
-      this.toast.emit('hidded')
+      this.messageService.add({severity:'success', life: 1000, summary: message});
+      setTimeout(()=> { this.close.emit() }, 1100)
     })
   };
 

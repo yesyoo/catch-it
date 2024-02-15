@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CardsService } from 'src/app/services/cards/cards.service';
+import { IItemDB } from '../../../../../../interfaces/items';
 
 
 @Component({
@@ -8,9 +9,10 @@ import { CardsService } from 'src/app/services/cards/cards.service';
   styleUrls: ['./board-preview-card-owner.component.scss']
 })
 export class BoardPreviewCardOwnerComponent implements OnInit {
+
   showCheckbox: boolean;
-  @Input() item: any
-  date: any
+  @Input() item: IItemDB;
+  date: string;
 
   constructor(private cardsService: CardsService) { }
 
@@ -33,7 +35,6 @@ export class BoardPreviewCardOwnerComponent implements OnInit {
     if(minute > 60 * 24 * 2) {
       this.date = `${Math.floor(minute / 60 / 24)} weeks ago`
     }
-
-  }
+  };
 
 }

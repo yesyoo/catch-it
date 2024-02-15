@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="user-container">
         <div class="user-card">
-            <div *ngIf="user" (click)="openBoard()" class="user-top">
+            <div *ngIf="user" class="user-top" (click)="openBoard()">
                 <div class="user-img"></div>
                 <div class="user-data">
                     <div>{{user.username}}</div>
@@ -9,16 +9,10 @@
                 </div>
 
             </div>
-            <!-- <div class="user-navigation">
-                <div (click)="openBoard()"><i class="pi pi-shopping-bag"></i></div>
-                <div (click)="openMessages()"><i class="pi pi-envelope"></i></div>
-                <div (click)="openBookmarks()"><i class="pi pi-heart"></i></div>
-                <div (click)="openMessages()"><i class="pi pi-cog"></i></div>
-            </div> -->
+
             <div class="user-navigation">
-                <button (click)="openBoard()"><i class="pi pi-shopping-bag"></i>items</button>
+              
                 <button (click)="openMessages()"><i class="pi pi-envelope"></i>messages</button>
-                <button (click)="openBookmarks()"><i class="pi pi-heart"></i>bookmarks</button>
                 <button (click)="openMessages()"><i class="pi pi-cog"></i>settings</button>
             </div>
             <app-user-settings *ngIf="showSettings" (closeSettings)="this.showSettings = false"></app-user-settings>

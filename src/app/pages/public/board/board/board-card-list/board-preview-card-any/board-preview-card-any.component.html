@@ -1,1 +1,12 @@
-<p>board-preview-card-any works!</p>
+<div class="card-container">
+    <div *ngIf="!showCheckbox" (click)="addBookmark()">
+        <i #heart class="pi pi-heart-fill"></i>
+    </div>
+    <div class="card-controls">
+        <input *ngIf="showCheckbox" class="card-checkbox" type="checkbox" id="{{item._id}}" 
+               [attr.data-collection]="item.collection" 
+               [attr.data-owner-item-checkbox-list]="true"
+               aria-checked="false">
+    </div>
+</div>
+

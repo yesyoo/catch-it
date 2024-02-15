@@ -27,6 +27,17 @@ select {
     display: flex;
     flex-direction: row;
 }
-.close-btn {
+
+.button-close, .button-add, .button-search {
+    border: none;
+    background: none;
+    color: rgb(83, 83, 83);
+}
+.button-close {
     padding: 0 4px;
+    color: rgb(0, 0, 0);
+}
+.button-search {
+    background: rgb(255, 153, 0);
+
 }

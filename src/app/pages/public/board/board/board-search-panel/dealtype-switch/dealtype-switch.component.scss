@@ -1,8 +1,10 @@
 .switch-contents {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    height: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 48px;
     flex-grow: 1; 
     border-radius: 5px;
     overflow: hidden;
@@ -12,8 +14,7 @@
     display: none;
     &:checked + label {
     //   background: rgb(250, 250, 250);
-      font-weight: 500;
-      color: black;
+      color: var(--main-orange);
       cursor: default;
     }
 }
@@ -21,15 +22,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--white);
-    color: rgb(175, 175, 175);
-    width: 100%;
-    height: 100%;
-    // font-weight: 300;
+    // background: rgb(100, 99, 95);
+    color: rgb(131, 129, 124);
+    letter-spacing: 0.1rem;
     cursor: pointer;
     &:hover {
-        background: var(--white);
-        color: rgb(48, 48, 48);
+      // background: rgb(100, 99, 95);
+        color: rgb(228, 168, 58);
  
     }
   }
+  .btn-divide {
+    margin: 0 20px;
+    color: rgb(59, 59, 59);
+}

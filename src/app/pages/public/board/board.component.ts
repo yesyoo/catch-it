@@ -29,6 +29,18 @@ export class BoardComponent implements OnInit {
     this.router.events.subscribe((event: Event) => {
       event instanceof NavigationEnd && event.url.includes('user') ? this.showBoardSearchPanel = false : this.showBoardSearchPanel = true
     });
+    // if(this.ID) {
+      //   this.bookmarkClassActive = this.card.bookmarksId
+      //   if(this.card.bookmarksId) {
+      //     this.card.setClassActiveFor(this.items, this.bookmarkClassActive)
+      //     console.log('list get active bookmarks', this.bookmarkClassActive )
+      //   };
+      //   this.card.bookmarkItemId$.subscribe(array => {
+      //     console.log('arr', array)
+      //     this.bookmarkClassActive = this.card.setClassActiveFor(this.items, array)
+      //     console.log('bookmarks itemid rx', this.bookmarkClassActive )
+      //   })
+      // };
   };
 
   auth(): void {

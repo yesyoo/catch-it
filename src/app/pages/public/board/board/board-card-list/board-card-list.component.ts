@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BoardService } from '../../../../../services/board/board.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { ViewerType } from 'src/app/types/types';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { IItemDB } from '../../../../../interfaces/items';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-board-card-list',
@@ -10,20 +13,22 @@ import { ViewerType } from 'src/app/types/types';
 })
 export class BoardCardListComponent implements OnInit {
 
-  items: any[];
-  itemsReverse: any[];
-  viewerType: ViewerType
-
+  items: IItemDB[];
+  itemsReverse: IItemDB[];
+  viewerType: ViewerType;
+  ID: string = this.auth.getAuthUserID();
 
   constructor(private board: BoardService,
-              private navigation: NavigationService) { }
+              private nav: NavigationService,
+              private auth: AuthService,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
     this.board.storageType$.subscribe(storageType => {
       storageType === 'owner-storage' ? this.viewerType = 'owner-user' : this.viewerType = 'visitor-user';
-      this.items = this.board.getStorage(storageType);
+      this.items = this.storage.getStorage(storageType);
       if(this.items.length == 0) {
-        this.board.sendErrorMessage('Items not found')
+        this.board.sendErrorMessage('Not found')
         this.itemsReverse = []
       } else {
         this.board.sendErrorMessage('')
@@ -31,9 +36,10 @@ export class BoardCardListComponent implements OnInit {
       }
     });
   };
+
   openCard(item: any) {
     this.board.setSelectedCard(item);
     this.board.setSelectedUserId(item.user)
-    this.navigation.item(item._id, item.user)
+    this.nav.item(item._id, item.user)
   };
 }

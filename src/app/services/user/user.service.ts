@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { IUser, IUserResponse } from 'src/app/interfaces/user';
+import { AuthService } from '../auth/auth.service';
+
 import { UserRestService } from './user-rest/user-rest.service';
 
 @Injectable({
@@ -8,33 +10,24 @@ import { UserRestService } from './user-rest/user-rest.service';
 })
 export class UserService {
 
-  user: IUser | null
+  user: IUser 
+  ID: string = this.auth.getAuthUserID()
+  userIsLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  userIsLoaded$ = this.userIsLoaded.asObservable()
+
+  constructor(private rest: UserRestService,
+              private auth: AuthService) { }
 
 
-
-  constructor(private rest: UserRestService) { }
- 
-  getUserPromise(): Promise<any> {
-    return new Promise((res, rej) => {
-      if(this.user) {
-        res(this.user)
-      } 
-      if(!this.user) {
-        setTimeout(() => {
-          if(this.user) res(this.user)
-          else rej()
-        }, 100)
-      }
+  loadUser():Promise<any> {
+    return new Promise(res => {
+      this.getById(this.ID).subscribe(user => {
+        this.setUser(user);
+        res(user)
+      })
     })
   };
-
-  getUserId(): string | null {
-    const user = localStorage.getItem('user')
-    if(user) {
-      const id = JSON.parse(user).id
-      return id? id : null
-    } return null    
-  }
+ 
 
   setUser(data: IUserResponse) {
     this.user = {
@@ -48,11 +41,11 @@ export class UserService {
     console.log('set:', this.user)
   };
 
-  getUser(): IUser | null {
-    return this.user ? this.user : null
+  getUser(): IUser  {
+    return this.user 
   };
 
-  getUserById(id: string): Observable<IUserResponse> {
+  getById(id: string): Observable<IUserResponse> {
     return this.rest.getUserById(id)
   };
 

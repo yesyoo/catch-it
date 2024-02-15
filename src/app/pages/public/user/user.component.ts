@@ -17,71 +17,53 @@ import { AuthRestService } from '../../../services/auth/auth-rest.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  
-  user: IUser | null
+
+
   private ID: string = this.auth.getAuthUserID()
+  user: IUser
 
   showForm: boolean = false
   showSettings: boolean = false;
   showMessages: boolean = false;
 
-  ownerPanelOpen: boolean = false
-  isAdmin: boolean = false
-
   constructor(private userService: UserService,
-              private itemService: ItemService,
               private navigationService: NavigationService,
               private board: BoardService,
-              private panel: PanelService,
               private authService: AuthService,
               private bookmarks: BookmarkService,
               private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.panel.homecoming$.subscribe(res => this.ownerPanelOpen = res);
-    this.bookmarks.getAllBookmarks().subscribe(data => {
-      this.bookmarks.setBookmarksListId(data)
-      console.log('bb', this.bookmarks.getBookmarksListId())
-    });
-    
-    //
-    const u: any = localStorage.getItem('user')
-    if(u) {
-      if(JSON.parse(u)['role'] === 'admin') {
-        this.isAdmin = true
-      }
-    }
-    //
-    this.user = this.userService.getUser()
-    const id: string | null = this.userService.getUserId()
-    if(id) {
-      this.userService.getUserById(id).subscribe(data => {
-        this.userService.setUser(data)
-        this.user = this.userService.getUser()
+    this.userService.loadUser().then((user) => {
+      this.user = user;
+      this.bookmarks.loadBookmarks().then(() => {
+        this.userService.userIsLoaded.next(true)
       })
-    } else console.log('userId not found')
-
+    });
   };
+
   addForm() {
-    this.ownerPanelOpen = true;
     this.board.render('owner-storage')
     this.navigationService.profile()
     setTimeout(() => {this.showForm = true}, 600)
-    
-  }
+  };
+
   openBoard() {
-    if(this.user) {
-      if(!this.ownerPanelOpen) {
-        this.panel.openOwnerPanel(true)
-        this.board.setSelectedUserId(this.user.id)
-        this.board.render('owner-storage')
+    const location = this.navigationService.checkLocation(this.ID)
+    switch(location) {
+      case 'owner-board':
+        this.navigationService.home();
+        break;
+      case 'home-page': 
+        this.board.setSelectedUserId(this.ID)
         this.navigationService.profile()
-      } else {
-        this.panel.openOwnerPanel(false)
-        this.navigationService.home()
-      }
+        break;
+      case 'any':
+        this.navigationService.home();
+        break
     }
   };
+
   logout() {
     this.authService.logout()
     this.board.showAuthModal(true)
@@ -89,29 +71,13 @@ export class UserComponent implements OnInit {
   }
  
   openSettings() {
-    this.ownerPanelOpen = true;
-
     setTimeout(() => {this.showSettings = true}, 600)
   };
-  openMessages() {
-    this.ownerPanelOpen = true;
 
+  openMessages() {
     setTimeout(() => {this.showMessages = true}, 600)
   };
 
-  openBookmarks() {
-    if(this.user) {
-      if(!this.ownerPanelOpen) {
-        this.panel.openOwnerPanel(true)
-        this.board.setSelectedUserId(this.user.id)
-        this.board.render('owner-storage')
-        this.navigationService.profile()
-      } else {
-        this.panel.openOwnerPanel(false)
-        this.navigationService.home()
-      }
-    }
-  };
   goAdmin() {
     this.navigationService.admin()
   }

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ModalModule } from './pages/modal/modal.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConfigFormsService } from './services/config/config-forms/config-forms.service';
@@ -19,7 +18,6 @@ import { AuthService } from './services/auth/auth.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ModalModule,
     BrowserAnimationsModule,
     HttpClientModule
   ],

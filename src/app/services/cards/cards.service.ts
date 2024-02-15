@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ViewerType } from 'src/app/types/types';
 
 @Injectable({
@@ -13,6 +13,8 @@ export class CardsService {
   private viewerType: Subject<ViewerType> = new Subject()
   readonly viewerType$ = this.viewerType.asObservable()
 
+  bookmarksId: string[] = [];
+
   constructor() { }
 
   addCheckbox(data: boolean) {
@@ -21,6 +23,6 @@ export class CardsService {
 
   updateViewerType(type: ViewerType) {
     this.viewerType.next(type)
-  }
+  };
 
 }

@@ -9,6 +9,7 @@ export class NavigationService {
 
   rootPath: string = this.authService.getRootPath()
 
+
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private authService: AuthService) { }
@@ -16,6 +17,25 @@ export class NavigationService {
   home(): void {
     this.router.navigateByUrl(this.rootPath)
   };
+  isHomePage(): boolean {
+    if(this.router.url.includes('user') || this.router.url.includes('item')) {
+      return false
+    } else { 
+      return true 
+    }
+  }
+  checkLocation(id: string): 'owner-board' | 'home-page' | 'any'  {
+    if(this.router.url.includes(`user/${id}`)) {
+      return 'owner-board'
+    } 
+    if(this.router.url.includes(`user`) || this.router.url.includes(`item`)) {
+      return 'any'
+    } 
+    else {
+      return 'home-page'
+    }
+
+  }
 
   profile(): void {
     this.router.navigateByUrl(`home/user/${this.authService.getAuthUserID()}`)

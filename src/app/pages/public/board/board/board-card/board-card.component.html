@@ -6,7 +6,7 @@
           (onHide)="onHide()"
           class="modal-container">
 
-    <div class="card-container">
+    <div class="card-container" *ngIf="item">
         <div class="img-container"><img src="http://localhost:3003/public/{{item.img}}" alt="/"></div>
         <div class="data-container">
             <div class="item">
@@ -24,20 +24,19 @@
             </div>
 
             <div class="controls-container">
-                <button *ngIf="!isOwnerPage" class="user-btn" (click)="goToUser(item.user)">
+                <button *ngIf="!isOwnerPage" class="user-btn" (click)="userPage(item.user)">
                     <i class="pi pi-angle-left" style="margin-right:10px"></i>
                     <i class="pi pi-user"></i>
                 </button>
                 <app-board-card-owner-panel *ngIf="viewerType === 'owner-user'" 
                                             [item]="item"
-                                            (toast)="showToastAndExit($event)"></app-board-card-owner-panel>
+                                            (close)="close()"></app-board-card-owner-panel>
                 <app-board-card-visitor-panel *ngIf="viewerType === 'visitor-user'" [item]="item"></app-board-card-visitor-panel>
                 <button *ngIf="viewerType === 'unauthorized-user'" (click)="login()" class="card-controls-btn card-btn btn">login</button>
             </div>
 
         </div>
 
-        <div *ngIf="showToast" class="card-toast">{{toastMessage}}</div>
     </div>        
 </p-dialog>
 
@@ -47,5 +46,7 @@
         <div>{{item.cat.type}} / {{item.cat.season}} / {{item.cat.color}}</div>
     </div>
 </ng-template>
+
+
 
 

@@ -25,8 +25,11 @@
                 </div>
             </div>
         </div>
-        <app-board-preview-card-owner *ngIf="viewerType === 'owner-user'" [item]="item"></app-board-preview-card-owner>
-        <app-board-preview-card-any *ngIf="viewerType === 'visitor-user'"></app-board-preview-card-any>
+        <app-board-preview-card-owner *ngIf="viewerType === 'owner-user'" 
+                                      [item]="item"></app-board-preview-card-owner>
+        <app-board-preview-card-any *ngIf="viewerType === 'visitor-user'"
+                                    [item]="item" 
+                                    class="visitor-user-container"></app-board-preview-card-any>
     </div>
 </ng-template>
 

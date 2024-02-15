@@ -16,7 +16,6 @@ export class DealtypeSwitchComponent implements OnInit {
   }
   changeType(type: DealType) {
     this.type.emit(type)
-
   }
 
 }

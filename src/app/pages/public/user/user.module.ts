@@ -16,6 +16,9 @@ import { BoardModule } from '../board/board.module';
 import { BoardComponent } from '../board/board.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserMessagesComponent } from './user-messages/user-messages.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -36,8 +39,13 @@ import { UserMessagesComponent } from './user-messages/user-messages.component';
     InputTextModule,
     InputNumberModule,
     InputTextareaModule,
-    DialogModule
+    DialogModule,
+    ToastModule,
+    MessageModule
   ],
+  providers: [
+    MessageService
+  ]
 
  
 })

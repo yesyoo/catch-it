@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user/user.service';
 import { StorageType, BoardUserPanelType, ViewerType } from 'src/app/types/types';
 import { NavigationService } from '../../../../../services/navigation/navigation.service';
 import { pipe, takeLast } from 'rxjs';
+import { IItemDB } from 'src/app/interfaces/items';
+import { StorageService } from '../../../../../services/storage/storage.service';
 
 @Component({
   selector: 'app-board-user-panel',
@@ -16,7 +18,7 @@ import { pipe, takeLast } from 'rxjs';
 })
 export class BoardUserPanelComponent implements OnInit {
 
-  private ID: string;
+  ID: string;
   selectedUser: any;
   storageType: StorageType;
   userPanelType: BoardUserPanelType;
@@ -28,98 +30,77 @@ export class BoardUserPanelComponent implements OnInit {
               private itemService: ItemService,
               private activatedRoute: ActivatedRoute,
               private navigationService: NavigationService,
-              private panel: PanelService) { }
+              private panel: PanelService,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
-    this.panel.viewing$.pipe(takeLast(1)).subscribe(id => this.getData(id))
-    this.panel.homecoming$.subscribe(res => {
-      if(res) {
-        this.viewerType = 'owner-user';
-        this.selectedUser = this.userService.getUser();
-        this.userPanelType = 'board-user-owner-panel'
-        this.storageType = 'owner-storage';
-        const items = this.board.getStorage('owner-storage')
-        if(items.length > 0) {
-          this.board.render('owner-storage');
-        } else {
-          this.itemService.getAllByOwnerId('65c1e644fec7a96c177abcb9').subscribe(data => {
-            if(Array.isArray(data)) {
-              if(data.length > 0) {
-                this.board.setToStorage(data, 'owner-storage');
-                this.board.render('owner-storage');
-              }
-            }
+    this.panel.viewing$.subscribe(id => this.getUserData(id))
 
-          })
-        }
-        
-      };
-    });
     const selectedUserId = this.board.getSelectedUserId()
-    if(selectedUserId) { this.checkViewer(selectedUserId) }
-    else { this.activatedRoute.params.subscribe(path => this.checkViewer(path['id'])) };
+    if(selectedUserId) { 
+      this.checkViewer(selectedUserId) 
+    } else { 
+      this.activatedRoute.params.subscribe(path => this.checkViewer(path['id'])) 
+    };
+
+
   };
 
-  checkViewer(id: string) {
+  async checkViewer(id: string) {
     this.ID = this.authService.getUserIdFromLocalStorage()
     if(!this.ID) {
       this.viewerType = 'unauthorized-user';
       this.userPanelType = 'board-user-any-panel';
-      this.getData(id)
-    };
-    if(this.ID !== id) {
-      this.viewerType = 'visitor-user';
-      this.userPanelType = 'board-user-any-panel';
-      this.getData(id)
-    };
-    if(this.ID === id) {
-      this.viewerType = 'owner-user';
-      this.storageType = 'owner-storage';
-      this.userPanelType = 'board-user-owner-panel';
-      this.userService.getUserPromise().then(data => {
-        this.selectedUser = data;
-        this.board.checkStorage('owner-storage').then(res => {
-          if(!res) {
-            this.itemService.getAllByOwnerId(this.ID).subscribe(data => {
-              if(Array.isArray(data)) {
-                if(data.length > 0) {
-                  this.board.setToStorage(data, 'owner-storage');
-                  this.board.render('owner-storage');
-                } else {
-                  // this.board.sendErrorMessage('Cards not found')
-                }
-              } 
-
-            })
-          } else {
-            this.board.render('owner-storage');
-          };
-        })
-       });
-    };
+      this.getUserData(id)
+    } else {
+      this.userService.userIsLoaded$.subscribe(() => {
+          if(this.ID !== id) {
+            this.viewerType = 'visitor-user';
+            this.userPanelType = 'board-user-any-panel';
+            this.getUserData(id)
+          } else { 
+            this.userPanelType = 'board-user-owner-panel'
+            this.setOwner() 
+          }
+      });
+    }
   };
 
-  getData(id: string) {
-    this.userService.getUserById(id).subscribe(data => {
+  async setOwner() {
+    this.viewerType = 'owner-user';
+    this.storageType = 'owner-storage';
+    this.userPanelType = 'board-user-owner-panel';
+    this.selectedUser = this.userService.getUser()
+    if(this.storage.checkStorage('owner-storage')) {
+      this.board.render('owner-storage')
+    } else {
+      this.itemService.getAllByOwnerId(this.ID).then(() => {
+        this.board.render(this.storageType)
+      })
+    }
+  };
+
+  getUserData(id: string) {
+    this.userService.getById(id).subscribe(data => {
       this.selectedUser = data;
     });
-    this.itemService.getManyByUserId(id).subscribe(data => {
-      if(Array.isArray(data)) {
-        this.board.setToStorage(data, 'any-storage');
-        this.board.render('any-storage');
-      } else { 
-        // this.board.sendErrorMessage('Cards not found')
-      }
-    })   
+    this.itemService.getAllByUserId(id).then(() => {
+        this.board.render('any-storage')
+      })
   };
+  
 
   ngOnDestroy(): void {
-    this.board.showUserPanel(false)
+    this.board.showBoardUserPanel(false)
   };
 
   closeUserPage() {
     this.board.render('main-storage')
     this.navigationService.home()
   };
+
+  exit() {
+    this.navigationService.home()
+  }
 
 };

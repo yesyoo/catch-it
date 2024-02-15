@@ -10,11 +10,10 @@ import { SubcategorySelectComponent } from 'src/app/components/subcategory-selec
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
-import { ModalModule } from '../../modal/modal.module';
-import { ModalComponent } from '../../modal/modal.component';
+
 import { BoardCardOwnerPanelComponent } from './board/board-card/board-card-owner-panel/board-card-owner-panel.component';
 import { DialogModule } from 'primeng/dialog';
-import { ItemCardComponent } from 'src/app/components/item-card/item-card.component';
+
 
 import { BoardCardVisitorPanelComponent } from './board/board-card/board-card-visitor-panel/board-card-visitor-panel.component';
 
@@ -57,10 +56,8 @@ import { PanelService } from 'src/app/services/panel/panel.service';
     SubcategorySelectComponent,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule,
     DialogModule,
     InputTextModule,
-    ItemCardComponent,
     MessageModule,
     MessagesModule,
     ToastModule
