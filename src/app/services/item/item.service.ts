@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { IItemDB } from '../../interfaces/items';
 import { StorageService } from '../storage/storage.service';
 import { StorageType } from 'src/app/types/types';
+import { BookmarkService } from '../bookmark/bookmark.service';
+import { faTurkishLira } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,8 @@ import { StorageType } from 'src/app/types/types';
 export class ItemService {
 
   constructor(private rest: ItemRestService,
-              private storage: StorageService) { }
+              private storage: StorageService,
+              private bookmark: BookmarkService) { }
 
   postItem(data: FormData): Promise<any> {
     return new Promise(res => {
@@ -25,7 +28,11 @@ export class ItemService {
   getManyFromArray(data: {id: string, collection: string}[], storageType: StorageType): Promise<any> {
     return new Promise(res => {
       this.rest.getManyFromArray(data).subscribe((response: IItemDB[]) => {
-        this.storage.setToStorage(response, storageType)
+        ////////////////////////////////////
+        const marked = this.bookmark.mark(response)
+        ////////////////////////////////////////
+        this.storage.setToStorage(marked, storageType)
+        console.log('marked',marked)
         res(true)
       })
     })
@@ -34,7 +41,9 @@ export class ItemService {
   getManyByParams(params: string): Promise<any> {
     return new Promise(res => {
       this.rest.getManyByParams(params).subscribe((response: IItemDB[]) => {
-        this.storage.setToStorage(response, 'main-storage');
+        const marked = this.bookmark.mark(response)
+        this.storage.setToStorage(marked, 'main-storage');
+        console.log('marked:',marked)
         res(true)
       })
     })
@@ -61,7 +70,9 @@ export class ItemService {
   getOneById(id: string): Promise<any> {
     return new Promise(res => {
       this.rest.getOneById(id).subscribe((data: IItemDB) => {
-        this.storage.setOne(data)
+        console.log('oneTmpItem', data)
+        const markedArray = this.bookmark.mark([data])
+        this.storage.setOneTmpItem(markedArray[0])
         res(true)
       })
     })

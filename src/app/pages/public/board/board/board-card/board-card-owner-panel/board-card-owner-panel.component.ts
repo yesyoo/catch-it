@@ -25,23 +25,26 @@ export class BoardCardOwnerPanelComponent implements OnInit {
 
   deleteItem() {
     this.itemService.deleteOne(this.item._id, this.item.collection).then(() => {
+      this.messageService.add({severity:'success', life: 1000, summary: 'Deleted'});
+      setTimeout(()=> { this.close.emit() }, 1100)
+
       if(this.storage.getType() === 'owner-storage') {
         this.board.render('owner-storage')
       };
-      this.messageService.add({severity:'success', life: 1000, summary: 'норм'});
-      setTimeout(()=> { this.close.emit() }, 1100)
     })
   };
 
   hideItem(show: boolean) {
     let message: string 
     this.itemService.updateAccessMany([{id: this.item._id, collection: this.item.collection, show: show}]).then(() => {
-      show === false ? message = 'Hidden' : message = 'Unhidden'
+      show === false ? message = 'Hidden' : message = 'Unhidden';
+      this.messageService.add({severity:'success', life: 1000, summary: message});
+      setTimeout(()=> { this.close.emit() }, 1100)
+      
       if(this.storage.getType() === 'owner-storage') {
         this.board.render('owner-storage')
       }
-      this.messageService.add({severity:'success', life: 1000, summary: message});
-      setTimeout(()=> { this.close.emit() }, 1100)
+
     })
   };
 

@@ -41,7 +41,7 @@ export class BoardService {
     this.ownerBoardPanel.next(data)
   };
 
-  getSelectedCard(): any {
+  getSelectedItem(): any {
     return this.selectedCard
   };
 

@@ -13,7 +13,7 @@ export class UserService {
   user: IUser 
   ID: string = this.auth.getAuthUserID()
   userIsLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  userIsLoaded$ = this.userIsLoaded.asObservable()
+  readonly userIsLoaded$ = this.userIsLoaded.asObservable()
 
   constructor(private rest: UserRestService,
               private auth: AuthService) { }

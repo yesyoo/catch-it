@@ -11,7 +11,8 @@ export class StorageService {
   private ownerStorage: IItemDB[] = [];
   private bookmarkStorage: IItemDB[] = [];
   private anyStorage: IItemDB[] = [];
-  public item: IItemDB;
+  private tmpItem: IItemDB;
+  public bookmarks: {id: string, collection: string}[];
  
   private storageType: StorageType;
 
@@ -29,11 +30,18 @@ export class StorageService {
     return this.getStorage(storageType).length != 0 ? true : false
   };
 
-  setOne(data: IItemDB) {
-    this.item = data
+  setOneTmpItem(data: IItemDB) {
+    this.tmpItem = data
   };
+  getOneTmpItem(): IItemDB {
+    return this.tmpItem
+  }
+  setBookmarkList(array: {id: string, collection: string}[]) {
+    this.bookmarks = array
+  }
 
   setToStorage(data: IItemDB[], storageType: StorageType): void {
+    
     switch(storageType) {
       case 'main-storage':
         this.mainStorage = data;

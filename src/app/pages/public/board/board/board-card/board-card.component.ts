@@ -30,21 +30,22 @@ export class BoardCardComponent implements OnInit {
               private storage: StorageService) { }
 
   ngOnInit(): void {
-    this.display = true
-    this.ID = this.auth.getAuthUserID()
-    this.item = this.board.getSelectedCard()
+    this.display = true;
+    this.ID = this.auth.getAuthUserID();
+
+    this.item = this.board.getSelectedItem()
     if(this.item) { 
       this.matchUser()
     } else {
       this.activatedRoute.params.subscribe(data => {
         this.itemService.getOneById(data['id']).then(() => {
-          this.item = this.storage.item
+          this.item = this.storage.getOneTmpItem()          
           this.matchUser();
         })
       })
     }
   };
-  
+
   matchUser() {
     if(this.ID) {
       this.ID === this.item.user ? this.viewerType = 'owner-user' : this.viewerType = 'visitor-user'
@@ -53,7 +54,7 @@ export class BoardCardComponent implements OnInit {
     };
   };
 
-  userPage(id: string) {
+  navigateToUserPage(id: string) {
     if(this.ID === id) {
       this.nav.user(id)
     } else {
@@ -65,16 +66,10 @@ export class BoardCardComponent implements OnInit {
   onHide() {
     this.close()
   };
-
   login() {
     this.nav.auth()
   };
-
   close(): void {
     window.history.back()
-  }
- 
-      
-  
-
+  };
 }

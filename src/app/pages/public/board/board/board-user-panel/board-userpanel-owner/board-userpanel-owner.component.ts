@@ -124,7 +124,7 @@ export class BoardUserpanelOwnerComponent implements OnInit {
     if(checkedItems.length > 0) {
       checkedItems.forEach((checkedItem) => {
         postArray.push({id: checkedItem.id, collection: checkedItem.collection})
-        //удали эти id из
+
         // ownerStorageItems.forEach((ownerItem: IItemDB) => {
         //   if(checkedItem.id == ownerItem._id && ownerItem.show !== data) {
         //     checkedItem.show = data
@@ -138,8 +138,7 @@ export class BoardUserpanelOwnerComponent implements OnInit {
       })
       
     }
-    //работаем с массивом
-    // this.itemService.deleteManyFromArray().subscribe()
+
   }
 
   exit() {

@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
     this.userService.loadUser().then((user) => {
       this.user = user;
       this.bookmarks.loadBookmarks().then(() => {
-        this.userService.userIsLoaded.next(true)
+        setTimeout(() => {this.userService.userIsLoaded.next(true)}, 1000)
       })
     });
   };

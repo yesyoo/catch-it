@@ -36,6 +36,7 @@ export class NavigationService {
     }
 
   }
+ 
 
   profile(): void {
     this.router.navigateByUrl(`home/user/${this.authService.getAuthUserID()}`)

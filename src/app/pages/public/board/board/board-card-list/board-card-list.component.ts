@@ -16,11 +16,9 @@ export class BoardCardListComponent implements OnInit {
   items: IItemDB[];
   itemsReverse: IItemDB[];
   viewerType: ViewerType;
-  ID: string = this.auth.getAuthUserID();
 
   constructor(private board: BoardService,
               private nav: NavigationService,
-              private auth: AuthService,
               private storage: StorageService) { }
 
   ngOnInit(): void {

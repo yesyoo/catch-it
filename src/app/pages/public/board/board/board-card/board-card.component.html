@@ -24,7 +24,7 @@
             </div>
 
             <div class="controls-container">
-                <button *ngIf="!isOwnerPage" class="user-btn" (click)="userPage(item.user)">
+                <button *ngIf="!isOwnerPage" class="user-btn" (click)="navigateToUserPage(item.user)">
                     <i class="pi pi-angle-left" style="margin-right:10px"></i>
                     <i class="pi pi-user"></i>
                 </button>

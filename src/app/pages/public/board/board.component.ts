@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 import { BoardService } from 'src/app/services/board/board.service';
-
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
-
+import { Event, NavigationEnd, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-board',
@@ -13,34 +11,37 @@ import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@
 })
 export class BoardComponent implements OnInit {
 
-  public userIsAuth: boolean;
+  public authorizedUser: boolean;
   public showBoardSearchPanel: boolean;
   public errorMessage: string | null
+  public userIaLoaded: boolean
+  public blocked: boolean
   
   constructor(private authService: AuthService,
               private router: Router,
-              private boardService: BoardService) { }
+              private boardService: BoardService,
+              private userService: UserService ) { }
 
   ngOnInit(): void {
-    this.authService.getAuthUserID() ? this.userIsAuth = true : this.userIsAuth = false;
+    if(this.authService.getAuthUserID()) {
+      this.authorizedUser = true
+      this.blocked = true
+      this.userService.userIsLoaded$.subscribe((res) => {
+        if(res === true) {
+          this.blocked = false
+          console.log('user is loaded and board is unblocked')
+        }
+      })
+    } else {
+      this.authorizedUser = false
+      this.blocked = false
+      console.log('authorized user not found, board is unblocked')
+    }
     this.boardService.error$.subscribe(error => this.errorMessage = error);
-
     this.router.url.includes('user') ? this.showBoardSearchPanel = false : this.showBoardSearchPanel = true
     this.router.events.subscribe((event: Event) => {
       event instanceof NavigationEnd && event.url.includes('user') ? this.showBoardSearchPanel = false : this.showBoardSearchPanel = true
     });
-    // if(this.ID) {
-      //   this.bookmarkClassActive = this.card.bookmarksId
-      //   if(this.card.bookmarksId) {
-      //     this.card.setClassActiveFor(this.items, this.bookmarkClassActive)
-      //     console.log('list get active bookmarks', this.bookmarkClassActive )
-      //   };
-      //   this.card.bookmarkItemId$.subscribe(array => {
-      //     console.log('arr', array)
-      //     this.bookmarkClassActive = this.card.setClassActiveFor(this.items, array)
-      //     console.log('bookmarks itemid rx', this.bookmarkClassActive )
-      //   })
-      // };
   };
 
   auth(): void {

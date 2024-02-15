@@ -4,7 +4,9 @@ import { DealType } from 'src/app/interfaces/items';
 import { BoardService } from 'src/app/services/board/board.service';
 import { ItemService } from 'src/app/services/item/item.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { IItemDB } from '../../../../../interfaces/items';
+import { AuthService } from '../../../../../services/auth/auth.service';
 
 
 @Component({
@@ -32,12 +34,13 @@ export class BoardSearchPanelComponent implements OnInit {
               private storage: StorageService) { }
 
   ngOnInit(): void {
+    console.log('board-search-panel init!') 
     if(!this.storage.checkStorage('main-storage')) {
       this.itemService.getManyByParams(this.defaultRequestParams).then(() => this.board.render('main-storage'))
     } else {
       this.board.render('main-storage')
     }
-  };
+  }; 
 
   path(): string {
     return `${this.dealParams}&${this.collectionParams}&${this.categoryParams}`
@@ -52,7 +55,6 @@ export class BoardSearchPanelComponent implements OnInit {
     this.category = ev.value.category
     this.collectionParams = `collection=${ev.value.collection}`;
     this.categoryParams = `category=${ev.value.category}`;
-
     this.itemService.getManyByParams(this.path()).then(() => this.board.render('main-storage'));
   };
 

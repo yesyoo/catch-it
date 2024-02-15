@@ -19,7 +19,6 @@ export class BoardPreviewCardAnyComponent implements OnInit, AfterViewInit {
 
   constructor(private bookmark: BookmarkService,
               private auth: AuthService,
-              private userService: UserService,
               private cardsService: CardsService) { }
 
   ngOnInit(): void {
@@ -33,11 +32,9 @@ export class BoardPreviewCardAnyComponent implements OnInit, AfterViewInit {
 
   setClassActive() {
     if(this.ID) {
-      this.userService.userIsLoaded$.subscribe(() => {
-        if(this.item.bookmark === true) {
-          this.heart?.nativeElement.classList.add('red')
-        }
-      })
+      if(this.item.bookmark === true) {
+        this.heart?.nativeElement.classList.add('red')
+      }
     }
   };
 
