@@ -2,61 +2,61 @@
           [dismissableMask]="true" 
           [modal]="true" 
           [(visible)]="display"
-          (onHide)="onHide()"
-          header="Title">
-<div class="auth-container">
-    <div class="auth-header">
-        <div (click)="changeFormType('authorization')">Login</div>
-        <div (click)="changeFormType('registration')">Sign up</div>
-    </div>
-
-
+          header="Title"
+          (onHide)="onHide()">
+          <ng-template pTemplate="header">
+            <div class="form-header">
+                <button (click)="changeFormType('authorization')">Login</button>
+                <button (click)="changeFormType('registration')">Sign up</button>
+            </div>
+        </ng-template>
+         
+<div class="form-container">
     <form *ngIf="type === 'authorization'" [formGroup]="formAuth">
-        <div>
+        <div class="form-input">
             <label for="">Email</label>
             <input type="text" pInputText formControlName="email" pInputText>
             <!-- <small class="text-danger"></small> -->
         </div>
-        <div>
+        <div class="form-input">
             <label for="">Passsword</label>
             <input type="password" pInputText formControlName="password">
         </div>
+        <button *ngIf="type === 'authorization'" 
+            (click)="submit(type)" 
+            [disabled]="!formAuth.valid"
+            class="btn-form-submit btn btn-success">Submit</button>
     </form>
-    <button *ngIf="type === 'authorization'" (click)="submit(type)" [disabled]="!formAuth.valid">Submit</button>
     
-
-
-
-
     <form *ngIf="type === 'registration'" [formGroup]="formReg">
-        <div>
+        <div class="form-input">
             <label for="">Email</label>
             <input type="text" pInputText formControlName="email">
         </div>
-        <div>
+        <div class="form-input">
             <label for="">Username</label>
             <input type="text" pInputText formControlName="username">
         </div>
-        <div>
+        <div class="form-input">
             <label for="">City</label>
             <input type="text" pInputText formControlName="city">
         </div>
-        <div>
+        <div class="form-input">
             <label for="">District</label>
             <input type="text" pInputText formControlName="district">
         </div>
-        <div>
+        <div class="form-input">
             <label for="">Password</label>
             <input type="password" pInputText formControlName="password">
         </div>
-        <div>
+        <div class="form-input">
             <label for="">Repeat Password</label>
             <input type="password" pInputText formControlName="passwordRepeat">
         </div>
-        
+        <button *ngIf="type === 'registration'" 
+                (click)="submit(type)" 
+                [disabled]="!formReg.valid"
+                class="btn-form-submit btn btn-success">Submit</button>
     </form>
-    <button *ngIf="type === 'registration'" (click)="submit(type)" [disabled]="!formReg.valid">Submit</button>
-    
-    
 </div>
 </p-dialog>

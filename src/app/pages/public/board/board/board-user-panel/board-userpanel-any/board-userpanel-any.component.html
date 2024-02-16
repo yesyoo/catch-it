@@ -1,8 +1,7 @@
 <div class="user-container">
-    <div class="user-img"></div>
-    <div class="user-data">
-        <div class="user-data" *ngIf="user">
-        <div>{{user.username}}<span style="margin-left: 10px;">4.9</span></div>
+    <div class="user-data" *ngIf="user">
+        <div>{{user.username}}<span style="margin-left: 8px;">4.9</span></div>
+        <span class="divide">/</span>
         <div>{{user.city}}<span style="margin-left: 10px;" *ngIf="user.district">{{user.district}}</span></div>
     </div>
 </div>

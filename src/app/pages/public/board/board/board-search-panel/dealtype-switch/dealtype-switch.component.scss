@@ -1,14 +1,13 @@
 .switch-contents {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     height: 48px;
     flex-grow: 1; 
-    border-radius: 5px;
     overflow: hidden;
-    // border: 0px solid rgb(77, 77, 77);
+
   }
   input[name="dealtype-switch"] {
     display: none;
@@ -22,13 +21,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    // background: rgb(100, 99, 95);
-    color: rgb(131, 129, 124);
+    padding: 0 5px;
+  
+    color: var(--font-base);
     letter-spacing: 0.1rem;
     cursor: pointer;
     &:hover {
-      // background: rgb(100, 99, 95);
-        color: rgb(228, 168, 58);
+        color: var(--main-orange)
  
     }
   }

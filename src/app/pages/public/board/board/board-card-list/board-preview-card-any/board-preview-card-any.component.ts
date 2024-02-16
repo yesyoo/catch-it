@@ -13,15 +13,20 @@ import { BookmarkService } from '../../../../../../services/bookmark/bookmark.se
 export class BoardPreviewCardAnyComponent implements OnInit, AfterViewInit {
 
   @Input() item: IItemDB
-  ID: string = this.auth.getAuthUserID()
+  ID: string = this.auth.ID()
   showCheckbox: boolean;
+  userBookmarks: any;
+  owner: boolean = false
   @ViewChild('heart') heart: ElementRef<HTMLElement> | undefined
 
-  constructor(private bookmark: BookmarkService,
+  constructor(private bookmarkService: BookmarkService,
               private auth: AuthService,
               private cardsService: CardsService) { }
 
   ngOnInit(): void {
+    if(this.item.user == this.ID) {
+      this.owner = true
+    };
     this.cardsService.checkbox$.subscribe(res => this.showCheckbox = res);
     this.setClassActive()
   };
@@ -38,10 +43,27 @@ export class BoardPreviewCardAnyComponent implements OnInit, AfterViewInit {
     }
   };
 
-  addBookmark() {
-    this.bookmark.sendBookmark(this.item._id, this.item.collection, this.item.item.title).then(() => {
-      console.log('success - add bookmark')
+  // bookmark() {
+  //   this.bookmarkService.sendBookmark(this.item._id, this.item.collection, this.item.item.title).then((res) => {
+  //     if(res === true) {
+  //       this.heart?.nativeElement.classList.add('red')
+  //     } else {
+  //       this.heart?.nativeElement.classList.remove('red')
+  //     }
+  //   })
+  // }
+    bookmark() {
+    this.bookmarkService.sendBookmark(this.item).then((res) => {
+      if(res === false) {
+        this.item.bookmark = false
+        this.heart?.nativeElement.classList.remove('red')
+      } else {
+        this.item.bookmark = true
+        this.heart?.nativeElement.classList.add('red')
+        
+      }
     })
   }
+  
 
 }

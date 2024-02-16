@@ -6,15 +6,14 @@
     align-items: center;
     flex-grow: 1;
     height: 100%;
+    letter-spacing: 0.1rem;
+    color: var(--font-base);
 };
 .user-data {
     display: flex;
     flex-direction: row;
+    gap: 20px;
 }
-.user-img {
-    height: 50px;
-    width: 50px;
-    background: rgb(87, 87, 87);
-    border-radius: 10px;
-    margin-right: 10px;
+.divide {
+    color: rgb(63, 63, 63);;
 }

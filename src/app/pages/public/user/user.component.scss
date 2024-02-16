@@ -1,10 +1,9 @@
 .main-container {
-    // height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: row;
-    // position: relative;
-    color: var(--font-light);
-}
+    color: var(--font-base);
+};
 .user-container {
     display: flex;
     flex-direction: column;
@@ -12,37 +11,29 @@
     min-width: 200px;
     padding: 10px 20px 0;
 }
-.user-top {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 20px;
+.btn-user {
+    height: 60px;
+    margin: auto 0;
 }
+.user-top {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 .user-navigation {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
-
+    font-size: 1rem;
+    margin-bottom: 60px;
 }
 .user-navigation button {
-    border: none;
-    background: none;
     text-align: left;
-    letter-spacing: 0.1rem;
-    color: rgb(90, 90, 90);
-
-}
-
+};
 i {
-    font-size: 1rem;
     margin-right: 10px;
-}
-.user-navigation button:hover {
-    color: var(--main-orange)
-
-}
-
+};
 
 .orange-button {
     background-color: none;
@@ -55,11 +46,15 @@ i {
     color: var(--main-orange);
     text-shadow: 0 0 1px var(--main-orange);
 }
-.btn-letter {
-    letter-spacing: 0.2rem;
-};
+
 .btn-form {
-    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+.btn-form i {
+    font-size: 1rem;
 };
 
 .btn-exit-contsiner {
@@ -77,24 +72,5 @@ i {
 
 
 
-.user-data {
-    margin-left: 10px;
-}
-.user-img {
-    height: 50px;
-    width: 50px;
-    border-radius: 10px;
-    background: rgb(86, 90, 89);
-}
-// .user-nav {
-//     display: flex;
-//     font-size: 1.3rem;
-//     width: 150px;
-//     justify-content: space-around;
-//     gap: 20px;
-//     margin-bottom: 60px;
-// }
-.button {
-    color: rgb(175, 175, 175);
-    border: 1px solid rgb(90, 84, 84);
-}
+
+

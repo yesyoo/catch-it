@@ -26,11 +26,12 @@ export class BoardCardOwnerPanelComponent implements OnInit {
   deleteItem() {
     this.itemService.deleteOne(this.item._id, this.item.collection).then(() => {
       this.messageService.add({severity:'success', life: 1000, summary: 'Deleted'});
+      // мы не удаляем из массива и это так себе
       setTimeout(()=> { this.close.emit() }, 1100)
 
-      if(this.storage.getType() === 'owner-storage') {
-        this.board.render('owner-storage')
-      };
+      // if(this.storage.getType() === 'owner-storage') {
+      //   this.board.render('owner-storage')
+      // };
     })
   };
 
@@ -38,12 +39,13 @@ export class BoardCardOwnerPanelComponent implements OnInit {
     let message: string 
     this.itemService.updateAccessMany([{id: this.item._id, collection: this.item.collection, show: show}]).then(() => {
       show === false ? message = 'Hidden' : message = 'Unhidden';
+      this.item.show = show;
       this.messageService.add({severity:'success', life: 1000, summary: message});
       setTimeout(()=> { this.close.emit() }, 1100)
       
-      if(this.storage.getType() === 'owner-storage') {
-        this.board.render('owner-storage')
-      }
+      // if(this.storage.getType() === 'owner-storage') {
+      //   this.board.render('owner-storage')
+      // }
 
     })
   };

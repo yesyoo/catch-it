@@ -1,3 +1,5 @@
-<button *ngIf="item.show" (click)="hideItem(false)" class="card-controls-btn btn">Hide</button>
-<button *ngIf="!item.show" (click)="hideItem(true)" class="card-controls-btn btn">Unhide</button>
-<button (click)="deleteItem()" class="card-controls-btn btn">Delete</button>
+<div>
+    <button *ngIf="item.show" (click)="hideItem(false)" class="card-controls-btn btn">Hide</button>
+    <button *ngIf="!item.show" (click)="hideItem(true)" class="card-controls-btn btn">Unhide</button>
+    <button (click)="deleteItem()" class="card-controls-btn btn">Delete</button>
+</div>

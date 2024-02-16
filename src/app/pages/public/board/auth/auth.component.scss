@@ -1,10 +1,30 @@
-.auth-container {
-    width: 700px;
-    height: 500px;
-}
 .auth-header {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     padding: 20px 0;
+}
+
+.form-container {
+    height: fit-content;
+    width: 300px;
+    padding: 0.5rem;
+    position: relative;
+};
+
+.form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+};
+
+.form-header button {
+    padding: 0 20px;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    margin: 10px 0;
 }

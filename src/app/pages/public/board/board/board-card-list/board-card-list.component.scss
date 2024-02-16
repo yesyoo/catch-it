@@ -1,42 +1,67 @@
-.cards-container {
-    position: relative;
-    width: 100%; 
-}
-
 .card-container {
     position: relative;
-    background: var(--card-background);
-};
-.card-container:hover {
-    background: var(--card-background-hover);
-    box-shadow: 0 0 5px  rgba(0, 0, 0, 0.37);
+    color: var(--font-base);
 }
 .visitor-user-container {
     position: absolute;
-    right: 10px;
     bottom: 5px;
-}
+    right: 10px;
+};
+
 
 .card-item {
-    // height: 200px;
     display: flex;
     flex-direction: column;
-    justify-content:flex-start;
-    color: var(--font-dark);
+    justify-content: flex-start;
     font-size: 0.9rem;
-};
-
+    position: relative;
+}
 .card-title {
-    background: var(--card-title);
+    text-align: left;
     position: relative;
     font-size: 1rem;
-    padding: 1px 0 3px;
+    padding: 5px 0 3px;
 }
 .hidden {
-    color: grey;
     position: absolute;
+    color: grey;
     right: 6px;
 };
+
+.card-content {
+    display: flex;
+    flex-direction: row;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.card-img {
+    height: 150px;
+    width: 150px;
+}
+.card-img img {
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    filter: opacity(0.7);
+ }
+ .card-img img:hover {
+    filter: opacity(1);
+ };
+
+.card-data {
+    padding: 5px 10px;
+    text-align: left;
+    width: 100%;
+    border-radius: 2px;
+    background: var(--card-background);
+};
+.card-data-info {
+    margin: 2px 0;
+}
+.item-location {
+    margin-top: 10px;
+}
+
 
 .card-checkbox {
     position: absolute;
@@ -44,37 +69,7 @@
     right: 10px;
 }
 
-.card:hover {
-    background: rgb(31, 31, 31);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.199);
-}
-.card-content {
-    display: flex;
-    flex-direction: row;
-}
-.card-img {
-    height: 150px;
-    width: 150px;
- 
-}
-.card-img img {
-    width:150px;
-    height:150px;
-    object-fit:cover;
- }
-.card-data {
-    padding: 5px 10px;
-    text-align: left;
-}
 
-.cards-container {
-    border-radius: 5px;
-    margin: 0;
-    padding:0 5px;
-}
-.card-content {
-    display: flex;
-}
 
 
 

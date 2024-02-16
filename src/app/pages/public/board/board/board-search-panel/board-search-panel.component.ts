@@ -34,7 +34,6 @@ export class BoardSearchPanelComponent implements OnInit {
               private storage: StorageService) { }
 
   ngOnInit(): void {
-    console.log('board-search-panel init!') 
     if(!this.storage.checkStorage('main-storage')) {
       this.itemService.getManyByParams(this.defaultRequestParams).then(() => this.board.render('main-storage'))
     } else {

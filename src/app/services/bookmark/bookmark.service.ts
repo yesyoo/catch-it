@@ -3,105 +3,90 @@ import { BookmarkRestService } from './bookmark-rest.service';
 import { AuthService } from '../auth/auth.service';
 import { IItemDB } from 'src/app/interfaces/items';
 import { StorageService } from '../storage/storage.service';
-import { ItemService } from '../item/item.service';
-import { IBookmarksDB } from 'src/app/interfaces/bookmarks';
-import { StorageType } from 'src/app/types/types';
+import { IBookmarkDB } from 'src/app/interfaces/bookmarks';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookmarkService {
 
-  private ID: string = this.auth.getAuthUserID()
-  private bookmarks: IBookmarksDB[] = [];
-  public itemIdAndCollection: {id: string, collection: string}[] = [];
+  private ID: string = this.auth.ID()
+  private bookmarks: IBookmarkDB[];
  
   constructor(private rest: BookmarkRestService, 
               private auth: AuthService,
               private storage: StorageService) { }
 
+  getBokkmarks(): IBookmarkDB[] {
+    return this.bookmarks
+  };
+  setBookmarks(data: IBookmarkDB[]): void {
+    this.bookmarks = data
+  };
 
-  sendBookmark(itemId: string, collection: string, title: string,): Promise<any> {
+  sendBookmark(item: IItemDB): Promise<any> { //*
     return new Promise(res => {
-      this.rest.sendBookmark({userId: this.ID, itemId: itemId, collection: collection, title: title}).subscribe(() => {
-        this.itemIdAndCollection.push({id: itemId, collection: collection})
-        this.storage.setBookmarkList(this.itemIdAndCollection)
-        // мне нужно добавить итем в сторедж
-        // нужно скачать итем на клиенте
-        // нужно дать пометку бакмаркедэтому итему
-      })
+      let match: boolean = false;
+      this.bookmarks.forEach(el => {
+        if(el.itemId === item._id) { 
+          match = true 
+        }
+      });
+      if(!match) {
+        this.rest.sendBookmark({userId: this.ID, itemId: item._id, collection: item.collection, title: item.item.title}).subscribe((bookmark: IBookmarkDB) => {
+          this.bookmarks.push(bookmark);
+          let array: IItemDB[] = this.storage.getStorage('bookmark-storage');
+          array.push(item)
+          this.storage.setToStorage(array, 'bookmark-storage');
+          res(true)
+        })
+      } else {
+        this.deleteOne(item._id).then(() => {
+          res(false)
+        })
+      }
     })
   };
 
-  loadBookmarks(): Promise<any> {
+  deleteOne(itemId: string): Promise<any> { //*
     return new Promise(res => {
-      this.rest.getAllBookmarks(this.ID).subscribe((bookmarks: IBookmarksDB[]) => {
-        this.bookmarks = bookmarks;
-        this.bookmarks.forEach((bookmark: IBookmarksDB) => {
-          this.itemIdAndCollection.push({id: bookmark.itemId, collection: bookmark.collection});
-          this.storage.setBookmarkList(this.itemIdAndCollection)
-        });
+      this.rest.deleteOne(this.ID, itemId).subscribe(() => {
+        const array = this.storage.getStorage('bookmark-storage').filter(item => item._id != itemId)
+        this.storage.setToStorage(array, 'bookmark-storage')
+        this.bookmarks = this.bookmarks.filter(el => el.itemId != itemId)
         res(true)
       })
     })
   };
-  getBookmarks(): Promise<any> {
+
+  loadBookmarks(): Promise<any> { //*
     return new Promise(res => {
-      // this.itemService.getManyFromArray(this.itemIdAndCollection, 'bookmark-storage').then(() => {
-      //   res(true)
-      // })
-
+      this.rest.getAllBookmarks(this.auth.ID()).subscribe((bookmarks: IBookmarkDB[]) => {
+        this.bookmarks = bookmarks;
+        res(true)
+      })
     })
-  }
+  };
 
-  deleteAllBookmarks(): Promise<any> {
+  deleteAll(): Promise<any> { //*
     return new Promise(res => {
       this.rest.deleteAllBookmarks(this.ID).subscribe(() => {
-        this.itemIdAndCollection = [];
-        this.storage.setBookmarkList(this.itemIdAndCollection)
         this.storage.setToStorage([], 'bookmark-storage')
         res(true)
       })
     })
   };
-
-  deleteOne(itemId: string): Promise<any> {
-    return new Promise(res => {
-      this.rest.deleteOne(this.ID, itemId).subscribe((bookmarkId: string) => {
-        this.itemIdAndCollection.filter(id => id.id !== bookmarkId)
-        this.storage.setBookmarkList(this.itemIdAndCollection)
-        this.bookmarks.filter(bookmark => bookmark._id !== bookmarkId)
-        this.storage.deleteOne(bookmarkId, 'bookmark-storage')
-        res(true)
-      })
-    })
-  }
-
-  deleteManyFromArray(array: {id: string, collection: string}[]): Promise<any> {
-    return new Promise(res => {
-      this.rest.deleteManyFromArray(array).subscribe((bookmarkId: string[]) => {
-        let list = this.itemIdAndCollection
-        bookmarkId.forEach(id => {
-          list.filter(listId => listId.id !== id )
+ 
+  mark(data: IItemDB[]): IItemDB[] { //*
+    if(this.bookmarks) {
+      this.bookmarks.forEach(obj => {
+        data.forEach(item => {
+          if(obj.itemId === item._id) {
+            item.bookmark = true
+          }
         })
-        this.itemIdAndCollection = list
-        this.storage.setBookmarkList(this.itemIdAndCollection)
-        this.storage.deleteMany(array, 'bookmark-storage')
-        res(true)
       })
-    })
-  };
-
-  mark(data: IItemDB[]): IItemDB[] {
-    let array = this.itemIdAndCollection
-    console.log('mark => ')
-    array.forEach(obj => {
-      data.forEach(item => {
-        if(obj.id === item._id) {
-          item.bookmark = true
-        }
-      })
-    })
+    }
     return data
   };
   

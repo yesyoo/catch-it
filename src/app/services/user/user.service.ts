@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { IUser, IUserResponse } from 'src/app/interfaces/user';
 import { AuthService } from '../auth/auth.service';
-
 import { UserRestService } from './user-rest/user-rest.service';
+import { BookmarkService } from '../bookmark/bookmark.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +11,25 @@ import { UserRestService } from './user-rest/user-rest.service';
 export class UserService {
 
   user: IUser 
-  ID: string = this.auth.getAuthUserID()
-  userIsLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  private userIsLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
   readonly userIsLoaded$ = this.userIsLoaded.asObservable()
 
   constructor(private rest: UserRestService,
-              private auth: AuthService) { }
-
+              private auth: AuthService,
+              private bookmark: BookmarkService) { }
 
   loadUser():Promise<any> {
     return new Promise(res => {
-      this.getById(this.ID).subscribe(user => {
+      this.getById(this.auth.ID()).subscribe(user => {
         this.setUser(user);
-        res(user)
+        this.bookmark.loadBookmarks().then(() => {
+          this.userIsLoaded.next(true)
+          res(user)
+        })
       })
     })
   };
  
-
   setUser(data: IUserResponse) {
     this.user = {
       id: data.user,
@@ -38,7 +39,6 @@ export class UserService {
       description: data.description,
       img: data.img
     }
-    console.log('set:', this.user)
   };
 
   getUser(): IUser  {
@@ -48,12 +48,5 @@ export class UserService {
   getById(id: string): Observable<IUserResponse> {
     return this.rest.getUserById(id)
   };
-
-  _getUserById(id: string): Observable<any> {
-    return this.rest._getUserById(id)
-  };
-
-
-
 
 }

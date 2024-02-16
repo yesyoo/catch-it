@@ -1,5 +1,5 @@
 <div class="card-container">
-    <div *ngIf="!showCheckbox" (click)="addBookmark()">
+    <div *ngIf="!owner && !showCheckbox" (click)="bookmark()">
         <i #heart class="pi pi-heart-fill"></i>
     </div>
     <div class="card-controls">

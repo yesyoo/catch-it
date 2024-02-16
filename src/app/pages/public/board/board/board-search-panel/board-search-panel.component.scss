@@ -1,5 +1,6 @@
 .searchbar-container {
     height: 100%;
+
   
 };
 .searchbar {
@@ -10,10 +11,13 @@
     background: var(--panel-dark);
 
     margin-bottom: 5px;
-    padding: 0 5px;
-    border-radius: 5px;
+    padding: 0 20px;
+    border-radius: 10px;
     gap: 8px;
 };
+.deal-type {
+    margin-right: auto;
+}
 
 .filter-container {
     padding: 0 5px;
@@ -39,7 +43,7 @@
     border: none;
     background: none;
     color: rgb(167, 167, 167);
-    margin: 0 15px;
+    margin-left: 10px;
 }
 .change-style {
     .p-cascadeselect {

@@ -11,7 +11,7 @@ import { IItemDB } from '../../../../../../interfaces/items';
 export class BoardCardVisitorPanelComponent implements OnInit, AfterViewInit {
   
   @Input() item: IItemDB
-  ID = this.auth.getAuthUserID()
+  ID = this.auth.ID()
   @ViewChild('heartIcon') heart: ElementRef<HTMLElement> | undefined
 
   constructor(private auth: AuthService) { }

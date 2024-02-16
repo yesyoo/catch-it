@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { IUserReg } from '../../../../interfaces/user';
 import { BoardService } from '../../../../services/board/board.service';
 import { MessageService } from 'primeng/api';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -17,8 +17,6 @@ export class AuthComponent implements OnInit {
   formAuth: FormGroup;
   formReg: FormGroup;
   display: boolean = true
-
-  
 
   constructor(private authService: AuthService,
               private router: Router,

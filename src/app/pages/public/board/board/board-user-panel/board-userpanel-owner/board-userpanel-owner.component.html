@@ -1,26 +1,25 @@
 <div class="user-container">
     <div class="user-navigation">
-        <button class="navigation-btn" (click)="switchStorageType('owner-storage')">Items</button>
+        <button class="navigation-btn" (click)="switchStorage('owner-storage')">Items</button>
         <span class="btn-divide">|</span>
-        <button class="navigation-btn" (click)="switchStorageType('bookmark-storage')">Bookmarks</button>
+        <button class="navigation-btn" (click)="switchStorage('bookmark-storage')">Bookmarks</button>
     </div>
-    <div class="select-line">
+    <div *ngIf="storageType === 'owner-storage'" class="select-line">
         <span class="btn-access" *ngIf="checkbox && storageType === 'owner-storage'">
-            <button class="btn-select" (click)="switchShowHide(false)">hide</button>
+            <button class="btn-select" (click)="updateAccess(false)">hide</button>
             <span class="btn-divide">|</span>
-            <button class="btn-select" (click)="switchShowHide(true)">unhide</button>
+            <button class="btn-select" (click)="updateAccess(true)">unhide</button>
             <span class="btn-divide">|</span>
             <button class="btn-select" (click)="deleteItem()">delete</button>
-        </span>
-        <span class="btn-access" *ngIf="checkbox && storageType === 'bookmark-storage'">
-            <button class="btn-select">delete</button>
         </span>
         <button class="btn-select" *ngIf="checkbox" (click)="selectAll()">All</button>
         <span *ngIf="!checkbox"><i class="pi pi-chevron-left"></i></span>
         <span *ngIf="checkbox" style="margin: 0 10px;">:</span>
         <button class="btn-select" (click)="select()">Select</button>
         <span class="btn-divide">|</span>
-        <!-- <button class="btn-select" (click)="exit()">Back</button>
-        <span class="btn-select"><i class="pi pi-times"></i></span> -->
-    </div>       
+    </div>   
+    <div *ngIf="storageType === 'bookmark-storage'">
+        <button class="btn-select" (click)="deleteBookmarks()">delete all</button>
+        <span class="btn-divide">|</span>
+    </div> 
 </div>

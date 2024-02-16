@@ -21,7 +21,7 @@ export class AuthService {
     }))
   };
 
-  getAuthUserID() {
+  ID() {
     return this.authUserId
   }
   setAuthUserID(id: string) {
@@ -36,7 +36,6 @@ export class AuthService {
       return this.authUserId = JSON.parse(authUser)['id']
     } else {
       this.rootPath = ''
-      console.log('user not found')
       return this.authUserId = ''
     }
   };

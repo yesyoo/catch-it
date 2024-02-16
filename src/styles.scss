@@ -6,21 +6,36 @@
     --font-dark: rgb(180, 180, 180);
     --font-medium: rgb(200, 200, 200);
     --font-light: rgb(210, 210, 210);
-    --light-green: rgb(99, 126, 118);
+    
     --white: rgb(248, 248, 248);
 
     --background-black: rgb(26, 26, 26);
     --card-background: rgb(34, 34, 34);
     --card-background-hover: rgb(38, 38, 38);
     --card-title: rgb(40, 40, 40);
-    --main-orange: rgb(255, 153, 0);
+    
 
     --panel-dark: rgb(36, 36, 36);
+    --font-dark: rgb(140, 140, 140);
+    --font-base: rgb(150, 150, 150);
+    --font-light:rgb(160, 160, 160);
+    --light-green: rgb(146, 167, 161);
+    --main-orange: rgb(228, 168, 58);
+    --main-orange-light: rgb(196, 178, 146);
+    button {
+        border: none;
+        background: none;
+        color: var(--font-base);
+        letter-spacing: 0.1rem;
+        font-weight: 400;
+    }
+    button:hover {
+        color: var(--light-green)
+    }
 }
 .auth-button {
     background: none;
     padding: 20px;
     border: none;
     color: red;
-
 }

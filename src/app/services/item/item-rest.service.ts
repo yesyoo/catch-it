@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category, Collection } from 'src/app/interfaces/category';
-import { Deal } from 'src/app/interfaces/deal-type';
-import { IPostItem } from 'src/app/interfaces/items';
 
 @Injectable({
   providedIn: 'root'
@@ -16,42 +13,32 @@ export class ItemRestService {
     return this.http.post(`http://localhost:3003/items/create`, data)
   };
 
-  getOneById(id: string): Observable<any> {
-    return this.http.get(`http://localhost:3003/items/get-one-by-id?id=${id}`)
+  getOne(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/items/get-one?id=${id}`)
   };
   getManyByParams(params: any): Observable<any> {
     return this.http.get(`http://localhost:3003/items/get-many-by-params?${params}`)
   };
-  getAllByOwnerId(id: string): Observable<any> {
-    return this.http.get(`http://localhost:3003/items/get-all-by-owner-id?id=${id}`)
+  getMany(array: any[]): Observable<any> {
+    return this.http.post(`http://localhost:3003/items/get-many`, array)
   };
-  getManyByUserId(id: string): Observable<any> {
-    return this.http.get(`http://localhost:3003/items/get-many-by-user-id?id=${id}`)
+  getByOwner(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/items/owner?id=${id}`)
   };
-  getManyFromArray(array: any[]): Observable<any> {
-    return this.http.post(`http://localhost:3003/items/get-many-from-array`, array)
-  }
-
+  getByUser(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3003/items/user?id=${id}`)
+  };
   updateAccessMany(data: {id: string, collection: string, show: boolean}[]): Observable<any> {
-    return this.http.patch(`http://localhost:3003/items/update-show-hide-from-array`, data)
-  }
-
-
+    return this.http.patch(`http://localhost:3003/items/access`, data)
+  };
   deleteOne(id: string, collection: string): Observable<any> {
-    return this.http.delete(`http://localhost:3003/items/delete-one-by-id-and-collection?id=${id}&collection=${collection}`)
+    return this.http.delete(`http://localhost:3003/items/delete-one?id=${id}&collection=${collection}`)
   };
   deleteMany(array: {id: string, collection: string}[]): Observable<any> {
-    return this.http.post(`http://localhost:3003/items/delete-by-id-and-collection-from-array`, array)
+    return this.http.post(`http://localhost:3003/items/delete-many`, array)
   };
-  deleteAllInCollection(collection: string): Observable<any> {
-    return this.http.delete(`http://localhost:3003/items/delete-all-in-collection?collection=${collection}`)
-  };
-  deleteAllByUserId(id: string): Observable<any> {
-    return this.http.delete(`http://localhost:3003/items/delete-all-by-user-id/${id}`)
-  };
-
-  updateShowHideFromArray(array: {id: string, collection: string, show: boolean}[]): Observable<any> {
-    return this.http.patch(`http://localhost:3003/items/update-show-hide-from-array`, array)
+  deleteByUser(id: string): Observable<any> {
+    return this.http.delete(`http://localhost:3003/items/user/${id}`)
   };
 
 }

@@ -1,6 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,7 +7,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConfigFormsService } from './services/config/config-forms/config-forms.service';
 import { AuthInterceptor } from './services/auth-interceptor/auth-interceptor';
 import { UserService } from './services/user/user.service';
-import { AuthService } from './services/auth/auth.service';
 
 
 @NgModule({
@@ -30,7 +28,7 @@ import { AuthService } from './services/auth/auth.service';
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp, 
-      deps: [ConfigFormsService, AuthService],
+      deps: [ConfigFormsService],
       multi: true
     },
     UserService
@@ -38,7 +36,6 @@ import { AuthService } from './services/auth/auth.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-function initializeApp(config: ConfigFormsService, user: AuthService) {
-  user.getUserIdFromLocalStorage()
+function initializeApp(config: ConfigFormsService) {
   return () => config.loadPromise().then(() => {});
 }

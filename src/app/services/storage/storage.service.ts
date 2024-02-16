@@ -13,18 +13,17 @@ export class StorageService {
   private anyStorage: IItemDB[] = [];
   private tmpItem: IItemDB;
   public bookmarks: {id: string, collection: string}[];
- 
-  private storageType: StorageType;
+  // private storageType: StorageType;
 
   constructor() { }
 
   saveItem(data: IItemDB) {
-    this.getStorage('owner-storage').push(data)
+    this.getStorage('owner-storage').unshift(data)
   }
 
-  getType(): StorageType {
-    return this.storageType
-  };
+  // getType(): StorageType {
+  //   return this.storageType
+  // };
 
   checkStorage(storageType: StorageType): boolean {
     return this.getStorage(storageType).length != 0 ? true : false
@@ -35,13 +34,9 @@ export class StorageService {
   };
   getOneTmpItem(): IItemDB {
     return this.tmpItem
-  }
-  setBookmarkList(array: {id: string, collection: string}[]) {
-    this.bookmarks = array
-  }
+  };
 
   setToStorage(data: IItemDB[], storageType: StorageType): void {
-    
     switch(storageType) {
       case 'main-storage':
         this.mainStorage = data;
@@ -72,7 +67,7 @@ export class StorageService {
   };
 
   deleteOne(id: string, storageType: StorageType) {
-    this.getStorage(storageType).filter(item => item._id != id)
+    this.ownerStorage.filter(item => item._id != id)
   };
 
   deleteMany(data: {id: string, collection: string}[], storageType: StorageType) {
@@ -90,17 +85,4 @@ export class StorageService {
       })
     })
   };
-
-  deleteIdFromStorage(id: string[], storageType: StorageType){
-    id.forEach(id => this.getStorage(storageType).filter(item => item._id !== id))
-  };
-
-  switchShowHide(id: string[], boolean: boolean) {
-    id.forEach(id => this.ownerStorage.forEach(item => {
-      if(item._id == id) {
-        item.show = boolean
-      }
-    }))
-  };
-
 }

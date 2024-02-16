@@ -5,7 +5,8 @@ import { IItemDB } from '../../interfaces/items';
 import { StorageService } from '../storage/storage.service';
 import { StorageType } from 'src/app/types/types';
 import { BookmarkService } from '../bookmark/bookmark.service';
-import { faTurkishLira } from '@fortawesome/free-solid-svg-icons';
+import { IUserListItem } from 'src/app/interfaces/bookmarks';
+import { IBookmarkDB } from '../../interfaces/bookmarks';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +26,23 @@ export class ItemService {
     })
   };
   
-  getManyFromArray(data: {id: string, collection: string}[], storageType: StorageType): Promise<any> {
+  getMany(data: IUserListItem[], storageType: StorageType): Promise<any> {
     return new Promise(res => {
-      this.rest.getManyFromArray(data).subscribe((response: IItemDB[]) => {
-        ////////////////////////////////////
+      this.rest.getMany(data).subscribe((response: IItemDB[]) => {
         const marked = this.bookmark.mark(response)
-        ////////////////////////////////////////
         this.storage.setToStorage(marked, storageType)
-        console.log('marked',marked)
+        res(true)
+      })
+    })
+  };
+
+  getBookmarks(data: IBookmarkDB[]): Promise<any> {
+    return new Promise(res => {
+      let array: any[] = [];
+      data.forEach(item => array.push({id: item.itemId, collection: item.collection}))
+      this.rest.getMany(array).subscribe((response: IItemDB[]) => {
+        const marked = this.bookmark.mark(response)
+        this.storage.setToStorage(marked, 'bookmark-storage')
         res(true)
       })
     })
@@ -43,34 +53,32 @@ export class ItemService {
       this.rest.getManyByParams(params).subscribe((response: IItemDB[]) => {
         const marked = this.bookmark.mark(response)
         this.storage.setToStorage(marked, 'main-storage');
-        console.log('marked:',marked)
         res(true)
       })
     })
   };
 
-  getAllByOwnerId(id: string): Promise<any> {
+  getByOwner(id: string): Promise<any> {
     return new Promise(res => {
-      this.rest.getAllByOwnerId(id).subscribe((data: IItemDB[]) => {
+      this.rest.getByOwner(id).subscribe((data: IItemDB[]) => {
         this.storage.setToStorage(data, 'owner-storage')
         res(true)
       })
     })
   };
 
-  getAllByUserId(id: string): Promise<any> {
+  getByUser(id: string): Promise<any> {
     return new Promise(res => {
-      this.rest.getManyByUserId(id).subscribe((data: IItemDB[]) => {
+      this.rest.getByUser(id).subscribe((data: IItemDB[]) => {
         this.storage.setToStorage(data, 'any-storage')
         res(true)
       })
     })
   };
 
-  getOneById(id: string): Promise<any> {
+  getOne(id: string): Promise<any> {
     return new Promise(res => {
-      this.rest.getOneById(id).subscribe((data: IItemDB) => {
-        console.log('oneTmpItem', data)
+      this.rest.getOne(id).subscribe((data: IItemDB) => {
         const markedArray = this.bookmark.mark([data])
         this.storage.setOneTmpItem(markedArray[0])
         res(true)
@@ -99,17 +107,15 @@ export class ItemService {
   deleteMany(array: {id: string, collection: string}[], storageType: StorageType): Promise<any> {
     return new Promise(res => {
       this.rest.deleteMany(array).subscribe(() => {
+        //под вопросом
         this.storage.deleteMany(array, storageType)
         res(true)
       })
     })
   };
 
-  deleteAllByUserId(id: string): Observable<any> {
-    return this.rest.deleteAllByUserId(id)
+  deleteByUser(id: string): Observable<any> {
+    return this.rest.deleteByUser(id)
   };
 
-  deleteAllInCollection(collection: string): Observable<any> {
-    return this.rest.deleteAllInCollection(collection)
-  };
 }

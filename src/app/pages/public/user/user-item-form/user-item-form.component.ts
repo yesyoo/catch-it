@@ -8,7 +8,6 @@ import { IUser } from 'src/app/interfaces/user';
 import { BoardService } from 'src/app/services/board/board.service';
 import { ConfigFormsService } from 'src/app/services/config/config-forms/config-forms.service';
 import { ItemService } from 'src/app/services/item/item.service';
-import { ModalService } from 'src/app/services/modal/modal.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -47,16 +46,13 @@ export class UserItemFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private itemService: ItemService,
-              private modalService: ModalService,
               private userService: UserService,
-              private board: BoardService,
-              private messageService: MessageService,
-              private storage: StorageService) { }
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.display = true
     this.user = this.userService.getUser()
-    this.modalService.showModal$.subscribe(data => this.show = data )
+
     this.categoryConfig = ConfigFormsService.forms
     this.formInputConfig = ConfigFormsService.inputs
     //form
@@ -69,8 +65,6 @@ export class UserItemFormComponent implements OnInit {
     this.addFormControls(this.firstForm, this.firstFormFields)
     this.form.addControl(this.secondFormName, this.secondForm)
     this.addFormControls(this.secondForm, this.secondFormFields)
-
-    console.log('this.user', this.user)
   };
 
   updateFormInputs(type: Deal | Category): any[] {

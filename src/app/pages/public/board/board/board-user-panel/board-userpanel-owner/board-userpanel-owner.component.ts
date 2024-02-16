@@ -3,11 +3,10 @@ import { CardsService } from 'src/app/services/cards/cards.service';
 import { BoardService } from 'src/app/services/board/board.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { IItemDB } from 'src/app/interfaces/items';
-import { ItemRestService } from '../../../../../../services/item/item-rest.service';
 import { StorageType } from 'src/app/types/types';
 import { BookmarkService } from 'src/app/services/bookmark/bookmark.service';
-import { PanelService } from 'src/app/services/panel/panel.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { ItemService } from 'src/app/services/item/item.service';
 
 @Component({
   selector: 'app-board-userpanel-owner',
@@ -22,14 +21,12 @@ export class BoardUserpanelOwnerComponent implements OnInit {
   checked: boolean = false;
   checkboxList: {id: string, collection: string, show: boolean}[];
   items: any[];
-  
 
   constructor(private cardsService: CardsService,
               private board: BoardService,
               private navigationService: NavigationService,
-              private itemService: ItemRestService,
-              private bookmark: BookmarkService,
-              private panel: PanelService,
+              private itemService: ItemService,
+              private bookmarkService: BookmarkService,
               private storage: StorageService) { }
 
   ngOnInit(): void {
@@ -37,39 +34,18 @@ export class BoardUserpanelOwnerComponent implements OnInit {
     this.storageType = 'owner-storage'
   };
 
-  switchStorageType(storageType: StorageType) {
-    this.checkbox = false;
-    this.checked = false;
-
+  switchStorage(storageType: StorageType) {
     if(this.storageType !== storageType) {
-      if(this.storage.checkStorage(storageType)) {
-        this.storageType = storageType              
-        this.board.render(storageType)
-      } else {
-        if(storageType === 'bookmark-storage') {
-          this.getBookmarks().then(() => {
-            this.storageType = storageType   
-            this.board.render(storageType)
-          })
-        }
-      }
+      this.checkbox = false;
+      this.checked = false;
+      this.storageType = storageType;
+      storageType === 'owner-storage' ? this.board.render('owner-storage') : this.getBookmarks()
     }
-  };
-
-  async getBookmarks(): Promise<any> {
-    return new Promise(res => {
-      if(this.storage.checkStorage('bookmark-storage')) {
-        res(true)
-      } else {
-        this.bookmark.getBookmarks().then(() => res(true))
-      }
-    })
   };
 
   select() {
     this.checkbox ? this.cardsService.addCheckbox(false) : this.cardsService.addCheckbox(true)   
   };
-
   selectAll() {
     const checked = document.querySelectorAll('input[type="checkbox"]');
     checked.forEach(el => {
@@ -78,7 +54,6 @@ export class BoardUserpanelOwnerComponent implements OnInit {
     })
     this.checked ? this.checked = false : this.checked = true
   };
-
   getSelected(): {id: string, collection: string, show: boolean | null}[] {
     const array: {id: string, collection: string, show: boolean | null}[] = []
     const checkedArray = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -90,10 +65,9 @@ export class BoardUserpanelOwnerComponent implements OnInit {
     return array
   };
 
-  switchShowHide(data: boolean) {
+  updateAccess(data: boolean) {
     let checkedItems: {id: String, collection: string, show?: boolean | null }[] = this.getSelected()
     const ownerStorageItems: IItemDB[] = this.storage.getStorage('owner-storage')
-    console.log('test', checkedItems)
     let postArray: any[] = [];
     if(checkedItems.length > 0) {
       checkedItems.forEach((checkedItem) => {
@@ -104,7 +78,7 @@ export class BoardUserpanelOwnerComponent implements OnInit {
           }
         })
       })
-      this.itemService.updateShowHideFromArray(postArray).subscribe(() => {
+      this.itemService.updateAccessMany(postArray).then(() => {
         postArray.forEach(item => {
           ownerStorageItems.forEach((ownerItem: IItemDB) => {
             if(item.id == ownerItem._id) ownerItem.show = data
@@ -114,32 +88,35 @@ export class BoardUserpanelOwnerComponent implements OnInit {
       })
     }
   };
+
   deleteItem() {
-   
-    let checkedItems: {id: String, collection: string, show?: boolean | null }[] = this.getSelected()
-    const ownerStorageItems: IItemDB[] = this.storage.getStorage('owner-storage')
-    // console.log('test', checkedItems);
-    let postArray: any[] = [];
-
-    if(checkedItems.length > 0) {
-      checkedItems.forEach((checkedItem) => {
-        postArray.push({id: checkedItem.id, collection: checkedItem.collection})
-
-        // ownerStorageItems.forEach((ownerItem: IItemDB) => {
-        //   if(checkedItem.id == ownerItem._id && ownerItem.show !== data) {
-        //     checkedItem.show = data
-        //     postArray.push(checkedItem)
-        //   }
-        // })
+    let checked: {id: String, collection: string, show?: boolean | null }[] = this.getSelected();
+    const storage: IItemDB[] = this.storage.getStorage('owner-storage');
+    let postData: any[] = [];
+    if(checked.length > 0) {
+      checked.forEach((item) => {
+        postData.push({id: item.id, collection: item.collection});
       })
-      this.itemService.deleteMany(postArray).subscribe(res => {
-        console.log(res);
-        this.storage.deleteIdFromStorage(postArray, 'owner-storage')
+      console.log('delete start')
+      this.itemService.deleteMany(postData, this.storageType).then(() => {
+        // this.storage.deleteIdFromStorage(postData, 'owner-storage')
       })
-      
     }
+  };
 
-  }
+  getBookmarks() {
+    if(this.storage.checkStorage('bookmark-storage')) {
+      this.board.render('bookmark-storage')
+    } else {
+      const bookmarks = this.bookmarkService.getBokkmarks()
+      this.itemService.getBookmarks(bookmarks).then(() => {
+        this.board.render('bookmark-storage')
+      })
+    }
+  };
+  deleteBookmarks() {
+    this.bookmarkService.deleteAll().then(()=> this.board.render('bookmark-storage'))
+  };
 
   exit() {
     this.navigationService.home()

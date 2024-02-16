@@ -23,19 +23,19 @@ export class BoardComponent implements OnInit {
               private userService: UserService ) { }
 
   ngOnInit(): void {
-    if(this.authService.getAuthUserID()) {
+    if(this.authService.ID()) {
       this.authorizedUser = true
       this.blocked = true
       this.userService.userIsLoaded$.subscribe((res) => {
         if(res === true) {
           this.blocked = false
-          console.log('user is loaded and board is unblocked')
+          console.log('user is loaded and board =>')
         }
       })
     } else {
       this.authorizedUser = false
       this.blocked = false
-      console.log('authorized user not found, board is unblocked')
+      console.log('authorized user not found, board =>')
     }
     this.boardService.error$.subscribe(error => this.errorMessage = error);
     this.router.url.includes('user') ? this.showBoardSearchPanel = false : this.showBoardSearchPanel = true

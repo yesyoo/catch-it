@@ -4,7 +4,7 @@
           [showHeader]="true" 
           [dismissableMask]="true" 
           (onHide)="onHide()"
-          class="modal-container">
+          class="modal-container change-overlay">
 
     <div class="card-container" *ngIf="item">
         <div class="img-container"><img src="http://localhost:3003/public/{{item.img}}" alt="/"></div>
@@ -24,19 +24,19 @@
             </div>
 
             <div class="controls-container">
-                <button *ngIf="!isOwnerPage" class="user-btn" (click)="navigateToUserPage(item.user)">
+                <button *ngIf="!isOwnerPage" class="user-page-btn" (click)="navigateToUserPage(item.user)">
                     <i class="pi pi-angle-left" style="margin-right:10px"></i>
                     <i class="pi pi-user"></i>
                 </button>
                 <app-board-card-owner-panel *ngIf="viewerType === 'owner-user'" 
                                             [item]="item"
                                             (close)="close()"></app-board-card-owner-panel>
-                <app-board-card-visitor-panel *ngIf="viewerType === 'visitor-user'" [item]="item"></app-board-card-visitor-panel>
-                <button *ngIf="viewerType === 'unauthorized-user'" (click)="login()" class="card-controls-btn card-btn btn">login</button>
+                <app-board-card-visitor-panel *ngIf="viewerType === 'visitor-user'" 
+                                              [item]="item"></app-board-card-visitor-panel>
+                <button *ngIf="viewerType === 'unauthorized-user'" (click)="login()" class="btn-login">login</button>
             </div>
 
         </div>
-
     </div>        
 </p-dialog>
 

@@ -16,13 +16,17 @@ export class BookmarkRestService {
     return this.http.get(`http://localhost:3003/bookmarks/get-all/${user}`)
   };
   deleteOne(user: string, itemId: string): Observable<any> {
-    return this.http.delete(`http://localhost:3003/bookmarks/delete-one?user=${user}&itemId=${itemId}`)
+    return this.http.delete(`http://localhost:3003/bookmarks/delete-one?userId=${user}&itemId=${itemId}`)
   };
-  deleteManyFromArray(array: {id: string, collection: string}[]): Observable<any> {
-    return this.http.post(`http://localhost:3003/bookmarks/delete-many`, array)
-  };
+  // deleteManyFromArray(array: {id: string, collection: string}[]): Observable<any> {
+  //   return this.http.post(`http://localhost:3003/bookmarks/delete-many`, array)
+  // };
   deleteAllBookmarks(user: string): Observable<any> {
     return this.http.delete(`http://localhost:3003/bookmarks/delete-all/${user}`)
   };
+  deleteManyBookmarks(user: string, array: string[]): Observable<any> {
+    return this.http.post(`http://localhost:3003/bookmarks/delete-many/${user}`, array)
+
+  }
 
 }

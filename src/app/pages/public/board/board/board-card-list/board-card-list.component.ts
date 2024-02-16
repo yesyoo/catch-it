@@ -24,6 +24,7 @@ export class BoardCardListComponent implements OnInit {
   ngOnInit(): void {
     this.board.storageType$.subscribe(storageType => {
       storageType === 'owner-storage' ? this.viewerType = 'owner-user' : this.viewerType = 'visitor-user';
+      
       this.items = this.storage.getStorage(storageType);
       if(this.items.length == 0) {
         this.board.sendErrorMessage('Not found')

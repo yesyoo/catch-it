@@ -1,12 +1,8 @@
 <div class="searchbar-container">
     <div class="searchbar">
-
-
-
-        <app-dealtype-switch (type)="updateDealParams($event)" class="dealtype-container"></app-dealtype-switch>
+        <app-dealtype-switch class="deal-type" (type)="updateDealParams($event)" class="dealtype-container"></app-dealtype-switch>
         <app-subcategory-select (updateCategoryType)="updateCategoryParams($event)"></app-subcategory-select>
         <div class="search-input">
-            <!-- <i class="pi pi-search"></i> -->
             <input type="text" placeholder="Search">         
         </div>
         <div class="buttons-container">

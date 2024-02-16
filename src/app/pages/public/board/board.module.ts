@@ -30,7 +30,6 @@ import { MessagesModule } from 'primeng/messages'
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DealtypeSwitchComponent } from './board/board-search-panel/dealtype-switch/dealtype-switch.component';
-import { PanelService } from 'src/app/services/panel/panel.service';
 
 @NgModule({
   declarations: [
@@ -63,8 +62,7 @@ import { PanelService } from 'src/app/services/panel/panel.service';
     ToastModule
   ],
   providers: [
-    MessageService,
-    PanelService
+    MessageService
   ]
 })
 export class BoardModule { }

@@ -17,12 +17,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 5px;
-    color: grey;
-    font-size: 1rem;
-}
-.btn-exit {
-    border: none;
-    background: none;
-    color: grey;
 };
+
+.btn-container i {
+    font-size: 0.9rem;
+    display: block;
+}
+
