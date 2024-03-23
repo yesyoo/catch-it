@@ -1,0 +1,46 @@
+.card-controls-btn {
+    margin-left: 5px;
+    border: 2px solid rgb(185, 173, 173);
+}
+.card-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.red{
+    color: var(--main-orange);
+}
+.card-icon {
+    border: none;
+    background: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color:rgb(59, 59, 59)
+}
+.card-icon:hover {
+    color: var(--main-orange);
+}
+.controls-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.pi-heart-fill {
+    font-size: 1.5rem;
+}
+.pi-heart-fill:hover {
+    color: var(--main-orange)
+
+}
+.message-button {
+    background: white;
+    color: grey;
+    padding: 6px 6px;
+    border-radius: 5px;
+    border: 2px solid grey;
+    width: fit-content;
+    margin-bottom: 10px;
+}

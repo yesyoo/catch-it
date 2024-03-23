@@ -1,0 +1,7 @@
+<div class="btn-container">
+    <button *ngIf="item.show" (click)="hideItem(false)"><i class="pi pi-eye-slash btn-hide" style="margin-right:8px"></i>Скрыть</button>
+    <button *ngIf="!item.show" (click)="hideItem(true)"><i class="pi pi-eye btn-unhide" style="margin-right:8px"></i>Открыть</button>
+    <button (click)="deleteItem()"><i class="pi pi-trash btn-delete" style="margin-right:8px"></i>Удалить</button>
+</div>
+
+

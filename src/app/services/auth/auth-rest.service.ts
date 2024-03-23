@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IUserAuth, IUser } from 'src/app/interfaces/user';
+import { IUserAuth } from 'src/app/models/interfaces/user';
 import { Observable } from 'rxjs';
-import { IUserReg } from '../../interfaces/user';
+import { IUserReg } from '../../models/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,15 +28,4 @@ export class AuthRestService {
     return this.http.delete(`http://localhost:3003/users/delete/${userId}`)
   };
 
-  logout() {
-
-  };
-
-  updateUser() {
-
-  };
-
-  updateUserPassword() {
-
-  }
 }

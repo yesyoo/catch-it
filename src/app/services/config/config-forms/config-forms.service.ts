@@ -33,7 +33,6 @@ export class ConfigFormsService {
           ConfigFormsService.inputs = response;
           const config = ConfigFormsService.inputs;
           if (config) {
-            // set origin host
             resolve(config);
           } else {
             reject('Ошибка при инициализации конфига - неверный формат '+ config);
@@ -52,7 +51,6 @@ export class ConfigFormsService {
           ConfigFormsService.forms = response;
           const config = ConfigFormsService.forms;
           if (config) {
-            // set origin host
             resolve(config);
           } else {
             reject('Ошибка при инициализации конфига - неверный формат '+ config);

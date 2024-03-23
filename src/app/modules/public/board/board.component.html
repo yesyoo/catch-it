@@ -1,0 +1,16 @@
+<div *ngIf="!blocked" class="board-container">
+    <div class="board-panel-container">
+        <app-board-search-panel *ngIf="showBoardSearchPanel"></app-board-search-panel>
+        <router-outlet></router-outlet>
+    </div>
+    <div class="board-list-container">
+        <app-board-card-list></app-board-card-list>
+        <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+    </div>
+</div>
+
+<button *ngIf="!authorizedUser" (click)="auth()" class="auth-btn">Войти</button>
+<p-toast position="top-right"></p-toast>
+
+
+

@@ -1,0 +1,14 @@
+<div class="card-container" *ngIf="ID">
+    <div *ngIf="!owner && !showCheckbox" (click)="bookmark()">
+        <i #heart *ngIf="!item.bookmark" class="pi pi-heart-fill"></i>
+        <i #heart *ngIf="item.bookmark" class="pi pi-heart-fill red"></i>
+
+    </div>
+    <div class="card-controls">
+        <input *ngIf="showCheckbox" class="card-checkbox" type="checkbox" id="{{item._id}}" 
+               [attr.data-collection]="item.collection" 
+               [attr.data-owner-item-checkbox-list]="true"
+               aria-checked="false">
+    </div>
+</div>
+

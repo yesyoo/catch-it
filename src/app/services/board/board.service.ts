@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { StorageType } from 'src/app/types/types';
+import { StorageType } from 'src/app/models/types/types';
 import { StorageService } from '../storage/storage.service';
 
 @Injectable({

@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BookmarkRestService } from './bookmark-rest.service';
 import { AuthService } from '../auth/auth.service';
-import { IItemDB } from 'src/app/interfaces/items';
+import { IItemDB } from 'src/app/models/interfaces/items';
 import { StorageService } from '../storage/storage.service';
-import { IBookmarkDB } from 'src/app/interfaces/bookmarks';
+import { IBookmarkDB } from 'src/app/models/interfaces/bookmarks';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookmarkService {
-
-  private ID: string = this.auth.ID()
   private bookmarks: IBookmarkDB[];
  
   constructor(private rest: BookmarkRestService, 
@@ -28,12 +26,12 @@ export class BookmarkService {
     return new Promise(res => {
       let match: boolean = false;
       this.bookmarks.forEach(el => {
-        if(el.itemId === item._id) { 
+        if(el.item === item._id) { 
           match = true 
         }
       });
       if(!match) {
-        this.rest.sendBookmark({userId: this.ID, itemId: item._id, collection: item.collection, title: item.item.title}).subscribe((bookmark: IBookmarkDB) => {
+        this.rest.sendBookmark({user: this.auth.ID(), item: item._id, collection: item.collection, title: item.item.title}).subscribe((bookmark: IBookmarkDB) => {
           this.bookmarks.push(bookmark);
           let array: IItemDB[] = this.storage.getStorage('bookmark-storage');
           array.push(item)
@@ -42,6 +40,7 @@ export class BookmarkService {
         })
       } else {
         this.deleteOne(item._id).then(() => {
+          
           res(false)
         })
       }
@@ -50,10 +49,10 @@ export class BookmarkService {
 
   deleteOne(itemId: string): Promise<any> { //*
     return new Promise(res => {
-      this.rest.deleteOne(this.ID, itemId).subscribe(() => {
+      this.rest.deleteOne(this.auth.ID(), itemId).subscribe(() => {
         const array = this.storage.getStorage('bookmark-storage').filter(item => item._id != itemId)
         this.storage.setToStorage(array, 'bookmark-storage')
-        this.bookmarks = this.bookmarks.filter(el => el.itemId != itemId)
+        this.bookmarks = this.bookmarks.filter(el => el.item != itemId)
         res(true)
       })
     })
@@ -61,7 +60,9 @@ export class BookmarkService {
 
   loadBookmarks(): Promise<any> { //*
     return new Promise(res => {
+      console.log('userID', this.auth.ID())
       this.rest.getAllBookmarks(this.auth.ID()).subscribe((bookmarks: IBookmarkDB[]) => {
+        console.log(bookmarks)
         this.bookmarks = bookmarks;
         res(true)
       })
@@ -70,7 +71,7 @@ export class BookmarkService {
 
   deleteAll(): Promise<any> { //*
     return new Promise(res => {
-      this.rest.deleteAllBookmarks(this.ID).subscribe(() => {
+      this.rest.deleteAllBookmarks(this.auth.ID()).subscribe(() => {
         this.storage.setToStorage([], 'bookmark-storage')
         res(true)
       })
@@ -81,7 +82,7 @@ export class BookmarkService {
     if(this.bookmarks) {
       this.bookmarks.forEach(obj => {
         data.forEach(item => {
-          if(obj.itemId === item._id) {
+          if(obj.item === item._id) {
             item.bookmark = true
           }
         })

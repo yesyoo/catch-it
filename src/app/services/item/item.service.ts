@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ItemRestService } from './item-rest.service';
 import { Observable } from 'rxjs';
-import { IItemDB } from '../../interfaces/items';
+import { IItemDB } from '../../models/interfaces/items';
 import { StorageService } from '../storage/storage.service';
-import { StorageType } from 'src/app/types/types';
+import { StorageType } from 'src/app/models/types/types';
 import { BookmarkService } from '../bookmark/bookmark.service';
-import { IUserListItem } from 'src/app/interfaces/bookmarks';
-import { IBookmarkDB } from '../../interfaces/bookmarks';
+import { IUserListItem } from 'src/app/models/interfaces/bookmarks';
+import { IBookmarkDB } from '../../models/interfaces/bookmarks';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class ItemService {
   getBookmarks(data: IBookmarkDB[]): Promise<any> {
     return new Promise(res => {
       let array: any[] = [];
-      data.forEach(item => array.push({id: item.itemId, collection: item.collection}))
+      data.forEach(item => array.push({id: item.item, collection: item.collection}))
       this.rest.getMany(array).subscribe((response: IItemDB[]) => {
         const marked = this.bookmark.mark(response)
         this.storage.setToStorage(marked, 'bookmark-storage')
@@ -70,7 +70,8 @@ export class ItemService {
   getByUser(id: string): Promise<any> {
     return new Promise(res => {
       this.rest.getByUser(id).subscribe((data: IItemDB[]) => {
-        this.storage.setToStorage(data, 'any-storage')
+        const marked = this.bookmark.mark(data)
+        this.storage.setToStorage(marked, 'any-storage')
         res(true)
       })
     })
@@ -83,6 +84,8 @@ export class ItemService {
         this.storage.setOneTmpItem(markedArray[0])
         res(true)
       })
+
+      
     })
   };
      
@@ -107,7 +110,6 @@ export class ItemService {
   deleteMany(array: {id: string, collection: string}[], storageType: StorageType): Promise<any> {
     return new Promise(res => {
       this.rest.deleteMany(array).subscribe(() => {
-        //под вопросом
         this.storage.deleteMany(array, storageType)
         res(true)
       })
@@ -117,5 +119,4 @@ export class ItemService {
   deleteByUser(id: string): Observable<any> {
     return this.rest.deleteByUser(id)
   };
-
 }

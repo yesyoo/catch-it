@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AuthRestService } from './auth-rest.service';
-import { IUserAuth, IUser } from 'src/app/interfaces/user';
+import { IUserAuth } from 'src/app/models/interfaces/user';
 import { Observable } from 'rxjs';
-import { IUserReg } from '../../interfaces/user';
+import { IUserReg } from '../../models/interfaces/user';
+import { NavigationService } from '../navigation/navigation.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private rootPath: string = "" || "home";
   private authUserId: string;
 
-  constructor(private rest: AuthRestService) { }
+  constructor(private rest: AuthRestService,
+              private navigationService: NavigationService) { }
 
   checkRole(id: string): Promise<any> {
     return new Promise((res => {
@@ -21,52 +21,44 @@ export class AuthService {
     }))
   };
 
-  ID() {
-    return this.authUserId
-  }
-  setAuthUserID(id: string) {
-    this.authUserId = id
-  }
-
-  getUserIdFromLocalStorage(): string  {
+  checkAuthUserInLocalStorage(): string  {
     const authUser = localStorage.getItem('user')
     if(authUser) {
-      this.rootPath = 'home'
-      console.log('user:', JSON.parse(authUser)['id'])
-      return this.authUserId = JSON.parse(authUser)['id']
+      const id = JSON.parse(authUser)['id']
+      this.authUserId = id
+      this.navigationService.setRootPath(id)
+      return id
     } else {
-      this.rootPath = ''
-      return this.authUserId = ''
+      this.navigationService.setRootPath('')
+      this.authUserId = ''
+      return ''
     }
   };
-
-  setRootPath(data: "" | "home") {
-      this.rootPath = data
+  setAuthUserID(id: string) {
+    this.authUserId = id
+    this.navigationService.setRootPath(id)
+  };
+  ID() {
+    return this.authUserId
   };
 
-  getRootPath(): string {
-    return this.rootPath
-  };
 
   register(data: IUserReg): Observable<any> {
     return this.rest.register(data)
   };
-
   login(data: IUserAuth): Observable<any> { 
     return this.rest.login(data)
   };
-
   logout() {
     localStorage.removeItem('user')
-    this.getUserIdFromLocalStorage()
+    this.checkAuthUserInLocalStorage()
   };
 
   setToken(userId: string, access_token: string, role: string): void {
     const user = {id:userId, access_token: access_token, role: role}
     localStorage.setItem(`user`, JSON.stringify(user))
-    this.getUserIdFromLocalStorage()
+    this.checkAuthUserInLocalStorage()
   };
-
   getToken(): string  {
     let access_token: string
     const user = localStorage.getItem(`user`)
@@ -78,9 +70,7 @@ export class AuthService {
 
   deleteUser(id: string): Observable<any> {
     this.logout()
-    this.getUserIdFromLocalStorage()
+    this.checkAuthUserInLocalStorage()
     return this.rest.deleteUser(id)
   };
-  
-  
 }

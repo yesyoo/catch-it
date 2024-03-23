@@ -1,0 +1,72 @@
+.modal-container {
+    position: relative;
+};
+.card-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+};
+.img-container {
+    width: 400px;
+    height: 500px;
+    background: rgb(255, 255, 255);
+}
+
+img {
+    width: 400px;
+    height: 500px;
+    object-fit: cover;
+};
+.data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+};
+.item-title {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.item-options {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    color: rgb(133, 133, 133);
+};
+
+.item-location {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.user-page-btn {
+    background: white;
+    color: var(--main-orange);
+    padding: 6px 6px;
+    border-radius: 5px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-end;
+    width: 100%;
+}
+.btn-login {
+    padding: 6px 20px;
+    border-radius: 5px;
+    color: grey;
+    font-weight: 400;
+    border: 2px solid grey;
+}
+
+

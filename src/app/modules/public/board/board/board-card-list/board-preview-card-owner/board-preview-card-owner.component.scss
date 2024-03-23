@@ -1,0 +1,17 @@
+.card-container {
+    padding: 5px 5px;
+    font-size: 0.9rem;
+    color: rgb(113, 143, 138);
+    position: relative;
+    text-align: left;
+    background: rgb(48, 48, 48);
+}
+.card-data {
+    display: flex;
+    flex-direction: column;
+}
+.card-checkbox {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}

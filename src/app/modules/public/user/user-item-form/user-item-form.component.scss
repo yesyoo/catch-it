@@ -1,0 +1,57 @@
+.form-container {
+    height: 550px;
+    width: 1000px;
+    padding: 0.5rem;
+    position: relative;
+};
+.input-list {
+    height: 400px;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center
+};
+
+.submit {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+};
+.field {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.btn-file-cover {
+    visibility: hidden;
+
+}
+.btn-file-label {
+    padding: 40px;
+    height: 100px;
+
+    border: 2px solid grey;
+    border-radius: 5px;
+}
+.btn-close-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+
+}
+
+
+
+
+  

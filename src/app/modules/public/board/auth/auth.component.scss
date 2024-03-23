@@ -1,0 +1,49 @@
+.auth-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.form-container {
+    height: fit-content;
+    width: 300px;
+    padding: 0.5rem;
+    position: relative;
+};
+
+.form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+};
+
+.form-header button {
+    padding: 0 20px;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    margin: 10px 0;
+}
+.btn-sub {
+    background: grey;
+    border-radius: 5px;
+    padding: 5px 15px;
+    color: black;
+
+};
+.btn-sub:hover {
+    background: rgb(94, 94, 94);
+    color: rgb(255, 255, 255);
+};
+
+.title-active {
+    color: rgb(58, 58, 58);
+}
+.btn-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}

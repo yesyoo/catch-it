@@ -1,0 +1,19 @@
+.user-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+    letter-spacing: 0.1rem;
+    color: var(--font-base);
+};
+.user-data {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.divide {
+    color: rgb(63, 63, 63);
+}

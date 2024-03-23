@@ -1,0 +1,37 @@
+<div *ngIf="itemsReverse" class="container-fluid text-center" >
+    <div class="row row-cols-4 gx-2 card-list">
+        <div class="col mb-2 " *ngFor="let item of itemsReverse">
+            <div>
+                <ng-container *ngTemplateOutlet="tmpCard; context: {item}"></ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #tmpCard let-item="item">
+    <div class="card-container">
+        <div class="card-item" (click)="openCard(item)">
+            <div class="card-title">
+                <span class="card-title">{{item.item.title}}</span><span *ngIf="item.show != true" class="hidden">(hidden)</span>
+            </div>
+            <div class="card-content" >
+                <div class="card-img">
+                    <img src="http://localhost:3003/public/{{item.img}}" alt="/">
+                </div>
+                <div class="card-data" *ngIf="item.collection === 'personal-shoes' || item.collection === 'personal-clothes'" class="card-data">
+                    <app-board-preview-card [item]="item"></app-board-preview-card>
+                </div>
+            </div>
+        </div> 
+        <app-board-preview-card-owner *ngIf="viewerType === 'owner-user'" 
+                                      [item]="item"
+                                      class="visitor-owner-container"></app-board-preview-card-owner>
+        <app-board-preview-card-any *ngIf="viewerType === 'visitor-user'"
+                                    [item]="item" 
+                                    class="visitor-user-container"></app-board-preview-card-any>       
+    </div>
+</ng-template>
+
+
+

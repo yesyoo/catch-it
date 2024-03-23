@@ -81,7 +81,8 @@
         "title",
         "description",
         "city",
-        "district"
+        "district",
+        "exchange"
     ],
     "registration": [
         "user-name",

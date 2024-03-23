@@ -1,0 +1,26 @@
+.card-controls-btn {
+    margin-left: 5px;
+    border: 2px solid rgb(185, 173, 173);
+}
+.card-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+button {
+    background: white;
+    color: grey;
+    padding: 6px 6px;
+    border-radius: 5px;
+    border: 2px solid grey;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+.btn-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: flex-end;
+}

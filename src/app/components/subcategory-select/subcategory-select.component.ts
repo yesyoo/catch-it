@@ -1,10 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, Input, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Collection, Category } from 'src/app/interfaces/category';
+import { Component, EventEmitter, OnInit, Output, Input, ViewEncapsulation } from '@angular/core';
+import { Collection, Category } from 'src/app/models/interfaces/category';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthInterceptor } from 'src/app/services/auth-interceptor/auth-interceptor';
-import { NONE_TYPE } from '@angular/compiler';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -33,117 +31,52 @@ export class SubcategorySelectComponent implements OnInit {
 
     this.categoryList = [
       {
-        label: "Personal",
+        label: "Взрослые",
         options: [
           {
-            label: "Male shoes",
+            label: "Мужская обувь",
             collection: "personal-shoes",
             category: "adult-male-shoes"
           },
           {
-            label: "Male clothes",
+            label: "Мужская одежда",
             collection: "personal-clothes",
             category: "adult-male-clothes"
           },
           {
-            label: "Female shoes",
+            label: "Женская обувь",
             collection: "personal-shoes",
             category: "adult-female-shoes"
           },
           {
-            label: "Female clothes",
+            label: "Женская одежда",
             collection: "personal-clothes",
             category: "adult-female-clothes"
-          },
-          {
-            label: "Bags",
-            collection: "personal-bags",
-            category: "adult-bags"
-          },
-          {
-            label: "Other",
-            collection: "personal-accessories",
-            category: "adult-other" 
           }
         ]
       },
       {
-        label: "Kids",
+        label: "Дети",
         options: [
           {
-            label: "Boys clothes",
+            label: "Одежда для мальчиков",
             collection: "personal-clothes",
             category: "child-male-clothes"
           },
           {
-            label: "Girls clothes",
+            label: "Одежда для девочек",
             collection: "personal-clothes",
             category: "child-female-clothes"
           },
           {
-            label: "Boys shoes",
+            label: "Обувь для мальчиков",
             collection: "personal-shoes",
             category: "child-male-shoes"
           },
           {
-            label: "Girls shoes",
+            label: "Обувь для девочек",
             collection: "personal-shoes",
             category: "child-female-shoes"
-          },
-          {
-            label: "School",
-            collection: "kids-all",
-            category: "child-school"
-          },
-          {
-            label: "Newborn",
-            collection: "kids-all",
-            category: "child-newborn"
-          },
-          {
-            label: "Other",
-            collection: "kids-all",
-            category: "child-other"
-          }
-        ]
-      },
-      {
-        label: "Home",
-        options: [
-          {
-            label: "Furniture",
-            collection: "home-all",
-            category: "home-furniture"
-          },
-          {
-            label: "Appliances",
-            collection: "home-all",
-            category: "home-appliances"
-          },
-          {
-            label: "Decor",
-            collection: "home-all",
-            category: "home-decor"
-          },
-          {
-            label: "Other",
-            collection: "home-all",
-            category: "home-other"
-          }
-        ]
-      },
-      {
-        label: "Pets",
-        options: [
-          {
-            label: "Pets",
-            collection: "pets-all",
-            category: "pets-pets"
-          },
-          {
-            label: "Accesorries",
-            collection: "pets-all",
-            category: "pets-accessories"
           }
         ]
       }

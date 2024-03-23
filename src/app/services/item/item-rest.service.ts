@@ -38,7 +38,7 @@ export class ItemRestService {
     return this.http.post(`http://localhost:3003/items/delete-many`, array)
   };
   deleteByUser(id: string): Observable<any> {
-    return this.http.delete(`http://localhost:3003/items/user/${id}`)
+    return this.http.delete(`http://localhost:3003/items/by-user/${id}`)
   };
 
 }

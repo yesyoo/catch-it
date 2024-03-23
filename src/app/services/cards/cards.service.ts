@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ViewerType } from 'src/app/types/types';
+import { ViewerType } from 'src/app/models/types/types';
 
 @Injectable({
   providedIn: 'root'

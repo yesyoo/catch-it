@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IUser, IUserResponse } from 'src/app/interfaces/user';
+import { IUser, IUserResponse } from 'src/app/models/interfaces/user';
 import { AuthService } from '../auth/auth.service';
 import { UserRestService } from './user-rest/user-rest.service';
 import { BookmarkService } from '../bookmark/bookmark.service';

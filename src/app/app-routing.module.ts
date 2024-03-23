@@ -6,11 +6,11 @@ const routes: Routes = [
   {
     path: 'admin',
     canActivate: [AdminGuard],
-    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: '',
-    loadChildren: () => import('./pages/public/public.module').then(m => m.PublicModule),
+    loadChildren: () => import('./modules/public/public.module').then(m => m.PublicModule),
   }
 ];
 

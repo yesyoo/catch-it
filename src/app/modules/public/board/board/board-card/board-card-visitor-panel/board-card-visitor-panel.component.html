@@ -1,0 +1,13 @@
+<div class="controls-container">
+    <button class="card-icon message-button" *ngIf="item">
+        <i class="pi pi-envelope" style="margin-right:8px"></i>
+        <span>Написать</span>
+    </button>
+    <button (click)="bookmark()"  *ngIf="item.bookmark">
+        <i #heartIcon class="pi pi-heart-fill red"></i>
+    </button>
+    <button (click)="bookmark()"  *ngIf="!item.bookmark">
+        <i #heartIcon class="pi pi-heart-fill"></i>
+    </button>
+</div>
+

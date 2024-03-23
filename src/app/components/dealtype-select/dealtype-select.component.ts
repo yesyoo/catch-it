@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { Deal } from 'src/app/interfaces/deal-type';
+import { Deal } from 'src/app/models/interfaces/deal-type';
 import { AuthInterceptor } from 'src/app/services/auth-interceptor/auth-interceptor';
 
 @Component({

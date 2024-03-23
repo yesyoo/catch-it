@@ -1,0 +1,62 @@
+<p-dialog [closable]="true" 
+          [dismissableMask]="true" 
+          [modal]="true" 
+          [(visible)]="display"
+          header="Title"
+          (onHide)="onHide()">
+          <ng-template pTemplate="header">
+            <div class="form-header">
+                <button #btnAuth (click)="changeFormType('authorization')" class="title-active btn-title">Войти</button>
+                <button #btnReg (click)="changeFormType('registration')" class="btn-title">Зарегистрироваться</button>
+            </div>
+        </ng-template>
+         
+<div class="form-container">
+    <form *ngIf="type === 'authorization'" [formGroup]="formAuth">
+        <div class="form-input">
+            <label for="">Email</label>
+            <input type="text" pInputText formControlName="email" pInputText>
+            <!-- <small class="text-danger"></small> -->
+        </div>
+        <div class="form-input">
+            <label for="">Пароль</label>
+            <input type="password" pInputText formControlName="password">
+        </div>
+        <button *ngIf="type === 'authorization'" 
+            (click)="submit(type)" 
+            [disabled]="!formAuth.valid"
+            class="btn btn-sub">Авторизоваться</button>
+    </form>
+    
+    <form *ngIf="type === 'registration'" [formGroup]="formReg">
+        <div class="form-input">
+            <label for="">Email</label>
+            <input type="text" pInputText formControlName="email">
+        </div>
+        <div class="form-input">
+            <label for="">Уникальное имя пользователя</label>
+            <input type="text" pInputText formControlName="username">
+        </div>
+        <div class="form-input">
+            <label for="">Город</label>
+            <input type="text" pInputText formControlName="city">
+        </div>
+        <div class="form-input">
+            <label for="">Район</label>
+            <input type="text" pInputText formControlName="district">
+        </div>
+        <div class="form-input">
+            <label for="">Пароль</label>
+            <input type="password" pInputText formControlName="password">
+        </div>
+        <div class="form-input">
+            <label for="">Повторите пароль</label>
+            <input type="password" pInputText formControlName="passwordRepeat">
+        </div>
+        <button *ngIf="type === 'registration'" 
+                (click)="submit(type)" 
+                [disabled]="!formReg.valid"
+                class="btn btn-sub">Зарегистрироваться</button>
+    </form>
+</div>
+</p-dialog>

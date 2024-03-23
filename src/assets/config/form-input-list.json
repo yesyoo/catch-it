@@ -1,119 +1,115 @@
 {
     "adult-female-clothes-type": {
-        "label": "Clothes type",
+        "label": "Тип одежды",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Outerwear", "value": "outerwear" },
-            { "name": "Pants", "value": "pants" },
-            { "name": "Shirts", "value": "shirts" },
-            { "name": "Dresses", "value": "dresses" },
-            { "name": "Skirts", "value": "skirts" },
-            { "name": "Jackets", "value": "jackets" },
-            { "name": "Sportwear", "value": "sportwear" },
-            { "name": "Homewear", "value": "homewear" },
-            { "name": "Other", "value": "other" }
+            { "name": "Верхняя одежда", "value": "outerwear" },
+            { "name": "Брюки", "value": "pants" },
+            { "name": "Кофты", "value": "shirts" },
+            { "name": "Платья", "value": "dresses" },
+            { "name": "Юбки", "value": "skirts" },
+            { "name": "Куртки", "value": "jackets" },
+            { "name": "Спортивная", "value": "sportwear" },
+            { "name": "Домашняя", "value": "homewear" },
+            { "name": "Другое", "value": "other" }
         ]
     },
     "adult-male-clothes-type": {
-        "label": "Clothes type",
+        "label": "Тип одежды",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Outerwear", "value": "outerwear" },
-            { "name": "Pants", "value": "pants" },
-            { "name": "Shirts", "value": "shirts" },
-            { "name": "Dresses", "value": "dresses" },
-            { "name": "Skirts", "value": "skirts" },
-            { "name": "Jackets", "value": "jackets" },
-            { "name": "Sportwear", "value": "sportwear" },
-            { "name": "Homewear", "value": "homewear" },
-            { "name": "Other", "value": "other" }
+            { "name": "Верхняя одежда", "value": "outerwear" },
+            { "name": "Брюки", "value": "pants" },
+            { "name": "Кофты", "value": "shirts" },
+            { "name": "Куртки", "value": "jackets" },
+            { "name": "Спортивная", "value": "sportwear" },
+            { "name": "Домашняя", "value": "homewear" },
+            { "name": "Другое", "value": "other" }
         ]
     },
     "adult-female-shoes-type": {
-        "label": "Shoes type",
+        "label": "Тип обуви",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Boots", "value": "boots" },
-            { "name": "Sneakers", "value": "sneakers" },
-            { "name": "Slippers", "value": "slippers" },
-            { "name": "Sandals", "value": "sandals"},
-            { "name": "Heels", "value": "heels" },
-            { "name": "Other", "value": "other" }
+            { "name": "Ботинки", "value": "boots" },
+            { "name": "Кроссовки", "value": "sneakers" },
+            { "name": "Тапочки", "value": "slippers" },
+            { "name": "Сандалии", "value": "sandals"},
+            { "name": "Туфли", "value": "heels" },
+            { "name": "Другое", "value": "other" }
         ]
     },
     "adult-male-shoes-type": {
-        "label": "Shoes type",
+        "label": "Тип обуви",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Boots", "value": "boots" },
-            { "name": "Sneakers", "value": "sneakers" },
-            { "name": "Slippers", "value": "slippers" },
-            { "name": "Sandals", "value": "sandals"},
-            { "name": "Other", "value": "other" }
+            { "name": "Ботинки", "value": "boots" },
+            { "name": "Кроссовки", "value": "sneakers" },
+            { "name": "Тапочки", "value": "slippers" },
+            { "name": "Сандалии", "value": "sandals"},
+            { "name": "Другое", "value": "other" }
         ]
     },
     "child-male-shoes-type": {
-        "label": "Shoes type",
+        "label": "Тип обуви",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Boots", "value": "boots" },
-            { "name": "Sneakers", "value": "sneakers" },
-            { "name": "Slippers", "value": "slippers" },
-            { "name": "Sandals", "value": "sandals"},
-            { "name": "Other", "value": "other" }
+            { "name": "Ботинки", "value": "boots" },
+            { "name": "Кроссовки", "value": "sneakers" },
+            { "name": "Тапочки", "value": "slippers" },
+            { "name": "Сандалии", "value": "sandals"},
+            { "name": "Другое", "value": "other" }
         ]
     },
     "child-female-shoes-type": {
-        "label": "Shoes type",
+        "label": "Тип обуви",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Boots", "value": "boots" },
-            { "name": "Sneakers", "value": "sneakers" },
-            { "name": "Slippers", "value": "slippers" },
-            { "name": "Sandals", "value": "sandals"},
-            { "name": "Other", "value": "other" }
+            { "name": "Ботинки", "value": "boots" },
+            { "name": "Кроссовки", "value": "sneakers" },
+            { "name": "Тапочки", "value": "slippers" },
+            { "name": "Сандалии", "value": "sandals"},
+            { "name": "Другое", "value": "other" }
         ]
     },
     "child-female-clothes-type": {
-        "label": "Clothes type",
+        "label": "Тип одежды",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Outerwear", "value": "outerwear" },
-            { "name": "Pants", "value": "pants" },
-            { "name": "Shirts", "value": "shirts" },
-            { "name": "Dresses", "value": "dresses" },
-            { "name": "Skirts", "value": "skirts" },
-            { "name": "Jackets", "value": "jackets" },
-            { "name": "Sportwear", "value": "sportwear" },
-            { "name": "Homewear", "value": "homewear" },
-            { "name": "Other", "value": "other" }
+            { "name": "Верхняя одежда", "value": "outerwear" },
+            { "name": "Брюки", "value": "pants" },
+            { "name": "Кофты", "value": "shirts" },
+            { "name": "Платья", "value": "dresses" },
+            { "name": "Юбки", "value": "skirts" },
+            { "name": "Куртки", "value": "jackets" },
+            { "name": "Спортивная", "value": "sportwear" },
+            { "name": "Домашняя", "value": "homewear" },
+            { "name": "Другое", "value": "other" }
         ]
     },
     "child-male-clothes-type": {
-        "label": "Clothes type",
+        "label": "Тип одежды",
         "name": "type",
         "type": "select",
         "options": [
-            { "name": "Outerwear", "value": "outerwear" },
-            { "name": "Pants", "value": "pants" },
-            { "name": "Shirts", "value": "shirts" },
-            { "name": "Dresses", "value": "dresses" },
-            { "name": "Skirts", "value": "skirts" },
-            { "name": "Jackets", "value": "jackets" },
-            { "name": "Sportwear", "value": "sportwear" },
-            { "name": "Homewear", "value": "homewear" },
-            { "name": "Other", "value": "other" }
+            { "name": "Верхняя", "value": "outerwear" },
+            { "name": "Брюки", "value": "pants" },
+            { "name": "Кофты", "value": "shirts" },
+            { "name": "Куртки", "value": "jackets" },
+            { "name": "Спортивная", "value": "sportwear" },
+            { "name": "Домашняя", "value": "homewear" },
+            { "name": "Другое", "value": "other" }
         ]
     },
     "adult-female-clothes-size": {
-        "label": "Size",
+        "label": "Размер",
         "name": "size",
         "type": "select",
         "options": [
@@ -133,7 +129,7 @@
         ]
     },
     "adult-male-clothes-size": {
-        "label": "Size",
+        "label": "Размер",
         "name": "size",
         "type": "select",
         "options": [
@@ -152,7 +148,7 @@
         ]
     },
     "child-clothes-size": {
-        "label": "Size",
+        "label": "Размер",
         "name": "size",
         "type": "select",
         "options": [
@@ -171,7 +167,7 @@
         ]
     },
     "adult-female-shoes-size": {
-        "label": "Size",
+        "label": "Размер",
         "name": "size",
         "type": "select",
         "options": [
@@ -187,7 +183,7 @@
         ]
     },
     "adult-male-shoes-size": {
-        "label": "Size",
+        "label": "Размер",
         "name": "size",
         "type": "select",
         "options": [
@@ -205,7 +201,7 @@
         ]
     },
     "child-shoes-size": {
-        "label": "Size",
+        "label": "Размер",
         "name": "size",
         "type": "select",
         "options": [
@@ -225,27 +221,27 @@
         ]
     },
     "color": {
-        "label": "Color",
+        "label": "Цвет",
         "name": "color",
         "type": "select",
         "options": [
-            { "name": "white", "value": "white" },
-            { "name": "black", "value": "black" },
-            { "name": "multi-color", "value": "multi-color" }
+            { "name": "Белый", "value": "white" },
+            { "name": "Черный", "value": "black" },
+            { "name": "Другое", "value": "multi-color" }
         ]
     },
     "season": {
-        "label": "Season",
+        "label": "Сезон",
         "name": "season",
         "type": "select",
         "options": [
-            { "name": "Summer", "value": "summer" },
-            { "name": "Winter", "value": "winter" },
-            { "name": "Demi-season", "value": "demi-season" }
+            { "name": "Лето", "value": "summer" },
+            { "name": "Зима", "value": "winter" },
+            { "name": "Деми", "value": "demi-season" }
         ]
     },
     "size": {
-        "label": "Size",
+        "label": "Размер",
         "name": "size",
         "type": "select",
         "options": [
@@ -259,43 +255,53 @@
         ]
     },
     "title": {
-        "label": "Title",
+        "label": "Заголовок",
         "name": "title",
         "type": "text",
         "validators": [ 
-            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "required"},
+            { "type": "minLength", "value": 5, "errorText": "minLength" },
             { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
         ]
     },
     "description": {
-        "label": "Description",
+        "label": "Описание",
         "name": "description",
         "type": "textarea",
         "validators": [ 
-            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "minLength", "value": 30, "errorText": "minLength" },
             { "type": "maxLength", "value": 300, "errorText": "maxLength" } 
         ]
     },
+    "exchange": {
+        "label": "Обмен на",
+        "name": "exchange",
+        "type": "textarea",
+        "validators": [ 
+            { "type": "minLength", "value": 30, "errorText": "minLength" },
+            { "type": "maxLength", "value": 100, "errorText": "maxLength" } 
+        ]
+    },
     "city": {
-        "label": "City",
+        "label": "Город",
         "name": "city",
         "type": "text",
         "validators": [ 
-            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "minLength", "value": 2, "errorText": "minLength" },
             { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
         ]
     },
     "district": {
-        "label": "District",
+        "label": "Район",
         "name": "district",
         "type": "text",
         "validators": [ 
-            { "type": "minLength", "value": 1, "errorText": "minLength" },
+            { "type": "minLength", "value": 2, "errorText": "minLength" },
             { "type": "maxLength", "value": 30, "errorText": "maxLength" } 
         ]
     },
     "amount": {
-        "label": "Amount",
+        "label": "Количество",
         "name": "amount",
         "type": "number",
         "validators": [ 
@@ -303,35 +309,35 @@
         ]
     },
     "condition": {
-        "label": "Condition",
+        "label": "Состояние",
         "name": "condition",
         "type": "select",
         "options": [
-            { "name": "New", "value": "new" },
-            { "name": "Used", "value": "used" },
-            { "name": "Other", "value": "other"}
+            { "name": "Новое", "value": "new" },
+            { "name": "Хорошее", "value": "used" },
+            { "name": "Другое", "value": "other"}
         ]
     },
     "delivery": {
-        "label": "Delivery",
+        "label": "Доставка",
         "name": "delivery",
         "type": "select",
         "options": [
-            { "name": "No-delivery", "value": "no-delivery" },
+            { "name": "Нет доставки", "value": "no-delivery" },
             { "name": "DPD", "value": "dpd" },
             { "name": "CDEK", "value": "cdek" },
             { "name": "Yandex", "value": "yandex" },
-            { "name": "All", "value": "all" },
-            { "name": "Other", "value": "other" }
+            { "name": "Все виды", "value": "all" },
+            { "name": "Другое", "value": "other" }
         ]
     },
     "img": {
-        "label": "Image",
+        "label": "Изображение",
         "name": "image",
         "type": "file"
     },
     "user-name": {
-        "label": "Name",
+        "label": "Имя",
         "name": "name",
         "type": "text",
         "validators": [ 
@@ -340,7 +346,7 @@
         ]
     },
     "user-lastname": {
-        "label": "Last name",
+        "label": "Фамилия",
         "name": "lastName",
         "type": "text",
         "validators": [ 
@@ -349,7 +355,7 @@
         ]
     },
     "user-login": {
-        "label": "Login",
+        "label": "Логин",
         "name": "login",
         "type": "text",
         "validators": [ 
@@ -367,7 +373,7 @@
         ]
     },
     "user-password": {
-        "label": "Password",
+        "label": "Пароль",
         "name": "password",
         "type": "password",
         "validators": [ 
@@ -376,7 +382,7 @@
         ]
     },
     "user-password-repeat": {
-        "label": "Repeat password",
+        "label": "Повторите пароль",
         "name": "passwordRepeat",
         "type": "password",
         "validators": [ 

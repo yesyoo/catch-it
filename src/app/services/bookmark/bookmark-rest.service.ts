@@ -9,7 +9,7 @@ export class BookmarkRestService {
 
   constructor(private http: HttpClient) { }
 
-  sendBookmark(obj: {userId: string, itemId: string, collection: string, title: string}): Observable<any> {
+  sendBookmark(obj: {user: string, item: string, collection: string, title: string}): Observable<any> {
     return this.http.post(`http://localhost:3003/bookmarks`, obj)
   };
   getAllBookmarks(user: string): Observable<any> {
@@ -18,15 +18,12 @@ export class BookmarkRestService {
   deleteOne(user: string, itemId: string): Observable<any> {
     return this.http.delete(`http://localhost:3003/bookmarks/delete-one?userId=${user}&itemId=${itemId}`)
   };
-  // deleteManyFromArray(array: {id: string, collection: string}[]): Observable<any> {
-  //   return this.http.post(`http://localhost:3003/bookmarks/delete-many`, array)
-  // };
+
   deleteAllBookmarks(user: string): Observable<any> {
     return this.http.delete(`http://localhost:3003/bookmarks/delete-all/${user}`)
   };
   deleteManyBookmarks(user: string, array: string[]): Observable<any> {
     return this.http.post(`http://localhost:3003/bookmarks/delete-many/${user}`, array)
-
   }
 
 }

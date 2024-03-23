@@ -1,0 +1,25 @@
+<div class="user-container">
+    <div class="user-navigation">
+        <button class="navigation-btn title-active" (click)="switchStorage('owner-storage')" #items>Ваши объявления</button>
+        <span class="btn-divide">|</span>
+        <button class="navigation-btn" (click)="switchStorage('bookmark-storage')" #bookmarks>Избранное</button>
+    </div>
+    <div *ngIf="storageType === 'owner-storage'" class="select-line">
+        <span class="btn-access" *ngIf="checkbox && storageType === 'owner-storage'">
+            <button class="btn-select" (click)="updateAccess(false)"><i class="pi pi-eye-slash btn-hide"></i>Скрыть</button>
+            <span class="btn-divide">|</span>
+            <button class="btn-select" (click)="updateAccess(true)"><i class="pi pi-eye btn-unhide"></i>Открыть</button>
+            <span class="btn-divide">|</span>
+            <button class="btn-select" (click)="deleteItem()"><i class="pi pi-trash btn-delete"></i>Удалить</button>
+        </span>
+        <button class="btn-select" *ngIf="checkbox" (click)="selectAll()">Отметить все</button>
+        <span *ngIf="!checkbox"><i class="pi pi-chevron-left"></i></span>
+        <span *ngIf="checkbox" style="margin: 0 10px;">:</span>
+        <button class="btn-select" (click)="select()">Выбрать</button>
+        <span class="btn-divide">|</span>
+    </div>   
+    <div *ngIf="storageType === 'bookmark-storage'">
+        <button class="btn-select" (click)="deleteBookmarks()">Удалить все</button>
+        <span class="btn-divide">|</span>
+    </div> 
+</div>

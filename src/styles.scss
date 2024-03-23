@@ -1,26 +1,21 @@
 :root {
-    
     --medium-black:rgb(30, 30, 30);
     --light-black: rgb(40, 40, 40); 
     --dark-grey: rgb(50, 50, 50); 
     --font-dark: rgb(180, 180, 180);
     --font-medium: rgb(200, 200, 200);
     --font-light: rgb(210, 210, 210);
-    
     --white: rgb(248, 248, 248);
-
-    --background-black: rgb(26, 26, 26);
-    --card-background: rgb(34, 34, 34);
     --card-background-hover: rgb(38, 38, 38);
     --card-title: rgb(40, 40, 40);
-    
-
-    --panel-dark: rgb(36, 36, 36);
+    --background-black: rgb(70, 70, 70);
+    --card-background: rgb(56, 56, 56);
+    --panel-dark: rgb(49, 49, 49);
     --font-dark: rgb(140, 140, 140);
-    --font-base: rgb(150, 150, 150);
+    --font-base: rgb(196, 196, 196);
     --font-light:rgb(160, 160, 160);
     --light-green: rgb(146, 167, 161);
-    --main-orange: rgb(228, 168, 58);
+    --main-orange: #fbc35c;
     --main-orange-light: rgb(196, 178, 146);
     button {
         border: none;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { StorageType } from 'src/app/types/types';
-import { IItemDB } from '../../interfaces/items';
+import { StorageType } from 'src/app/models/types/types';
+import { IItemDB } from '../../models/interfaces/items';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +13,12 @@ export class StorageService {
   private anyStorage: IItemDB[] = [];
   private tmpItem: IItemDB;
   public bookmarks: {id: string, collection: string}[];
-  // private storageType: StorageType;
 
   constructor() { }
 
   saveItem(data: IItemDB) {
     this.getStorage('owner-storage').unshift(data)
   }
-
-  // getType(): StorageType {
-  //   return this.storageType
-  // };
 
   checkStorage(storageType: StorageType): boolean {
     return this.getStorage(storageType).length != 0 ? true : false

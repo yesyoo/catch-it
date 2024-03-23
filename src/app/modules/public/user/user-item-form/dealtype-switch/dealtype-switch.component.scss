@@ -1,0 +1,38 @@
+.switch-contents {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    flex-grow: 1; 
+    overflow: hidden;
+
+  }
+  input[name="dealtype-switch"] {
+    display: none;
+    &:checked + label {
+      color: var(--main-orange);
+      cursor: default;
+    }
+}
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    background: rgb(68, 68, 68);
+    border-radius: 5px;
+    padding: 9px 20px;
+    margin-right: 4px;
+    font-size: 1rem;
+    color: var(--font-base);
+    cursor: pointer;
+    &:hover {
+        color: var(--main-orange)
+    }
+  }
+  .btn-divide {
+    margin: 0 20px;
+    color: rgb(59, 59, 59);
+}

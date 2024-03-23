@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
 
-  rootPath: string = this.authService.getRootPath()
+  private rootPath: string
 
+  constructor(private router: Router) { }
 
-  constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private authService: AuthService) { }
+  setRootPath(data: string) {
+    data ? this.rootPath = 'home' : this.rootPath = ''
+  };
 
   home(): void {
     this.router.navigateByUrl(this.rootPath)
@@ -23,7 +23,8 @@ export class NavigationService {
     } else { 
       return true 
     }
-  }
+  };
+
   checkLocation(id: string): 'owner-board' | 'home-page' | 'any'  {
     if(this.router.url.includes(`user/${id}`)) {
       return 'owner-board'
@@ -34,16 +35,15 @@ export class NavigationService {
     else {
       return 'home-page'
     }
-
   }
  
 
-  profile(): void {
-    this.router.navigateByUrl(`home/user/${this.authService.ID()}`)
+  profile(id: string): void {
+    this.router.navigateByUrl(`home/user/${id}`)
   }
 
   auth():void {
-    this.router.navigateByUrl(`/auth`)
+    this.router.navigateByUrl(`${this.rootPath}/auth`)
   };
 
   user(user: string): void {
@@ -64,6 +64,5 @@ export class NavigationService {
   };
   admin() {
     this.router.navigateByUrl(`/admin`)
-
   }
 }
